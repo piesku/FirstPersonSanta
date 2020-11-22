@@ -62,7 +62,7 @@ bool mat4_invert(mat4 out, mat4 mat)
 		return false;
 	}
 
-	det = 1.0 / det;
+	det = 1.0f / det;
 	out[0] = (a11 * b11 - a12 * b10 + a13 * b09) * det;
 	out[1] = (a02 * b10 - a01 * b11 - a03 * b09) * det;
 	out[2] = (a31 * b05 - a32 * b04 + a33 * b03) * det;
@@ -192,8 +192,8 @@ bool mat4_rotate(mat4 out, mat4 mat, float angle, vec3 axis)
 	y *= len;
 	z *= len;
 
-	s = sin(angle);
-	c = cos(angle);
+	s = sinf(angle);
+	c = cosf(angle);
 	t = 1 - c;
 
 	a00 = mat[0];
@@ -241,7 +241,7 @@ bool mat4_rotate(mat4 out, mat4 mat, float angle, vec3 axis)
 
 void mat4_perspective(mat4 out, float fovy, float aspect, float near, float far)
 {
-	float f = 1.0 / tan(fovy / 2);
+	float f = 1.0 / tanf(fovy / 2);
 	float nf = 1 / (near - far);
 
 	out[0] = f / aspect;
