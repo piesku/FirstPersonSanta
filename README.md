@@ -2,6 +2,7 @@
 
 An FPS playground for creating game prototypes in C using ECS. The ECS architecture is based on [Goodluck](https://gdlck.com). Prior attempt: [breakoutc](https://github.com/stasm/breakoutc), [OpenGLESApp1](https://github.com/stasm/OpenGLESApp1).
 
+
 ## Building
 
 ### Windows
@@ -10,9 +11,9 @@ Install SDL2 and GLEW using `vcpkg`. Open the repo in Visual Studio 2019 using t
 
     $ .\vcpkg.exe install sdl2:x64-windows glew:x64-windows
 
-### Linux
+### Linux (Ubuntu, Debian, WSL)
 
-    $ sudo apt install libsdl2-dev
+    $ sudo apt install libsdl2-dev libglew-dev
     $ mkdir out
     $ cd out
     $ cmake ..
