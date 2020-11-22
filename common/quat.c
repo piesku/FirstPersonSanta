@@ -1,6 +1,5 @@
 #include "matrix.h"
 
-#define _USE_MATH_DEFINES
 #include <math.h>
 
 void quat_multiply(quat out, quat a, quat b)
@@ -22,17 +21,17 @@ void quat_multiply(quat out, quat a, quat b)
 
 void quat_from_euler(quat out, float x, float y, float z)
 {
-	float halfToRad = (0.5 * M_PI) / 180.0;
+	float halfToRad = (0.5f * PI) / 180.0f;
 	x *= halfToRad;
 	y *= halfToRad;
 	z *= halfToRad;
 
-	float sx = sin(x);
-	float cx = cos(x);
-	float sy = sin(y);
-	float cy = cos(y);
-	float sz = sin(z);
-	float cz = cos(z);
+	float sx = sinf(x);
+	float cx = cosf(x);
+	float sy = sinf(y);
+	float cy = cosf(y);
+	float sz = sinf(z);
+	float cz = cosf(z);
 
 	out[0] = sx * cy * cz - cx * sy * sz;
 	out[1] = cx * sy * cz + sx * cy * sz;
@@ -42,9 +41,9 @@ void quat_from_euler(quat out, float x, float y, float z)
 
 void quat_from_axis(quat out, vec3 axis, float angle)
 {
-	float half = angle / 2.0;
-	out[0] = sin(half) * axis[0];
-	out[1] = sin(half) * axis[1];
-	out[2] = sin(half) * axis[2];
-	out[3] = cos(half);
+	float half = angle / 2.0f;
+	out[0] = sinf(half) * axis[0];
+	out[1] = sinf(half) * axis[1];
+	out[2] = sinf(half) * axis[2];
+	out[3] = cosf(half);
 }

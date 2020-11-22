@@ -1,10 +1,12 @@
 #pragma once
+
 #include <math.h>
 #include <stdbool.h>
 
-#define EPSILON 0.000001
-#define DEG_TO_RAD (M_PI / 180.0)
-#define RAD_TO_DEG (180.0 / M_PI)
+#define EPSILON 0.000001f
+#define PI 3.14159265358979323846f
+#define DEG_TO_RAD (PI / 180.0f)
+#define RAD_TO_DEG (180.0f / PI)
 
 typedef float vec2[2];
 typedef float vec3[3];

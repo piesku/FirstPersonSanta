@@ -2,18 +2,18 @@
 
 inline float sign(float x)
 {
-	if (x > 0) {
-		return 1.f;
-	} else if (x < 0) {
-		return -1.f;
+	if (x > 0.0f) {
+		return 1.0f;
+	} else if (x < 0.0f) {
+		return -1.0f;
 	} else {
-		return 0.f;
+		return 0.0f;
 	}
 }
 
 inline float absf(float x)
 {
-	if (x < 0) {
+	if (x < 0.0f) {
 		return -x;
 	} else {
 		return x;
