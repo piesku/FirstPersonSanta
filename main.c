@@ -48,7 +48,7 @@ void engine_init_display(struct engine* engine)
 
 	engine->viewport_width = 960;
 	engine->viewport_height = 600;
-	engine->window = SDL_CreateWindow("firstperson",
+	engine->window = SDL_CreateWindow("FirstPerson",
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 		engine->viewport_width, engine->viewport_height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 	if (engine->window == NULL) {
@@ -78,7 +78,7 @@ void engine_init_display(struct engine* engine)
 
 void engine_term_display(struct engine* engine)
 {
-	canvas_input_reset(&engine->canvas);
+	canvas_teardown(&engine->canvas);
 
 	SDL_GL_DeleteContext(engine->context);
 	SDL_DestroyWindow(engine->window);
@@ -100,6 +100,7 @@ int main(int argc, char* argv[])
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 			case SDL_QUIT:
+				engine_term_display(&engine);
 				return 0;
 			case SDL_KEYDOWN:
 				if (event.key.repeat)
@@ -149,5 +150,6 @@ int main(int argc, char* argv[])
 		engine.last_time = current_time;
 	}
 
+	engine_term_display(&engine);
 	return 0;
 }
