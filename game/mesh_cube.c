@@ -1,5 +1,3 @@
-#include <stdint.h>
-
 #include "../common/mesh.h"
 
 struct mesh mesh_cube(void)
@@ -96,7 +94,7 @@ struct mesh mesh_cube(void)
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.texcoord_buffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_texcoords), vertex_texcoords, GL_STATIC_DRAW);
 
-	uint16_t indices[] = {
+	GLushort indices[] = {
 			23, 22, 20,
 			22, 21, 20,
 			19, 18, 16,
@@ -114,6 +112,6 @@ struct mesh mesh_cube(void)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.index_buffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-	mesh.index_count = sizeof(indices) / sizeof(uint16_t);
+	mesh.index_count = sizeof(indices) / sizeof(GLushort);
 	return mesh;
 }
