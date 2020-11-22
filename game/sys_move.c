@@ -2,14 +2,14 @@
 #include <stdint.h>
 
 #include "../common/matrix.h"
-#include "canvas.h"
+#include "client.h"
 #include "com_move.h"
 #include "com_transform.h"
 #include "world.h"
 
 static int32_t QUERY = HAS_TRANSFORM | HAS_MOVE;
 
-static inline void update(struct canvas* canvas, struct world* world, entity entity, float delta)
+static inline void update(struct client* client, struct world* world, entity entity, float delta)
 {
 	Transform* transform = world->transform[entity];
 	Move* move = world->move[entity];
@@ -28,11 +28,11 @@ static inline void update(struct canvas* canvas, struct world* world, entity ent
 	}
 }
 
-void sys_move(struct canvas* canvas, struct world* world, float delta)
+void sys_move(struct client* client, struct world* world, float delta)
 {
 	for (entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
-			update(canvas, world, i, delta);
+			update(client, world, i, delta);
 		}
 	}
 }

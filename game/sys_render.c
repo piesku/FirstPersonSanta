@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#include "canvas.h"
+#include "client.h"
 #include "com_camera.h"
 #include "com_render.h"
 #include "com_transform.h"
@@ -9,18 +9,18 @@
 
 static int32_t QUERY = HAS_TRANSFORM | HAS_RENDER;
 
-static inline void use_basic_colored(struct canvas* canvas, RenderBasicColored* render)
+static inline void use_basic_colored(struct client* client, RenderBasicColored* render)
 {
-	struct material material = canvas->materials[render->material];
+	struct material material = client->materials[render->material];
 
 	glUseProgram(material.program);
-	glUniformMatrix4fv(material.layout.basic_colored.pv, 1, GL_FALSE, canvas->camera->pv);
+	glUniformMatrix4fv(material.layout.basic_colored.pv, 1, GL_FALSE, client->camera->pv);
 }
 
-static inline void draw_basic_colored(struct canvas* canvas, Transform* transform, RenderBasicColored* render)
+static inline void draw_basic_colored(struct client* client, Transform* transform, RenderBasicColored* render)
 {
-	struct mesh mesh = canvas->meshes[render->mesh];
-	struct material material = canvas->materials[render->material];
+	struct mesh mesh = client->meshes[render->mesh];
+	struct material material = client->materials[render->material];
 
 	glUniformMatrix4fv(material.layout.basic_colored.world, 1, GL_FALSE, transform->world);
 	glUniform4fv(material.layout.basic_colored.color, 1, render->color);
@@ -33,19 +33,19 @@ static inline void draw_basic_colored(struct canvas* canvas, Transform* transfor
 	glDrawElements(material.mode, mesh.index_count, GL_UNSIGNED_SHORT, 0);
 }
 
-static inline void use_basic_textured(struct canvas* canvas, RenderBasicTextured* render)
+static inline void use_basic_textured(struct client* client, RenderBasicTextured* render)
 {
-	struct material material = canvas->materials[render->material];
+	struct material material = client->materials[render->material];
 
 	glUseProgram(material.program);
-	glUniformMatrix4fv(material.layout.basic_textured.pv, 1, GL_FALSE, canvas->camera->pv);
+	glUniformMatrix4fv(material.layout.basic_textured.pv, 1, GL_FALSE, client->camera->pv);
 }
 
-static inline void draw_basic_textured(struct canvas* canvas, Transform* transform, RenderBasicTextured* render)
+static inline void draw_basic_textured(struct client* client, Transform* transform, RenderBasicTextured* render)
 {
-	struct mesh mesh = canvas->meshes[render->mesh];
-	struct material material = canvas->materials[render->material];
-	GLuint texture = canvas->assets[render->texture];
+	struct mesh mesh = client->meshes[render->mesh];
+	struct material material = client->materials[render->material];
+	GLuint texture = client->assets[render->texture];
 
 	glUniformMatrix4fv(material.layout.basic_textured.world, 1, GL_FALSE, transform->world);
 
@@ -65,20 +65,20 @@ static inline void draw_basic_textured(struct canvas* canvas, Transform* transfo
 	glDrawElements(material.mode, mesh.index_count, GL_UNSIGNED_SHORT, 0);
 }
 
-static inline void use_diffuse(struct canvas* canvas, RenderDiffuse* render)
+static inline void use_diffuse(struct client* client, RenderDiffuse* render)
 {
-	struct material material = canvas->materials[render->material];
+	struct material material = client->materials[render->material];
 
 	glUseProgram(material.program);
-	glUniformMatrix4fv(material.layout.diffuse.pv, 1, GL_FALSE, canvas->camera->pv);
-	glUniform4fv(material.layout.diffuse.light_positions, 1, canvas->lights.positions);
-	glUniform4fv(material.layout.diffuse.light_details, 1, canvas->lights.details);
+	glUniformMatrix4fv(material.layout.diffuse.pv, 1, GL_FALSE, client->camera->pv);
+	glUniform4fv(material.layout.diffuse.light_positions, 1, client->lights.positions);
+	glUniform4fv(material.layout.diffuse.light_details, 1, client->lights.details);
 }
 
-static inline void draw_diffuse(struct canvas* canvas, Transform* transform, RenderDiffuse* render)
+static inline void draw_diffuse(struct client* client, Transform* transform, RenderDiffuse* render)
 {
-	struct mesh mesh = canvas->meshes[render->mesh];
-	struct material material = canvas->materials[render->material];
+	struct mesh mesh = client->meshes[render->mesh];
+	struct material material = client->materials[render->material];
 
 	glUniformMatrix4fv(material.layout.diffuse.world, 1, GL_FALSE, transform->world);
 	glUniformMatrix4fv(material.layout.diffuse.self, 1, GL_FALSE, transform->self);
@@ -96,14 +96,14 @@ static inline void draw_diffuse(struct canvas* canvas, Transform* transform, Ren
 	glDrawElements(material.mode, mesh.index_count, GL_UNSIGNED_SHORT, 0);
 }
 
-void sys_render(struct canvas* canvas, struct world* world)
+void sys_render(struct client* client, struct world* world)
 {
-	if (canvas->camera == NULL) {
+	if (client->camera == NULL) {
 		return;
 	}
 
-	if (canvas->resized) {
-		glViewport(0, 0, canvas->width, canvas->height);
+	if (client->resized) {
+		glViewport(0, 0, client->width, client->height);
 	}
 
 	glClearColor(0.9, 0.9, 0.9, 1.0);
@@ -116,16 +116,16 @@ void sys_render(struct canvas* canvas, struct world* world)
 
 			switch (render->kind) {
 				case RENDER_BASIC_COLORED:
-					use_basic_colored(canvas, &render->value.basic_colored);
-					draw_basic_colored(canvas, transform, &render->value.basic_colored);
+					use_basic_colored(client, &render->value.basic_colored);
+					draw_basic_colored(client, transform, &render->value.basic_colored);
 					break;
 				case RENDER_BASIC_TEXTURED:
-					use_basic_textured(canvas, &render->value.basic_textured);
-					draw_basic_textured(canvas, transform, &render->value.basic_textured);
+					use_basic_textured(client, &render->value.basic_textured);
+					draw_basic_textured(client, transform, &render->value.basic_textured);
 					break;
 				case RENDER_DIFFUSE:
-					use_diffuse(canvas, &render->value.diffuse);
-					draw_diffuse(canvas, transform, &render->value.diffuse);
+					use_diffuse(client, &render->value.diffuse);
+					draw_diffuse(client, transform, &render->value.diffuse);
 					break;
 			}
 		}

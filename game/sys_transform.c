@@ -1,7 +1,7 @@
 #include <stdint.h>
 
 #include "../common/matrix.h"
-#include "canvas.h"
+#include "client.h"
 #include "com_transform.h"
 #include "world.h"
 
@@ -39,7 +39,7 @@ static inline void update(struct world* world, entity entity)
 	}
 }
 
-void sys_transform(struct canvas* canvas, struct world* world, float delta)
+void sys_transform(struct client* client, struct world* world, float delta)
 {
 	for (entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {

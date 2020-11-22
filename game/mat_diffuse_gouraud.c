@@ -6,7 +6,7 @@ struct material mat_diffuse_gouraud(void)
 	GLchar vertex_shader_source[] =
 			"#version 300 es\n"
 
-			"/* See canvas.light_positions */"
+			"/* See client.light_positions */"
 			"const int MAX_LIGHTS = 8;"
 
 			"uniform mat4 pv;"

@@ -44,9 +44,9 @@ For simplicity, `Transform.children` is a static array and `MAX_CHILDREN` is 2. 
 
 Forward declarations are used for most structs when they're used as opaque pointers. This helps avoid creating extra dependencies between header files.  For the same reason, I avoided typedefs, except for: `entity`, `signature`, component data structs and math data types.
 
-### Canvas and world (on Android)
+### Client and the world (on Android)
 
-`struct world` stores the component data of the current scene. It persists until the app is killed. `struct canvas` is similar to the `Game` class from Goodluck in TypeScript, and it stores data and references related to the GL context, the viewport and the input. Importantly, canvas is destroyed every time the app is sent to backgournd, and recreated every time it resumes. All shaders and vertex buffers are recreated too.  
+`struct world` stores the component data of the current scene. It persists until the app is killed. `struct client` is similar to the `Game` class from Goodluck in TypeScript, and it stores data and references related to the GL context, the viewport and the input. Importantly, client is destroyed every time the app is sent to backgournd, and recreated every time it resumes. All shaders and vertex buffers are recreated too.
 
 ### Math library
 

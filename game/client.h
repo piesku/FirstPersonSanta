@@ -18,7 +18,7 @@ struct input_state {
 	int16_t arrow_right;
 };
 
-struct canvas {
+struct client {
 	float delta;
 	int32_t width;
 	int32_t height;
@@ -38,12 +38,12 @@ struct canvas {
 	} lights;
 };
 
-void canvas_setup(struct canvas* canvas, int32_t width, int32_t height);
-void canvas_resize(struct canvas* canvas, int32_t width, int32_t height);
-void canvas_teardown(struct canvas* canvas);
+void canvas_setup(struct client* client, int32_t width, int32_t height);
+void canvas_resize(struct client* client, int32_t width, int32_t height);
+void canvas_teardown(struct client* client);
 
 struct world;
 
-void canvas_world_update(struct canvas* canvas, struct world* world, float delta);
-void canvas_frame_update(struct canvas* canvas, struct world* world);
-void canvas_input_reset(struct canvas* canvas);
+void canvas_world_update(struct client* client, struct world* world, float delta);
+void canvas_frame_update(struct client* client, struct world* world);
+void canvas_input_reset(struct client* client);

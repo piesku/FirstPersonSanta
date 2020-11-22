@@ -13,7 +13,7 @@ add_executable(FirstPerson
 	common/vec3.c
 
 	game/blu_camera.c
-	game/canvas.c
+	game/client.c
 	game/com_camera.c
 	game/com_control_player.c
 	game/com_light.c

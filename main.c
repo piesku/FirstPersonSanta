@@ -7,7 +7,7 @@
 #include <GL/glew.h>
 #endif
 
-#include "game/canvas.h"
+#include "game/client.h"
 #include "game/world.h"
 
 void scene_main(struct world* world);
@@ -20,7 +20,7 @@ struct engine {
 	int viewport_width;
 	int viewport_height;
 
-	struct canvas canvas;
+	struct client client;
 	struct world* world;
 };
 
@@ -73,12 +73,12 @@ void engine_init_display(struct engine* engine)
 
 	SDL_GL_SetSwapInterval(1);
 
-	canvas_setup(&engine->canvas, engine->viewport_width, engine->viewport_height);
+	canvas_setup(&engine->client, engine->viewport_width, engine->viewport_height);
 }
 
 void engine_term_display(struct engine* engine)
 {
-	canvas_teardown(&engine->canvas);
+	canvas_teardown(&engine->client);
 
 	SDL_GL_DeleteContext(engine->context);
 	SDL_DestroyWindow(engine->window);
@@ -107,12 +107,12 @@ int main(int argc, char* argv[])
 					break;
 				switch (event.key.keysym.scancode) {
 					case SDL_SCANCODE_LEFT:
-						engine.canvas.input_state.arrow_left = 1;
-						engine.canvas.input_delta.arrow_left = 1;
+						engine.client.input_state.arrow_left = 1;
+						engine.client.input_delta.arrow_left = 1;
 						break;
 					case SDL_SCANCODE_RIGHT:
-						engine.canvas.input_state.arrow_right = 1;
-						engine.canvas.input_delta.arrow_right = 1;
+						engine.client.input_state.arrow_right = 1;
+						engine.client.input_delta.arrow_right = 1;
 						break;
 				}
 				break;
@@ -121,12 +121,12 @@ int main(int argc, char* argv[])
 					break;
 				switch (event.key.keysym.scancode) {
 					case SDL_SCANCODE_LEFT:
-						engine.canvas.input_state.arrow_left = 0;
-						engine.canvas.input_delta.arrow_left = -1;
+						engine.client.input_state.arrow_left = 0;
+						engine.client.input_delta.arrow_left = -1;
 						break;
 					case SDL_SCANCODE_RIGHT:
-						engine.canvas.input_state.arrow_right = 0;
-						engine.canvas.input_delta.arrow_right = -1;
+						engine.client.input_state.arrow_right = 0;
+						engine.client.input_delta.arrow_right = -1;
 						break;
 				}
 				break;
@@ -139,12 +139,12 @@ int main(int argc, char* argv[])
 		clock_t delta = current_time - engine.last_time;
 
 		float delta_s = (float)delta / CLOCKS_PER_SEC;
-		engine.canvas.delta = delta_s;
+		engine.client.delta = delta_s;
 
-		canvas_world_update(&engine.canvas, engine.world, delta_s);
-		canvas_input_reset(&engine.canvas);
+		canvas_world_update(&engine.client, engine.world, delta_s);
+		canvas_input_reset(&engine.client);
 
-		canvas_frame_update(&engine.canvas, engine.world);
+		canvas_frame_update(&engine.client, engine.world);
 		SDL_GL_SwapWindow(engine.window);
 
 		engine.last_time = current_time;
