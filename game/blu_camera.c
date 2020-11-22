@@ -8,6 +8,7 @@
 
 entity blueprint_camera(struct world* world)
 {
+	// Camera rig controllable by the player.
 	entity a = create_entity(world);
 
 	Transform* transform_a = mix_transform(world, a);
@@ -28,21 +29,24 @@ entity blueprint_camera(struct world* world)
 	control->yaw = 0.1;
 	control->pitch = 0.1;
 
-	entity b = create_entity(world);
+	{
+		// Actual camera entity, rotated 180y to align with the rig's forward.
+		entity b = create_entity(world);
 
-	Transform* transform_b = mix_transform(world, b);
-	transform_b->rotation[0] = 0.0;
-	transform_b->rotation[1] = 1.0;
-	transform_b->rotation[2] = 0.0;
-	transform_b->rotation[3] = 0.0;
+		Transform* transform_b = mix_transform(world, b);
+		transform_b->rotation[0] = 0.0;
+		transform_b->rotation[1] = 1.0;
+		transform_b->rotation[2] = 0.0;
+		transform_b->rotation[3] = 0.0;
 
-	Camera* camera = mix_camera(world, b);
-	camera->fov_y = 1.0;
-	camera->near = 0.1;
-	camera->far = 100.0;
+		Camera* camera = mix_camera(world, b);
+		camera->fov_y = 1.0;
+		camera->near = 0.1;
+		camera->far = 100.0;
 
-	transform_a->children[0] = b;
-	transform_b->parent = a;
+		transform_a->children[0] = b;
+		transform_b->parent = a;
+	}
 
 	return a;
 }
