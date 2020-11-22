@@ -2,9 +2,9 @@
 #include <time.h>
 
 #include "blu_camera.h"
-#include "canvas.h"
 #include "com_transform.h"
 #include "com_render.h"
+#include "index.h"
 #include "world.h"
 
 void scene_main(struct world* world)

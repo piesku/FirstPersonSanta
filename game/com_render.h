@@ -5,6 +5,8 @@
 #include "../common/mesh.h"
 #include "../common/texture.h"
 
+#include "index.h"
+
 enum render_kind {
 	RENDER_BASIC_COLORED,
 	RENDER_BASIC_TEXTURED,
