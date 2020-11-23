@@ -4,7 +4,7 @@
 struct material mat_basic_textured(void)
 {
 	GLchar vertex_shader_source[] =
-			"#version 300 es\n"
+			"#version 330\n"
 			"uniform mat4 pv;"
 			"uniform mat4 world;"
 			"in vec3 position;"
@@ -15,7 +15,7 @@ struct material mat_basic_textured(void)
 			"  	 vert_texcoord = texcoord;"
 			"}";
 	GLchar fragment_shader_source[] =
-			"#version 300 es\n"
+			"#version 330\n"
 			"precision mediump float;"
 			"uniform sampler2D sampler;"
 			"in vec2 vert_texcoord;"

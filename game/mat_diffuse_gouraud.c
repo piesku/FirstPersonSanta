@@ -4,7 +4,7 @@
 struct material mat_diffuse_gouraud(void)
 {
 	GLchar vertex_shader_source[] =
-			"#version 300 es\n"
+			"#version 330\n"
 
 			"/* See client.light_positions */"
 			"const int MAX_LIGHTS = 8;"
@@ -59,7 +59,7 @@ struct material mat_diffuse_gouraud(void)
 			"	vert_color = vec4(rgb, 1.0);"
 			"}";
 	GLchar fragment_shader_source[] =
-			"#version 300 es\n"
+			"#version 330\n"
 			"precision mediump float;"
 			"in vec4 vert_color;"
 			"out vec4 frag_color;"

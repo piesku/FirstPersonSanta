@@ -3,7 +3,7 @@
 struct material mat_basic_colored(void)
 {
 	GLchar vertex_shader_source[] =
-			"#version 300 es\n"
+			"#version 330\n"
 			"uniform mat4 pv;"
 			"uniform mat4 world;"
 			"in vec3 position;"
@@ -11,7 +11,7 @@ struct material mat_basic_colored(void)
 			"  	 gl_Position = pv * world * vec4(position, 1.0);"
 			"}";
 	GLchar fragment_shader_source[] =
-			"#version 300 es\n"
+			"#version 330\n"
 			"precision mediump float;"
 			"uniform vec4 color;"
 			"out vec4 frag_color;"
