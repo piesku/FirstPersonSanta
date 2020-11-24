@@ -10,6 +10,7 @@
 #include "game/client.h"
 #include "game/world.h"
 
+void scene_cube(struct world* world);
 void scene_main(struct world* world);
 
 struct engine {
@@ -93,7 +94,7 @@ int main(int argc, char* argv[])
 	};
 
 	engine_init_display(&engine);
-	scene_main(engine.world);
+	scene_cube(engine.world);
 
 	while (1) {
 		SDL_Event event;

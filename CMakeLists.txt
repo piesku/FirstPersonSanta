@@ -22,6 +22,7 @@ add_executable(FirstPerson
 	game/com_transform.c
 	game/mat_basic_colored.c
 	game/mesh_cube.c
+	game/sce_cube.c
 	game/sce_main.c
 	game/sys_camera.c
 	game/sys_control_keyboard.c
