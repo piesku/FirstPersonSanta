@@ -33,6 +33,16 @@ void engine_init_display(struct engine* engine)
 		exit(1);
 	}
 
+	engine->viewport_width = 960;
+	engine->viewport_height = 600;
+	engine->window = SDL_CreateWindow("FirstPerson",
+		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+		engine->viewport_width, engine->viewport_height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+	if (engine->window == NULL) {
+		printf("Failed to create window: %s\n", SDL_GetError());
+		exit(1);
+	}
+
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 
@@ -48,21 +58,13 @@ void engine_init_display(struct engine* engine)
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
-	engine->viewport_width = 960;
-	engine->viewport_height = 600;
-	engine->window = SDL_CreateWindow("FirstPerson",
-		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-		engine->viewport_width, engine->viewport_height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
-	if (engine->window == NULL) {
-		printf("Failed to create window: %s\n", SDL_GetError());
-		exit(1);
-	}
-
 	engine->context = SDL_GL_CreateContext(engine->window);
 	if (engine->context == NULL) {
 		printf("Failed to create context: %s\n", SDL_GetError());
 		exit(1);
 	}
+
+	SDL_GL_SetSwapInterval(1);
 
 #ifndef __APPLE__
 	glewExperimental = GL_TRUE;
@@ -72,8 +74,6 @@ void engine_init_display(struct engine* engine)
 		exit(1);
 	}
 #endif
-
-	SDL_GL_SetSwapInterval(1);
 
 	client_setup(&engine->client, engine->viewport_width, engine->viewport_height);
 }
