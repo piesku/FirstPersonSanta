@@ -144,6 +144,10 @@ int main(int argc, char* argv[])
 		float delta_s = (float)delta / CLOCKS_PER_SEC;
 		engine.client.delta = delta_s;
 
+		char fps[20];
+		snprintf(fps, 20, "Frame: %4.3fs", delta_s);
+		SDL_SetWindowTitle(engine.window, fps);
+
 		client_world_update(&engine.client, engine.world, delta_s);
 		client_input_reset(&engine.client);
 
