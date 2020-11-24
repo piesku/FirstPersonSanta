@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <time.h>
 #include <SDL2/SDL.h>
 #ifdef __APPLE__
@@ -96,13 +97,14 @@ int main(int argc, char* argv[])
 	engine_init_display(&engine);
 	scene_cube(engine.world);
 
-	while (1) {
+	bool quit = false;
+	while (quit == false) {
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 			case SDL_QUIT:
-				engine_term_display(&engine);
-				return 0;
+				quit = true;
+				break;
 			case SDL_KEYDOWN:
 				if (event.key.repeat)
 					break;
