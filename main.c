@@ -73,12 +73,12 @@ void engine_init_display(struct engine* engine)
 
 	SDL_GL_SetSwapInterval(1);
 
-	canvas_setup(&engine->client, engine->viewport_width, engine->viewport_height);
+	client_setup(&engine->client, engine->viewport_width, engine->viewport_height);
 }
 
 void engine_term_display(struct engine* engine)
 {
-	canvas_teardown(&engine->client);
+	client_teardown(&engine->client);
 
 	SDL_GL_DeleteContext(engine->context);
 	SDL_DestroyWindow(engine->window);
@@ -141,10 +141,10 @@ int main(int argc, char* argv[])
 		float delta_s = (float)delta / CLOCKS_PER_SEC;
 		engine.client.delta = delta_s;
 
-		canvas_world_update(&engine.client, engine.world, delta_s);
-		canvas_input_reset(&engine.client);
+		client_world_update(&engine.client, engine.world, delta_s);
+		client_input_reset(&engine.client);
 
-		canvas_frame_update(&engine.client, engine.world);
+		client_frame_update(&engine.client, engine.world);
 		SDL_GL_SwapWindow(engine.window);
 
 		engine.last_time = current_time;
