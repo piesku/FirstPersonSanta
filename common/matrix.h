@@ -32,6 +32,8 @@ void vec3_transform_direction(vec3 out, vec3 a, mat4 m);
 void quat_multiply(quat out, quat a, quat bQuat);
 void quat_from_euler(quat out, float x, float y, float z);
 void quat_from_axis(quat out, vec3 axis, float angle);
+void quat_lerp(quat out, quat a, quat b, float t);
+void quat_slerp(quat out, quat a, quat b, float t);
 
 void mat4_identity(mat4 mat);
 void mat4_set(mat4 out,

@@ -21,7 +21,7 @@ entity blueprint_camera(struct world* world)
 	transform_a->rotation[3] = 0.0;
 
 	Move* move = mix_move(world, a);
-	move->movement_speed = 5.0;
+	move->movement_speed = 10.0;
 	move->rotation_speed = 2.0;
 
 	ControlPlayer* control = mix_control_player(world, a);
@@ -42,7 +42,7 @@ entity blueprint_camera(struct world* world)
 		Camera* camera = mix_camera(world, b);
 		camera->fov_y = 1.0;
 		camera->near = 0.1;
-		camera->far = 100.0;
+		camera->far = 1000.0;
 
 		transform_a->children[0] = b;
 		transform_b->parent = a;

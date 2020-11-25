@@ -95,7 +95,7 @@ int main(int argc, char* argv[])
 	};
 
 	engine_init_display(&engine);
-	scene_cube(engine.world);
+	scene_main(engine.world);
 
 	bool quit = false;
 	while (quit == false) {
@@ -109,6 +109,14 @@ int main(int argc, char* argv[])
 				if (event.key.repeat)
 					break;
 				switch (event.key.keysym.scancode) {
+					case SDL_SCANCODE_UP:
+						engine.client.input_state.arrow_up = 1;
+						engine.client.input_delta.arrow_up = 1;
+						break;
+					case SDL_SCANCODE_DOWN:
+						engine.client.input_state.arrow_down = 1;
+						engine.client.input_delta.arrow_down = 1;
+						break;
 					case SDL_SCANCODE_LEFT:
 						engine.client.input_state.arrow_left = 1;
 						engine.client.input_delta.arrow_left = 1;
@@ -123,6 +131,14 @@ int main(int argc, char* argv[])
 				if (event.key.repeat)
 					break;
 				switch (event.key.keysym.scancode) {
+					case SDL_SCANCODE_UP:
+						engine.client.input_state.arrow_up = 0;
+						engine.client.input_delta.arrow_up = -1;
+						break;
+					case SDL_SCANCODE_DOWN:
+						engine.client.input_state.arrow_down = 0;
+						engine.client.input_delta.arrow_down = -1;
+						break;
 					case SDL_SCANCODE_LEFT:
 						engine.client.input_state.arrow_left = 0;
 						engine.client.input_delta.arrow_left = -1;

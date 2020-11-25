@@ -14,6 +14,8 @@
 #include "index.h"
 
 struct input_state {
+	int16_t arrow_up;
+	int16_t arrow_down;
 	int16_t arrow_left;
 	int16_t arrow_right;
 };

@@ -13,14 +13,38 @@ static int QUERY = HAS_MOVE | HAS_CONTROL_PLAYER;
 
 static inline void update(struct client* client, struct world* world, entity entity, float delta)
 {
+	ControlPlayer* control = world->control_player[entity];
 	Move* move = world->move[entity];
-	move->direction[0] = 0;
 
-	if (client->input_state.arrow_left)
-		move->direction[0] -= 1;
+	if (control->move) {
+		if (client->input_state.arrow_up) {
+			move->direction[2] += 1;
+			move->dirty |= MOVE_DIRTY_DIRECTION;
+		}
 
-	if (client->input_state.arrow_right)
-		move->direction[0] += 1;
+		if (client->input_state.arrow_down) {
+			move->direction[2] -= 1;
+			move->dirty |= MOVE_DIRTY_DIRECTION;
+		}
+	}
+
+	if (control->yaw) {
+		if (client->input_state.arrow_left) {
+			move->local_rotation[0] = 0;
+			move->local_rotation[1] = 1;
+			move->local_rotation[2] = 0;
+			move->local_rotation[3] = 0;
+			move->dirty |= MOVE_DIRTY_LOCAL_ROTATION;
+		}
+
+		if (client->input_state.arrow_right) {
+			move->local_rotation[0] = 0;
+			move->local_rotation[1] = -1;
+			move->local_rotation[2] = 0;
+			move->local_rotation[3] = 0;
+			move->dirty |= MOVE_DIRTY_LOCAL_ROTATION;
+		}
+	}
 }
 
 void sys_control_keyboard(struct client* client, struct world* world, float delta)

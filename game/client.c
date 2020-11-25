@@ -61,15 +61,15 @@ void client_teardown(struct client* client)
 
 void client_world_update(struct client* client, struct world* world, float delta)
 {
-	// sys_control_keyboard(client, world, delta);
-	// sys_move(client, world, delta);
+	sys_control_keyboard(client, world, delta);
+	sys_move(client, world, delta);
 	sys_transform(client, world, delta);
 }
 
 void client_frame_update(struct client* client, struct world* world)
 {
 	sys_camera(client, world);
-	// sys_light(client, world);
+	sys_light(client, world);
 	sys_render(client, world);
 
 	client->resized = false;
