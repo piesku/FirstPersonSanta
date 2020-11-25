@@ -34,6 +34,11 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	client->meshes[MESH_CUBE] = mesh_cube();
 
 	client->camera = NULL;
+
+	// OpenGL 3.3. (core profile, i.e. in strict mode) requires at least one VAO.
+	GLuint vao;
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
 }
 
 void client_resize(struct client* client, int32_t width, int32_t height)
