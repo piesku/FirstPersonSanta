@@ -1,7 +1,6 @@
-#include "materials.h"
-#include "program.h"
+#include "../common/material.h"
 
-struct material mat_diffuse_gouraud(void)
+struct material mat_colored_diffuse_gouraud(void)
 {
 	GLchar vertex_shader_source[] =
 			"#version 330\n"
@@ -70,7 +69,7 @@ struct material mat_diffuse_gouraud(void)
 	struct material material = (struct material) {
 		.mode = GL_TRIANGLES,
 		.program = program,
-		.layout.diffuse = (struct layout_diffuse){
+		.layout.colored_diffuse = (struct layout_colored_diffuse){
 			.pv = glGetUniformLocation(program, "pv"),
 			.world = glGetUniformLocation(program, "world"),
 			.self = glGetUniformLocation(program, "self"),

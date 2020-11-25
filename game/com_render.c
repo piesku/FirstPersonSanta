@@ -4,46 +4,45 @@
 #include "../common/matrix.h"
 #include "world.h"
 
-RenderBasicColored* mix_render_basic_colored(struct world* world, entity entity)
+RenderColoredUnlit* mix_render_colored_unlit(struct world* world, entity entity)
 {
 	Render* render = xmalloc(sizeof(*render));
 	*render = (Render){
-			.basic_colored = {
-					.kind = RENDER_BASIC_COLORED,
+			.colored_unlit = {
+					.kind = RENDER_COLORED_UNLIT,
 					.color = {0.0, 0.0, 0.0, 1.0},
 			},
 	};
 
 	world->signature[entity] |= HAS_RENDER;
 	world->render[entity] = render;
-	return &render->basic_colored;
+	return &render->colored_unlit;
 }
 
-RenderBasicTextured* mix_render_basic_textured(struct world* world, entity entity)
+RenderColoredDiffuse* mix_render_colored_diffuse(struct world* world, entity entity)
 {
 	Render* render = xmalloc(sizeof(*render));
 	*render = (Render){
-			.basic_textured = {
-					.kind = RENDER_BASIC_TEXTURED,
+			.colored_diffuse = {
+					.kind = RENDER_COLORED_DIFFUSE,
+					.color = {0.0, 0.0, 0.0, 1.0},
+			},
+	};
 
+	world->signature[entity] |= HAS_RENDER;
+	world->render[entity] = render;
+	return &render->colored_diffuse;
+}
+
+RenderTexturedUnlit* mix_render_textured_unlit(struct world* world, entity entity)
+{
+	Render* render = xmalloc(sizeof(*render));
+	*render = (Render){
+			.textured_unlit = {
+					.kind = RENDER_TEXTURED_UNLIT,
 			}};
 
 	world->signature[entity] |= HAS_RENDER;
 	world->render[entity] = render;
-	return &render->basic_textured;
-}
-
-RenderDiffuse* mix_render_diffuse(struct world* world, entity entity)
-{
-	Render* render = xmalloc(sizeof(*render));
-	*render = (Render){
-			.diffuse = {
-					.kind = RENDER_DIFFUSE,
-					.color = {0.0, 0.0, 0.0, 1.0},
-			},
-	};
-
-	world->signature[entity] |= HAS_RENDER;
-	world->render[entity] = render;
-	return &render->diffuse;
+	return &render->textured_unlit;
 }

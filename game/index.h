@@ -6,7 +6,7 @@ enum asset_index {
 };
 
 enum material_index {
-	MAT_BASIC_COLORED,
+	MAT_COLORED_UNLIT,
 	MATERIALS_LENGTH,
 };
 

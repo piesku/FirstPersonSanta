@@ -28,8 +28,8 @@ void scene_main(struct world* world)
 		transform->scale[1] = 100.0;
 		transform->scale[2] = 100.0;
 
-		RenderBasicColored* render = mix_render_basic_colored(world, entity);
-		render->material = MAT_BASIC_COLORED;
+		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
+		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_CUBE;
 		render->color[0] = 0.32;
 		render->color[1] = 0.4;
@@ -48,8 +48,8 @@ void scene_main(struct world* world)
 		transform->scale[1] = rand() % 95 + 5;
 		transform->scale[2] = rand() % 45 + 5;
 
-		RenderBasicColored* render = mix_render_basic_colored(world, entity);
-		render->material = MAT_BASIC_COLORED;
+		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
+		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_CUBE;
 		render->color[0] = 0.32;
 		render->color[1] = 0.4;

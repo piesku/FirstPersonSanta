@@ -6,7 +6,7 @@
 #include <GL/glew.h>
 #endif
 
-struct layout_basic_colored {
+struct layout_colored_unlit {
 	// Uniforms
 	GLint pv;
 	GLint world;
@@ -15,17 +15,7 @@ struct layout_basic_colored {
 	GLint vertex_position;
 };
 
-struct layout_basic_textured {
-	// Uniforms
-	GLint pv;
-	GLint world;
-	GLint sampler;
-	// Attributes
-	GLint vertex_position;
-	GLint vertex_texcoord;
-};
-
-struct layout_diffuse {
+struct layout_colored_diffuse {
 	// Uniforms
 	GLint pv;
 	GLint world;
@@ -38,8 +28,10 @@ struct layout_diffuse {
 	GLint vertex_normal;
 };
 
-struct layout_text_bitmap {
+struct layout_textured_unlit {
 	// Uniforms
+	GLint pv;
+	GLint world;
 	GLint sampler;
 	// Attributes
 	GLint vertex_position;
@@ -50,11 +42,12 @@ struct material {
 	GLenum mode;
 	GLuint program;
 	union {
-		struct layout_basic_colored basic_colored;
-		struct layout_basic_textured basic_textured;
-		struct layout_diffuse diffuse;
-		struct layout_text_bitmap text_bitmap;
+		struct layout_colored_unlit colored_unlit;
+		struct layout_colored_diffuse colored_diffuse;
+		struct layout_textured_unlit textured_unlit;
 	} layout;
 };
 
-GLuint create_program(const GLchar* vertex_shader_source, const GLchar* fragment_shader_source);
+GLuint create_program(
+		const GLchar* vertex_shader_source,
+		const GLchar* fragment_shader_source);

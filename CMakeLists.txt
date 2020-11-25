@@ -20,7 +20,7 @@ add_executable(FirstPerson
 	game/com_move.c
 	game/com_render.c
 	game/com_transform.c
-	game/mat_basic_colored.c
+	"game/mat_colored_unlit.c"
 	game/mesh_cube.c
 	game/sce_cube.c
 	game/sce_main.c

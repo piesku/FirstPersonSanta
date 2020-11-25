@@ -9,88 +9,88 @@
 
 static int32_t QUERY = HAS_TRANSFORM | HAS_RENDER;
 
-static inline void use_basic_colored(struct client* client, RenderBasicColored* render)
+static inline void use_colored_unlit(struct client* client, RenderColoredUnlit* render)
 {
 	struct material material = client->materials[render->material];
 
 	glUseProgram(material.program);
-	glUniformMatrix4fv(material.layout.basic_colored.pv, 1, GL_FALSE, client->camera->pv);
+	glUniformMatrix4fv(material.layout.colored_unlit.pv, 1, GL_FALSE, client->camera->pv);
 }
 
-static inline void draw_basic_colored(struct client* client, Transform* transform, RenderBasicColored* render)
+static inline void draw_colored_unlit(struct client* client, Transform* transform, RenderColoredUnlit* render)
 {
 	struct mesh mesh = client->meshes[render->mesh];
 	struct material material = client->materials[render->material];
 
-	glUniformMatrix4fv(material.layout.basic_colored.world, 1, GL_FALSE, transform->world);
-	glUniform4fv(material.layout.basic_colored.color, 1, render->color);
+	glUniformMatrix4fv(material.layout.colored_unlit.world, 1, GL_FALSE, transform->world);
+	glUniform4fv(material.layout.colored_unlit.color, 1, render->color);
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.vertex_buffer);
-	glEnableVertexAttribArray(material.layout.basic_colored.vertex_position);
-	glVertexAttribPointer(material.layout.basic_colored.vertex_position, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(material.layout.colored_unlit.vertex_position);
+	glVertexAttribPointer(material.layout.colored_unlit.vertex_position, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.index_buffer);
 	glDrawElements(material.mode, mesh.index_count, GL_UNSIGNED_SHORT, 0);
 }
 
-static inline void use_basic_textured(struct client* client, RenderBasicTextured* render)
+static inline void use_colored_diffuse(struct client* client, RenderColoredDiffuse* render)
 {
 	struct material material = client->materials[render->material];
 
 	glUseProgram(material.program);
-	glUniformMatrix4fv(material.layout.basic_textured.pv, 1, GL_FALSE, client->camera->pv);
+	glUniformMatrix4fv(material.layout.colored_diffuse.pv, 1, GL_FALSE, client->camera->pv);
+	glUniform4fv(material.layout.colored_diffuse.light_positions, 1, client->lights.positions);
+	glUniform4fv(material.layout.colored_diffuse.light_details, 1, client->lights.details);
 }
 
-static inline void draw_basic_textured(struct client* client, Transform* transform, RenderBasicTextured* render)
+static inline void draw_colored_diffuse(struct client* client, Transform* transform, RenderColoredDiffuse* render)
+{
+	struct mesh mesh = client->meshes[render->mesh];
+	struct material material = client->materials[render->material];
+
+	glUniformMatrix4fv(material.layout.colored_diffuse.world, 1, GL_FALSE, transform->world);
+	glUniformMatrix4fv(material.layout.colored_diffuse.self, 1, GL_FALSE, transform->self);
+	glUniform4fv(material.layout.colored_diffuse.color, 1, render->color);
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.vertex_buffer);
+	glEnableVertexAttribArray(material.layout.colored_diffuse.vertex_position);
+	glVertexAttribPointer(material.layout.colored_diffuse.vertex_position, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.normal_buffer);
+	glEnableVertexAttribArray(material.layout.colored_diffuse.vertex_normal);
+	glVertexAttribPointer(material.layout.colored_diffuse.vertex_normal, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.index_buffer);
+	glDrawElements(material.mode, mesh.index_count, GL_UNSIGNED_SHORT, 0);
+}
+
+static inline void use_textured_unlit(struct client* client, RenderTexturedUnlit* render)
+{
+	struct material material = client->materials[render->material];
+
+	glUseProgram(material.program);
+	glUniformMatrix4fv(material.layout.textured_unlit.pv, 1, GL_FALSE, client->camera->pv);
+}
+
+static inline void draw_textured_unlit(struct client* client, Transform* transform, RenderTexturedUnlit* render)
 {
 	struct mesh mesh = client->meshes[render->mesh];
 	struct material material = client->materials[render->material];
 	GLuint texture = client->assets[render->texture];
 
-	glUniformMatrix4fv(material.layout.basic_textured.world, 1, GL_FALSE, transform->world);
+	glUniformMatrix4fv(material.layout.textured_unlit.world, 1, GL_FALSE, transform->world);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture);
-	glUniform1i(material.layout.basic_textured.sampler, 0);
+	glUniform1i(material.layout.textured_unlit.sampler, 0);
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.vertex_buffer);
-	glEnableVertexAttribArray(material.layout.basic_textured.vertex_position);
-	glVertexAttribPointer(material.layout.basic_textured.vertex_position, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(material.layout.textured_unlit.vertex_position);
+	glVertexAttribPointer(material.layout.textured_unlit.vertex_position, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.texcoord_buffer);
-	glEnableVertexAttribArray(material.layout.basic_textured.vertex_texcoord);
-	glVertexAttribPointer(material.layout.basic_textured.vertex_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.index_buffer);
-	glDrawElements(material.mode, mesh.index_count, GL_UNSIGNED_SHORT, 0);
-}
-
-static inline void use_diffuse(struct client* client, RenderDiffuse* render)
-{
-	struct material material = client->materials[render->material];
-
-	glUseProgram(material.program);
-	glUniformMatrix4fv(material.layout.diffuse.pv, 1, GL_FALSE, client->camera->pv);
-	glUniform4fv(material.layout.diffuse.light_positions, 1, client->lights.positions);
-	glUniform4fv(material.layout.diffuse.light_details, 1, client->lights.details);
-}
-
-static inline void draw_diffuse(struct client* client, Transform* transform, RenderDiffuse* render)
-{
-	struct mesh mesh = client->meshes[render->mesh];
-	struct material material = client->materials[render->material];
-
-	glUniformMatrix4fv(material.layout.diffuse.world, 1, GL_FALSE, transform->world);
-	glUniformMatrix4fv(material.layout.diffuse.self, 1, GL_FALSE, transform->self);
-	glUniform4fv(material.layout.diffuse.color, 1, render->color);
-
-	glBindBuffer(GL_ARRAY_BUFFER, mesh.vertex_buffer);
-	glEnableVertexAttribArray(material.layout.diffuse.vertex_position);
-	glVertexAttribPointer(material.layout.diffuse.vertex_position, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-	glBindBuffer(GL_ARRAY_BUFFER, mesh.normal_buffer);
-	glEnableVertexAttribArray(material.layout.diffuse.vertex_normal);
-	glVertexAttribPointer(material.layout.diffuse.vertex_normal, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(material.layout.textured_unlit.vertex_texcoord);
+	glVertexAttribPointer(material.layout.textured_unlit.vertex_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.index_buffer);
 	glDrawElements(material.mode, mesh.index_count, GL_UNSIGNED_SHORT, 0);
@@ -115,17 +115,17 @@ void sys_render(struct client* client, struct world* world)
 			Render* render = world->render[i];
 
 			switch (render->kind) {
-				case RENDER_BASIC_COLORED:
-					use_basic_colored(client, &render->basic_colored);
-					draw_basic_colored(client, transform, &render->basic_colored);
+				case RENDER_COLORED_UNLIT:
+					use_colored_unlit(client, &render->colored_unlit);
+					draw_colored_unlit(client, transform, &render->colored_unlit);
 					break;
-				case RENDER_BASIC_TEXTURED:
-					use_basic_textured(client, &render->basic_textured);
-					draw_basic_textured(client, transform, &render->basic_textured);
+				case RENDER_COLORED_DIFFUSE:
+					use_colored_diffuse(client, &render->colored_diffuse);
+					draw_colored_diffuse(client, transform, &render->colored_diffuse);
 					break;
-				case RENDER_DIFFUSE:
-					use_diffuse(client, &render->diffuse);
-					draw_diffuse(client, transform, &render->diffuse);
+				case RENDER_TEXTURED_UNLIT:
+					use_textured_unlit(client, &render->textured_unlit);
+					draw_textured_unlit(client, transform, &render->textured_unlit);
 					break;
 			}
 		}

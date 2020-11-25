@@ -5,10 +5,7 @@
 
 #include "../common/matrix.h"
 
-struct material mat_basic_colored(void);
-struct material mat_basic_textured(void);
-struct material mat_diffuse_gouraud(void);
-
+struct material mat_colored_unlit(void);
 struct mesh mesh_cube(void);
 
 void sys_camera(struct client* client, struct world* world);
@@ -30,7 +27,7 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	client->height = height;
 	client->resized = true;
 
-	client->materials[MAT_BASIC_COLORED] = mat_basic_colored();
+	client->materials[MAT_COLORED_UNLIT] = mat_colored_unlit();
 	client->meshes[MESH_CUBE] = mesh_cube();
 
 	client->camera = NULL;

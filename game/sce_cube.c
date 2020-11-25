@@ -23,8 +23,8 @@ void scene_cube(struct world* world)
 		Transform* transform = mix_transform(world, entity);
 		transform->translation[2] = -5.0;
 
-		RenderBasicColored* render = mix_render_basic_colored(world, entity);
-		render->material = MAT_BASIC_COLORED;
+		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
+		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_CUBE;
 		render->color[0] = 0.32;
 		render->color[1] = 0.4;

@@ -8,40 +8,40 @@
 #include "index.h"
 
 enum render_kind {
-	RENDER_BASIC_COLORED,
-	RENDER_BASIC_TEXTURED,
-	RENDER_DIFFUSE,
+	RENDER_COLORED_UNLIT,
+	RENDER_COLORED_DIFFUSE,
+	RENDER_TEXTURED_UNLIT,
 };
 
-typedef struct render_basic_colored {
+typedef struct render_colored_unlit {
 	enum render_kind kind;
 	enum material_index material;
 	enum mesh_index mesh;
 	vec4 color;
-} RenderBasicColored;
+} RenderColoredUnlit;
 
-typedef struct render_basic_textured {
+typedef struct render_colored_diffuse {
+	enum render_kind kind;
+	enum material_index material;
+	enum mesh_index mesh;
+	vec4 color;
+} RenderColoredDiffuse;
+
+typedef struct render_textured_unlit {
 	enum render_kind kind;
 	enum material_index material;
 	enum mesh_index mesh;
 	enum asset_index texture;
-} RenderBasicTextured;
-
-typedef struct render_diffuse {
-	enum render_kind kind;
-	enum material_index material;
-	enum mesh_index mesh;
-	vec4 color;
-} RenderDiffuse;
+} RenderTexturedUnlit;
 
 typedef union render {
 	enum render_kind kind;
-	RenderBasicColored basic_colored;
-	RenderBasicTextured basic_textured;
-	RenderDiffuse diffuse;
+	RenderColoredUnlit colored_unlit;
+	RenderColoredDiffuse colored_diffuse;
+	RenderTexturedUnlit textured_unlit;
 } Render;
 
 struct world;
-RenderBasicColored* mix_render_basic_colored(struct world* world, entity entity);
-RenderBasicTextured* mix_render_basic_textured(struct world* world, entity entity);
-RenderDiffuse* mix_render_diffuse(struct world* world, entity entity);
+RenderColoredUnlit* mix_render_colored_unlit(struct world* world, entity entity);
+RenderColoredDiffuse* mix_render_colored_diffuse(struct world* world, entity entity);
+RenderTexturedUnlit* mix_render_textured_unlit(struct world* world, entity entity);
