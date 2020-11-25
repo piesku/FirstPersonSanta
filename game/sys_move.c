@@ -28,9 +28,6 @@ static inline void update(struct client* client, struct world* world, entity ent
 		transform->dirty = true;
 
 		move->dirty &= ~MOVE_DIRTY_DIRECTION;
-		move->direction[0] = 0;
-		move->direction[1] = 0;
-		move->direction[2] = 0;
 	}
 
 	if (move->dirty & MOVE_DIRTY_LOCAL_ROTATION) {
@@ -45,6 +42,20 @@ static inline void update(struct client* client, struct world* world, entity ent
 		transform->dirty = true;
 
 		move->dirty &= ~MOVE_DIRTY_LOCAL_ROTATION;
+	}
+
+	if (move->dirty & MOVE_DIRTY_SELF_ROTATION) {
+		quat rotation;
+		float t = move->rotation_speed / PI * delta;
+		if (t > 1.0f)
+			t = 1.0f;
+		quat_slerp(rotation, NO_ROTATION, move->self_rotation, t);
+
+		// Post-multiply.
+		quat_multiply(transform->rotation, transform->rotation, rotation);
+		transform->dirty = true;
+
+		move->dirty &= ~MOVE_DIRTY_SELF_ROTATION;
 	}
 }
 

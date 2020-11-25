@@ -18,6 +18,10 @@ struct input_state {
 	int16_t arrow_down;
 	int16_t arrow_left;
 	int16_t arrow_right;
+	int16_t key_w;
+	int16_t key_s;
+	int16_t key_a;
+	int16_t key_d;
 };
 
 struct client {

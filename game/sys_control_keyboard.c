@@ -17,13 +17,27 @@ static inline void update(struct client* client, struct world* world, entity ent
 	Move* move = world->move[entity];
 
 	if (control->move) {
-		if (client->input_state.arrow_up) {
+		move->direction[0] = 0;
+		move->direction[1] = 0;
+		move->direction[2] = 0;
+
+		if (client->input_state.key_w) {
 			move->direction[2] += 1;
 			move->dirty |= MOVE_DIRTY_DIRECTION;
 		}
 
-		if (client->input_state.arrow_down) {
+		if (client->input_state.key_s) {
 			move->direction[2] -= 1;
+			move->dirty |= MOVE_DIRTY_DIRECTION;
+		}
+
+		if (client->input_state.key_a) {
+			move->direction[0] += 1;
+			move->dirty |= MOVE_DIRTY_DIRECTION;
+		}
+
+		if (client->input_state.key_d) {
+			move->direction[0] -= 1;
 			move->dirty |= MOVE_DIRTY_DIRECTION;
 		}
 	}
@@ -43,6 +57,24 @@ static inline void update(struct client* client, struct world* world, entity ent
 			move->local_rotation[2] = 0;
 			move->local_rotation[3] = 0;
 			move->dirty |= MOVE_DIRTY_LOCAL_ROTATION;
+		}
+	}
+
+	if (control->pitch) {
+		if (client->input_state.arrow_up) {
+			move->self_rotation[0] = -1;
+			move->self_rotation[1] = 0;
+			move->self_rotation[2] = 0;
+			move->self_rotation[3] = 0;
+			move->dirty |= MOVE_DIRTY_SELF_ROTATION;
+		}
+
+		if (client->input_state.arrow_down) {
+			move->self_rotation[0] = 1;
+			move->self_rotation[1] = 0;
+			move->self_rotation[2] = 0;
+			move->self_rotation[3] = 0;
+			move->dirty |= MOVE_DIRTY_SELF_ROTATION;
 		}
 	}
 }

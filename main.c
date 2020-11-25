@@ -1,6 +1,7 @@
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <time.h>
+
 #include <SDL2/SDL.h>
 #ifdef __APPLE__
 #include <OpenGL/gl3.h>
@@ -36,8 +37,8 @@ void engine_init_display(struct engine* engine)
 	engine->viewport_width = 960;
 	engine->viewport_height = 600;
 	engine->window = SDL_CreateWindow("FirstPerson",
-		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-		engine->viewport_width, engine->viewport_height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+			engine->viewport_width, engine->viewport_height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 	if (engine->window == NULL) {
 		printf("Failed to create window: %s\n", SDL_GetError());
 		exit(1);
@@ -102,55 +103,87 @@ int main(int argc, char* argv[])
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
-			case SDL_QUIT:
-				quit = true;
-				break;
-			case SDL_KEYDOWN:
-				if (event.key.repeat)
+				case SDL_QUIT:
+					quit = true;
 					break;
-				switch (event.key.keysym.scancode) {
-					case SDL_SCANCODE_UP:
-						engine.client.input_state.arrow_up = 1;
-						engine.client.input_delta.arrow_up = 1;
+				case SDL_KEYDOWN:
+					if (event.key.repeat)
 						break;
-					case SDL_SCANCODE_DOWN:
-						engine.client.input_state.arrow_down = 1;
-						engine.client.input_delta.arrow_down = 1;
-						break;
-					case SDL_SCANCODE_LEFT:
-						engine.client.input_state.arrow_left = 1;
-						engine.client.input_delta.arrow_left = 1;
-						break;
-					case SDL_SCANCODE_RIGHT:
-						engine.client.input_state.arrow_right = 1;
-						engine.client.input_delta.arrow_right = 1;
-						break;
-				}
-				break;
-			case SDL_KEYUP:
-				if (event.key.repeat)
+					switch (event.key.keysym.scancode) {
+						case SDL_SCANCODE_UP:
+							engine.client.input_state.arrow_up = 1;
+							engine.client.input_delta.arrow_up = 1;
+							break;
+						case SDL_SCANCODE_DOWN:
+							engine.client.input_state.arrow_down = 1;
+							engine.client.input_delta.arrow_down = 1;
+							break;
+						case SDL_SCANCODE_LEFT:
+							engine.client.input_state.arrow_left = 1;
+							engine.client.input_delta.arrow_left = 1;
+							break;
+						case SDL_SCANCODE_RIGHT:
+							engine.client.input_state.arrow_right = 1;
+							engine.client.input_delta.arrow_right = 1;
+							break;
+						case SDL_SCANCODE_W:
+							engine.client.input_state.key_w = 1;
+							engine.client.input_delta.key_w = 1;
+							break;
+						case SDL_SCANCODE_S:
+							engine.client.input_state.key_s = 1;
+							engine.client.input_delta.key_s = 1;
+							break;
+						case SDL_SCANCODE_A:
+							engine.client.input_state.key_a = 1;
+							engine.client.input_delta.key_a = 1;
+							break;
+						case SDL_SCANCODE_D:
+							engine.client.input_state.key_d = 1;
+							engine.client.input_delta.key_d = 1;
+							break;
+					}
 					break;
-				switch (event.key.keysym.scancode) {
-					case SDL_SCANCODE_UP:
-						engine.client.input_state.arrow_up = 0;
-						engine.client.input_delta.arrow_up = -1;
+				case SDL_KEYUP:
+					if (event.key.repeat)
 						break;
-					case SDL_SCANCODE_DOWN:
-						engine.client.input_state.arrow_down = 0;
-						engine.client.input_delta.arrow_down = -1;
-						break;
-					case SDL_SCANCODE_LEFT:
-						engine.client.input_state.arrow_left = 0;
-						engine.client.input_delta.arrow_left = -1;
-						break;
-					case SDL_SCANCODE_RIGHT:
-						engine.client.input_state.arrow_right = 0;
-						engine.client.input_delta.arrow_right = -1;
-						break;
-				}
-				break;
-			default:
-				break;
+					switch (event.key.keysym.scancode) {
+						case SDL_SCANCODE_UP:
+							engine.client.input_state.arrow_up = 0;
+							engine.client.input_delta.arrow_up = -1;
+							break;
+						case SDL_SCANCODE_DOWN:
+							engine.client.input_state.arrow_down = 0;
+							engine.client.input_delta.arrow_down = -1;
+							break;
+						case SDL_SCANCODE_LEFT:
+							engine.client.input_state.arrow_left = 0;
+							engine.client.input_delta.arrow_left = -1;
+							break;
+						case SDL_SCANCODE_RIGHT:
+							engine.client.input_state.arrow_right = 0;
+							engine.client.input_delta.arrow_right = -1;
+							break;
+						case SDL_SCANCODE_W:
+							engine.client.input_state.key_w = 0;
+							engine.client.input_delta.key_w = -1;
+							break;
+						case SDL_SCANCODE_S:
+							engine.client.input_state.key_s = 0;
+							engine.client.input_delta.key_s = -1;
+							break;
+						case SDL_SCANCODE_A:
+							engine.client.input_state.key_a = 0;
+							engine.client.input_delta.key_a = -1;
+							break;
+						case SDL_SCANCODE_D:
+							engine.client.input_state.key_d = 0;
+							engine.client.input_delta.key_d = -1;
+							break;
+					}
+					break;
+				default:
+					break;
 			}
 		}
 
