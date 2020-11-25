@@ -116,16 +116,16 @@ void sys_render(struct client* client, struct world* world)
 
 			switch (render->kind) {
 				case RENDER_BASIC_COLORED:
-					use_basic_colored(client, &render->value.basic_colored);
-					draw_basic_colored(client, transform, &render->value.basic_colored);
+					use_basic_colored(client, &render->basic_colored);
+					draw_basic_colored(client, transform, &render->basic_colored);
 					break;
 				case RENDER_BASIC_TEXTURED:
-					use_basic_textured(client, &render->value.basic_textured);
-					draw_basic_textured(client, transform, &render->value.basic_textured);
+					use_basic_textured(client, &render->basic_textured);
+					draw_basic_textured(client, transform, &render->basic_textured);
 					break;
 				case RENDER_DIFFUSE:
-					use_diffuse(client, &render->value.diffuse);
-					draw_diffuse(client, transform, &render->value.diffuse);
+					use_diffuse(client, &render->diffuse);
+					draw_diffuse(client, transform, &render->diffuse);
 					break;
 			}
 		}

@@ -20,7 +20,7 @@ struct world {
 	struct control_player* control_player[MAX_ENTITIES];
 	struct move* move[MAX_ENTITIES];
 	struct light* light[MAX_ENTITIES];
-	struct render* render[MAX_ENTITIES];
+	union render* render[MAX_ENTITIES];
 	struct transform* transform[MAX_ENTITIES];
 };
 

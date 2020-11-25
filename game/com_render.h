@@ -1,7 +1,7 @@
 #pragma once
 #include "../common/entity.h"
-#include "../common/matrix.h"
 #include "../common/material.h"
+#include "../common/matrix.h"
 #include "../common/mesh.h"
 #include "../common/texture.h"
 
@@ -14,30 +14,31 @@ enum render_kind {
 };
 
 typedef struct render_basic_colored {
+	enum render_kind kind;
 	enum material_index material;
 	enum mesh_index mesh;
 	vec4 color;
 } RenderBasicColored;
 
 typedef struct render_basic_textured {
+	enum render_kind kind;
 	enum material_index material;
 	enum mesh_index mesh;
 	enum asset_index texture;
 } RenderBasicTextured;
 
 typedef struct render_diffuse {
+	enum render_kind kind;
 	enum material_index material;
 	enum mesh_index mesh;
 	vec4 color;
 } RenderDiffuse;
 
-typedef struct render {
+typedef union render {
 	enum render_kind kind;
-	union {
-		RenderBasicColored basic_colored;
-		RenderBasicTextured basic_textured;
-		RenderDiffuse diffuse;
-	} value;
+	RenderBasicColored basic_colored;
+	RenderBasicTextured basic_textured;
+	RenderDiffuse diffuse;
 } Render;
 
 struct world;

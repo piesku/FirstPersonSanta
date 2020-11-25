@@ -8,40 +8,42 @@ RenderBasicColored* mix_render_basic_colored(struct world* world, entity entity)
 {
 	Render* render = xmalloc(sizeof(*render));
 	*render = (Render){
-			.kind = RENDER_BASIC_COLORED,
-			.value.basic_colored = {
+			.basic_colored = {
+					.kind = RENDER_BASIC_COLORED,
 					.color = {0.0, 0.0, 0.0, 1.0},
 			},
 	};
 
 	world->signature[entity] |= HAS_RENDER;
 	world->render[entity] = render;
-	return &render->value.basic_colored;
+	return &render->basic_colored;
 }
 
 RenderBasicTextured* mix_render_basic_textured(struct world* world, entity entity)
 {
 	Render* render = xmalloc(sizeof(*render));
 	*render = (Render){
-			.kind = RENDER_BASIC_TEXTURED,
-	};
+			.basic_textured = {
+					.kind = RENDER_BASIC_TEXTURED,
+
+			}};
 
 	world->signature[entity] |= HAS_RENDER;
 	world->render[entity] = render;
-	return &render->value.basic_textured;
+	return &render->basic_textured;
 }
 
 RenderDiffuse* mix_render_diffuse(struct world* world, entity entity)
 {
 	Render* render = xmalloc(sizeof(*render));
 	*render = (Render){
-			.kind = RENDER_DIFFUSE,
-			.value.diffuse = {
+			.diffuse = {
+					.kind = RENDER_DIFFUSE,
 					.color = {0.0, 0.0, 0.0, 1.0},
 			},
 	};
 
 	world->signature[entity] |= HAS_RENDER;
 	world->render[entity] = render;
-	return &render->value.diffuse;
+	return &render->diffuse;
 }
