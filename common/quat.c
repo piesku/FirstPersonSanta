@@ -58,7 +58,6 @@ void quat_lerp(quat out, quat a, quat b, float t)
 	out[1] = ay + t * (b[1] - ay);
 	out[2] = az + t * (b[2] - az);
 	out[3] = aw + t * (b[3] - aw);
-	return out;
 }
 
 void quat_slerp(quat out, quat a, quat b, float t)
@@ -102,6 +101,4 @@ void quat_slerp(quat out, quat a, quat b, float t)
 	out[1] = scale0 * ay + scale1 * by;
 	out[2] = scale0 * az + scale1 * bz;
 	out[3] = scale0 * aw + scale1 * bw;
-
-	return out;
 }
