@@ -20,12 +20,13 @@ add_executable(FirstPerson
 	game/com_move.c
 	game/com_render.c
 	game/com_transform.c
-	"game/mat_colored_unlit.c"
+	game/mat_colored_unlit.c
 	game/mesh_cube.c
 	game/sce_cube.c
 	game/sce_main.c
 	game/sys_camera.c
 	game/sys_control_keyboard.c
+	game/sys_control_mouse.c
 	game/sys_light.c
 	game/sys_move.c
 	game/sys_render.c

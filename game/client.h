@@ -22,6 +22,8 @@ struct input_state {
 	int16_t key_s;
 	int16_t key_a;
 	int16_t key_d;
+	int16_t mouse_x;
+	int16_t mouse_y;
 };
 
 struct client {

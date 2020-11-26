@@ -38,11 +38,14 @@ void engine_init_display(struct engine* engine)
 	engine->viewport_height = 600;
 	engine->window = SDL_CreateWindow("FirstPerson",
 			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-			engine->viewport_width, engine->viewport_height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+			engine->viewport_width, engine->viewport_height,
+			SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 	if (engine->window == NULL) {
 		printf("Failed to create window: %s\n", SDL_GetError());
 		exit(1);
 	}
+
+	SDL_SetRelativeMouseMode(true);
 
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
@@ -110,6 +113,9 @@ int main(int argc, char* argv[])
 					if (event.key.repeat)
 						break;
 					switch (event.key.keysym.scancode) {
+						case SDL_SCANCODE_ESCAPE:
+							SDL_SetRelativeMouseMode(false);
+							break;
 						case SDL_SCANCODE_UP:
 							engine.client.input_state.arrow_up = 1;
 							engine.client.input_delta.arrow_up = 1;
@@ -182,6 +188,11 @@ int main(int argc, char* argv[])
 							break;
 					}
 					break;
+				case SDL_MOUSEMOTION:
+					engine.client.input_state.mouse_x = event.motion.x;
+					engine.client.input_state.mouse_y = event.motion.y;
+					engine.client.input_delta.mouse_x = event.motion.xrel;
+					engine.client.input_delta.mouse_y = event.motion.yrel;
 				default:
 					break;
 			}
