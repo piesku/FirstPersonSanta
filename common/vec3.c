@@ -2,7 +2,7 @@
 
 #include <math.h>
 
-float vec3_length(vec3 a)
+float vec3_length(const vec3 a)
 {
 	float x = a[0];
 	float y = a[1];
@@ -16,7 +16,7 @@ float vec3_length(vec3 a)
 	return len;
 }
 
-void vec3_normalize(vec3 out, vec3 a)
+void vec3_normalize(vec3 out, const vec3 a)
 {
 	float x = a[0];
 	float y = a[1];
@@ -32,28 +32,28 @@ void vec3_normalize(vec3 out, vec3 a)
 	out[2] = a[2] * len;
 }
 
-void vec3_add(vec3 out, vec3 a, vec3 b)
+void vec3_add(vec3 out, const vec3 a, const vec3 b)
 {
 	out[0] = a[0] + b[0];
 	out[1] = a[1] + b[1];
 	out[2] = a[2] + b[2];
 }
 
-void vec3_subtract(vec3 out, vec3 a, vec3 b)
+void vec3_subtract(vec3 out, const vec3 a, const vec3 b)
 {
 	out[0] = a[0] - b[0];
 	out[1] = a[1] - b[1];
 	out[2] = a[2] - b[2];
 }
 
-void vec3_scale(vec3 out, vec3 a, float b)
+void vec3_scale(vec3 out, const vec3 a, float b)
 {
 	out[0] = a[0] * b;
 	out[1] = a[1] * b;
 	out[2] = a[2] * b;
 }
 
-void vec3_transform_point(vec3 out, vec3 a, mat4 m)
+void vec3_transform_point(vec3 out, const vec3 a, const mat4 m)
 {
 	float x = a[0], y = a[1], z = a[2];
 	float w = m[3] * x + m[7] * y + m[11] * z + m[15];
@@ -63,7 +63,7 @@ void vec3_transform_point(vec3 out, vec3 a, mat4 m)
 	out[2] = (m[2] * x + m[6] * y + m[10] * z + m[14]) / w;
 }
 
-void vec3_transform_direction(vec3 out, vec3 a, mat4 m)
+void vec3_transform_direction(vec3 out, const vec3 a, const mat4 m)
 {
 	vec3 tip;
 	vec3 base;

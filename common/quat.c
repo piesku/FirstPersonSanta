@@ -2,7 +2,7 @@
 
 #include <math.h>
 
-void quat_multiply(quat out, quat a, quat b)
+void quat_multiply(quat out, const quat a, const quat b)
 {
 	float ax = a[0];
 	float ay = a[1];
@@ -39,7 +39,7 @@ void quat_from_euler(quat out, float x, float y, float z)
 	out[3] = cx * cy * cz + sx * sy * sz;
 }
 
-void quat_from_axis(quat out, vec3 axis, float angle)
+void quat_from_axis(quat out, const vec3 axis, float angle)
 {
 	float half = angle / 2.0f;
 	out[0] = sinf(half) * axis[0];
@@ -48,7 +48,7 @@ void quat_from_axis(quat out, vec3 axis, float angle)
 	out[3] = cosf(half);
 }
 
-void quat_lerp(quat out, quat a, quat b, float t)
+void quat_lerp(quat out, const quat a, const quat b, float t)
 {
 	float ax = a[0];
 	float ay = a[1];
@@ -60,7 +60,7 @@ void quat_lerp(quat out, quat a, quat b, float t)
 	out[3] = aw + t * (b[3] - aw);
 }
 
-void quat_slerp(quat out, quat a, quat b, float t)
+void quat_slerp(quat out, const quat a, const quat b, float t)
 {
 	float ax = a[0];
 	float ay = a[1];

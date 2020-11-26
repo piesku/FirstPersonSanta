@@ -8,7 +8,7 @@
 #include "world.h"
 
 static int32_t QUERY = HAS_TRANSFORM | HAS_MOVE;
-static quat NO_ROTATION = {0.0f, 0.0f, 0.0f, 1.0f};
+static const quat NO_ROTATION = {0.0f, 0.0f, 0.0f, 1.0f};
 
 static inline void update(struct client* client, struct world* world, entity entity, float delta)
 {

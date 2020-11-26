@@ -10,8 +10,8 @@
 #include "world.h"
 
 static int QUERY = HAS_TRANSFORM | HAS_CONTROL_PLAYER;
-static vec3 AXIS_X = {1.0f, 0.0f, 0.0f};
-static vec3 AXIS_Y = {0.0f, 1.0f, 0.0f};
+static const vec3 AXIS_X = {1.0f, 0.0f, 0.0f};
+static const vec3 AXIS_Y = {0.0f, 1.0f, 0.0f};
 
 static inline void update(struct client* client, struct world* world, entity entity, float delta)
 {

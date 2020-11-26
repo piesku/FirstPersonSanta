@@ -35,7 +35,7 @@ void mat4_set(mat4 out,
 	out[15] = m33;
 };
 
-bool mat4_invert(mat4 out, mat4 mat)
+bool mat4_invert(mat4 out, const mat4 mat)
 {
 	float a00 = mat[0], a01 = mat[1], a02 = mat[2], a03 = mat[3];
 	float a10 = mat[4], a11 = mat[5], a12 = mat[6], a13 = mat[7];
@@ -83,7 +83,7 @@ bool mat4_invert(mat4 out, mat4 mat)
 	return true;
 }
 
-void mat4_multiply(mat4 out, mat4 a, mat4 b)
+void mat4_multiply(mat4 out, const mat4 a, const mat4 b)
 {
 	float a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
 	float a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
@@ -125,7 +125,7 @@ void mat4_multiply(mat4 out, mat4 a, mat4 b)
 	out[15] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
 };
 
-void mat4_translate(mat4 out, mat4 mat, vec3 vec)
+void mat4_translate(mat4 out, const mat4 mat, const vec3 vec)
 {
 	float x = vec[0], y = vec[1], z = vec[2];
 	float a00, a01, a02, a03;
@@ -171,7 +171,7 @@ void mat4_translate(mat4 out, mat4 mat, vec3 vec)
 	}
 }
 
-bool mat4_rotate(mat4 out, mat4 mat, float angle, vec3 axis)
+bool mat4_rotate(mat4 out, const mat4 mat, float angle, const vec3 axis)
 {
 	float x = axis[0], y = axis[1], z = axis[2];
 	float len = sqrtf(x * x + y * y + z * z);
@@ -262,7 +262,7 @@ void mat4_perspective(mat4 out, float fovy, float aspect, float near, float far)
 	out[15] = 0.0f;
 }
 
-void mat4_compose(mat4 out, vec3 v, quat q, vec3 s)
+void mat4_compose(mat4 out, const vec3 v, const quat q, const vec3 s)
 {
 	// Quaternion math
 	float x = q[0];
@@ -302,7 +302,7 @@ void mat4_compose(mat4 out, vec3 v, quat q, vec3 s)
 	out[15] = 1.0f;
 }
 
-void mat4_get_translation(vec3 out, mat4 mat)
+void mat4_get_translation(vec3 out, const mat4 mat)
 {
 	out[0] = mat[12];
 	out[1] = mat[13];
