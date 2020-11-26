@@ -19,12 +19,14 @@ void quat_multiply(quat out, const quat a, const quat b)
 	out[3] = aw * bw - ax * bx - ay * by - az * bz;
 }
 
+// Compute a quaternion out of three Euler angles given in degrees.
+// The order of rotation is YXZ.
 void quat_from_euler(quat out, float x, float y, float z)
 {
-	float halfToRad = (0.5f * PI) / 180.0f;
-	x *= halfToRad;
-	y *= halfToRad;
-	z *= halfToRad;
+	float half_to_rad = 0.5f * DEG_TO_RAD;
+	x *= half_to_rad;
+	y *= half_to_rad;
+	z *= half_to_rad;
 
 	float sx = sinf(x);
 	float cx = cosf(x);
@@ -33,8 +35,8 @@ void quat_from_euler(quat out, float x, float y, float z)
 	float sz = sinf(z);
 	float cz = cosf(z);
 
-	out[0] = sx * cy * cz - cx * sy * sz;
-	out[1] = cx * sy * cz + sx * cy * sz;
+	out[0] = sx * cy * cz + cx * sy * sz;
+	out[1] = cx * sy * cz - sx * cy * sz;
 	out[2] = cx * cy * sz - sx * sy * cz;
 	out[3] = cx * cy * cz + sx * sy * sz;
 }
