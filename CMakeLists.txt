@@ -36,9 +36,6 @@ add_executable(FirstPerson
 	game/sys_render.c
 	game/sys_transform.c
 	game/world.c
-
-	# TODO Build as a separate library.
-	LodePNG/lodepng.c
 )
 
 find_package(OpenGL REQUIRED)

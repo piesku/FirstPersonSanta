@@ -5,30 +5,37 @@ An FPS playground for creating game prototypes in C using ECS. The ECS architect
 
 ## Building
 
+_FirstPerson_ uses [vcpkg](https://github.com/microsoft/vcpkg) to manage dependencies. When you first clone it, you'll need to run the bootstrap script once. It's called `bootstrap-vcpkg.bat` on Windows and `bootstrap-vcpkg.sh` on macOS and Linux.
+
 ### Windows
 
-Install SDL2 and GLEW using `vcpkg`. Open the repo in Visual Studio 2019 using the _Open a local folder_ option.
+1. Install `vcpkg` in `C:\Development\vcpkg` and `cd` into it.
+2. Install the dependencies:
 
-    $ .\vcpkg.exe install sdl2:x64-windows glew:x64-windows
+        $ .\vcpkg.exe install glew:x64-windows sdl2:x64-windows sdl2-image:x64-windows
 
-### Linux (Ubuntu, Debian, WSL)
+3. Open the repo in Visual Studio 2019 using the _Open a local folder_ option.
+4. Build `FirstPerson.exe`.
+5. Run `out\Windows\x64-Debug\FirstPerson.exe` or `out\Windows\x64-Release\FirstPerson.exe`.
 
-    $ sudo apt install libsdl2-dev libglew-dev
+### macOS & Linux
+
+1. Install `vcpkg` in `/opt/vcpkg` and `cd` into it.
+2. Install the dependencies:
+
+        $ ./vcpkg install sdl2 sdl2-image          # For macOS
+        $ ./vcpkg install sdl2 sdl2-image glew     # For Linux
+
+3. `cd` into the repo and run `cmake` as usual:
+
     $ mkdir out
     $ cd out
     $ cmake ..
     $ make
-    $ ./breakoutc
 
-### MacOS
+4. Run it!
 
-[Download SDL2](https://www.libsdl.org/download-2.0.php) and copy it to `/Library/Frameworks`
-
-    $ mkdir out
-    $ cd out
-    $ cmake ..
-    $ make
-    $ ./breakoutc
+    $ ./out/FirstPerson
 
 
 ## Implementation Notes
