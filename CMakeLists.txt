@@ -70,3 +70,6 @@ elseif(UNIX)
 		${SDL2_LIBRARIES}
 	)
 endif()
+
+# Copy assets
+file(COPY textures DESTINATION ${CMAKE_BINARY_DIR})
