@@ -3,6 +3,7 @@
 #include <time.h>
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #ifdef __APPLE__
 #include <OpenGL/gl3.h>
 #else
@@ -96,6 +97,12 @@ void engine_init_display(struct engine* engine)
 		exit(1);
 	}
 #endif
+
+	int img_init = IMG_Init(IMG_INIT_PNG);
+	if ((img_init & IMG_INIT_PNG) != IMG_INIT_PNG) {
+		printf("Failed to init IMG: %s\n", IMG_GetError());
+		exit(1);
+	}
 
 	engine_load_texture(engine, TEX_CHECKER, "textures/checker1.png");
 	client_setup(&engine->client, engine->viewport_width, engine->viewport_height);
