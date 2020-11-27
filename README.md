@@ -9,7 +9,10 @@ _FirstPerson_ uses [vcpkg](https://github.com/microsoft/vcpkg) to manage depende
 
 ### Windows
 
-1. Install `vcpkg` in `C:\Development\vcpkg` and `cd` into it.
+1. (If you haven't already) Install `vcpkg` anywhere on your disk and `cd` into it.
+
+    1. Run `.\vcpkg.exe integrate install` to inform Visual Studio of the location of `vcpkg`.
+
 2. Install the dependencies:
 
         $ .\vcpkg.exe install glew:x64-windows sdl2:x64-windows sdl2-image:x64-windows
@@ -20,7 +23,10 @@ _FirstPerson_ uses [vcpkg](https://github.com/microsoft/vcpkg) to manage depende
 
 ### macOS & Linux
 
-1. Install `vcpkg` in `/opt/vcpkg` and `cd` into it.
+1. (If you haven't already) Install `vcpkg` in `/opt/vcpkg` and `cd` into it.
+
+    1. If you choose a different location, pass `-DCMAKE_TOOLCHAIN_FILE=[path to vcpkg]/scripts/buildsystems/vcpkg.cmake` to the `cmake ..` command below.
+
 2. Install the dependencies:
 
         $ ./vcpkg install sdl2 sdl2-image          # For macOS
@@ -28,14 +34,14 @@ _FirstPerson_ uses [vcpkg](https://github.com/microsoft/vcpkg) to manage depende
 
 3. `cd` into the repo and run `cmake` as usual:
 
-    $ mkdir out
-    $ cd out
-    $ cmake ..
+    $ mkdir build
+    $ cd build
+    $ cmake .. -DCMAKE_BUILD_TYPE=Debug            # Or: Release, MinSizeRel, RelWithDebInfo
     $ make
 
 4. Run it!
 
-    $ ./out/FirstPerson
+    $ ./build/FirstPerson
 
 
 ## Implementation Notes
