@@ -11,7 +11,8 @@ _FirstPerson_ uses [vcpkg](https://github.com/microsoft/vcpkg) to manage depende
 
 1. (If you haven't already) Install `vcpkg` anywhere on your disk and `cd` into it.
 
-    1. Run `.\vcpkg.exe integrate install` to inform Visual Studio of the location of `vcpkg`.
+    - Run `.\bootstrap-vcpkg.bat` to build `vcpkg`.
+    - Run `.\vcpkg.exe integrate install` to inform Visual Studio of the location of `vcpkg`.
 
 2. Install the dependencies:
 
@@ -25,7 +26,11 @@ _FirstPerson_ uses [vcpkg](https://github.com/microsoft/vcpkg) to manage depende
 
 1. (If you haven't already) Install `vcpkg` in `/opt/vcpkg` and `cd` into it.
 
-    1. If you choose a different location, pass `-DCMAKE_TOOLCHAIN_FILE=[path to vcpkg]/scripts/buildsystems/vcpkg.cmake` to the `cmake ..` command below.
+    - Run `.\bootstrap-vcpkg.sh` to build `vcpkg`.
+    - If you choose a different location:
+
+        - Pass `-DCMAKE_TOOLCHAIN_FILE=[path to vcpkg]/scripts/buildsystems/vcpkg.cmake` to the `cmake ..` command below.
+        - (Visual Studio Code) San the path in the [workspace's `settings.json`](https://github.com/microsoft/vcpkg#visual-studio-code-with-cmake-tools).
 
 2. Install the dependencies:
 
@@ -34,14 +39,14 @@ _FirstPerson_ uses [vcpkg](https://github.com/microsoft/vcpkg) to manage depende
 
 3. `cd` into the repo and run `cmake` as usual:
 
-    $ mkdir build
-    $ cd build
-    $ cmake .. -DCMAKE_BUILD_TYPE=Debug            # Or: Release, MinSizeRel, RelWithDebInfo
-    $ make
+        $ mkdir build
+        $ cd build
+        $ cmake .. -DCMAKE_BUILD_TYPE=Debug        # Or: Release, MinSizeRel, RelWithDebInfo
+        $ make
 
 4. Run it!
 
-    $ ./build/FirstPerson
+        $ ./build/FirstPerson
 
 
 ## Implementation Notes
