@@ -10,7 +10,6 @@
 
 #include "../common/material.h"
 #include "../common/mesh.h"
-#include "../common/texture.h"
 #include "index.h"
 
 struct input_state {
@@ -35,7 +34,7 @@ struct client {
 	struct input_state input_state;
 	struct input_state input_delta;
 
-	GLuint assets[ASSETS_LENGTH];
+	GLuint textures[TEXTURES_LENGTH];
 	struct material materials[MATERIALS_LENGTH];
 	struct mesh meshes[MESHES_LENGTH];
 

@@ -21,6 +21,7 @@ add_executable(FirstPerson
 	game/com_render.c
 	game/com_transform.c
 	game/mat_colored_unlit.c
+	game/mat_textured_unlit.c
 	game/mesh_cube.c
 	game/sce_cube.c
 	game/sce_main.c
@@ -32,19 +33,19 @@ add_executable(FirstPerson
 	game/sys_render.c
 	game/sys_transform.c
 	game/world.c
-
-	# TODO Build as a separate library.
-	LodePNG/lodepng.c
 )
 
 if(MSVC)
 	find_package(OpenGL REQUIRED)
 	find_package(GLEW REQUIRED)
 	find_package(SDL2 CONFIG REQUIRED)
+	find_package(SDL2-image CONFIG REQUIRED)
 	target_link_libraries(FirstPerson
 		OpenGL::GL
 		GLEW::GLEW
-		SDL2::SDL2 SDL2::SDL2main
+		SDL2::SDL2
+		SDL2::SDL2main
+		SDL2::SDL2_image
 	)
 elseif(APPLE)
 	find_package(OpenGL REQUIRED)
@@ -59,10 +60,12 @@ elseif(UNIX)
 	find_package(OpenGL REQUIRED)
 	find_package(GLEW REQUIRED)
 	find_package(SDL2 CONFIG REQUIRED)
+	find_package(SDL2_image CONFIG REQUIRED)
 	target_link_libraries(FirstPerson
 		m
 		${OPENGL_LIBRARIES}
 		${GLEW_LIBRARIES}
 		${SDL2_LIBRARIES}
+		${SDL2_IMAGE_LIBRARIES}
 	)
 endif()

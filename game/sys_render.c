@@ -76,7 +76,7 @@ static inline void draw_textured_unlit(struct client* client, Transform* transfo
 {
 	struct mesh mesh = client->meshes[render->mesh];
 	struct material material = client->materials[render->material];
-	GLuint texture = client->assets[render->texture];
+	GLuint texture = client->textures[render->texture];
 
 	glUniformMatrix4fv(material.layout.textured_unlit.world, 1, GL_FALSE, transform->world);
 

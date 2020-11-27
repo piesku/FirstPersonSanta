@@ -2,8 +2,8 @@
 #include <time.h>
 
 #include "blu_camera.h"
-#include "com_transform.h"
 #include "com_render.h"
+#include "com_transform.h"
 #include "index.h"
 #include "world.h"
 
@@ -54,5 +54,20 @@ void scene_main(struct world* world)
 		render->color[0] = 0.32;
 		render->color[1] = 0.4;
 		render->color[2] = 0.88;
+	}
+
+	{
+		// Textured cube.
+		entity entity = create_entity(world);
+
+		Transform* transform = mix_transform(world, entity);
+		transform->translation[0] = 1;
+		transform->translation[1] = 2;
+		transform->translation[2] = -10;
+
+		RenderTexturedUnlit* render = mix_render_textured_unlit(world, entity);
+		render->material = MAT_TEXTURED_UNLIT;
+		render->mesh = MESH_CUBE;
+		render->texture = TEX_CHECKER;
 	}
 }

@@ -1,12 +1,13 @@
 #pragma once
 
-enum asset_index {
-	ASSET_TEXTURE_CHECKER,
-	ASSETS_LENGTH,
+enum texture_index {
+	TEX_CHECKER,
+	TEXTURES_LENGTH,
 };
 
 enum material_index {
 	MAT_COLORED_UNLIT,
+	MAT_TEXTURED_UNLIT,
 	MATERIALS_LENGTH,
 };
 

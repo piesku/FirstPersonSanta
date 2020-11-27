@@ -31,7 +31,7 @@ typedef struct render_textured_unlit {
 	enum render_kind kind;
 	enum material_index material;
 	enum mesh_index mesh;
-	enum asset_index texture;
+	enum texture_index texture;
 } RenderTexturedUnlit;
 
 typedef union render {

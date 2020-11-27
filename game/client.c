@@ -6,6 +6,7 @@
 #include "../common/matrix.h"
 
 struct material mat_colored_unlit(void);
+struct material mat_textured_unlit(void);
 struct mesh mesh_cube(void);
 
 void sys_camera(struct client* client, struct world* world);
@@ -15,7 +16,6 @@ void sys_light(struct client* client, struct world* world);
 void sys_move(struct client* client, struct world* world, float delta);
 void sys_render(struct client* client, struct world* world);
 void sys_transform(struct client* client, struct world* world, float delta);
-
 
 void client_setup(struct client* client, int32_t width, int32_t height)
 {
@@ -29,6 +29,7 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	client->resized = true;
 
 	client->materials[MAT_COLORED_UNLIT] = mat_colored_unlit();
+	client->materials[MAT_TEXTURED_UNLIT] = mat_textured_unlit();
 	client->meshes[MESH_CUBE] = mesh_cube();
 
 	client->camera = NULL;
@@ -48,13 +49,17 @@ void client_resize(struct client* client, int32_t width, int32_t height)
 
 void client_teardown(struct client* client)
 {
+	// Delete shaders.
 	for (int8_t i = 0; i < MATERIALS_LENGTH; i++) {
 		glDeleteProgram(client->materials[i].program);
 	}
+	// Delete buffer objects.
 	for (int8_t i = 0; i < MESHES_LENGTH; i++) {
 		glDeleteBuffers(1, &client->meshes[i].vertex_buffer);
 		glDeleteBuffers(1, &client->meshes[i].index_buffer);
 	}
+	// Delete textures.
+	glDeleteTextures(TEXTURES_LENGTH, client->textures);
 }
 
 void client_world_update(struct client* client, struct world* world, float delta)
