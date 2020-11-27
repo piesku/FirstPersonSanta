@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake
+set(CMAKE_TOOLCHAIN_FILE /opt/vcpkg/scripts/buildsystems/vcpkg.cmake
 	CACHE STRING "Vcpkg toolchain file")
 
 project(FirstPerson)
@@ -57,6 +57,7 @@ if(MSVC)
 		GLEW::GLEW
 	)
 elseif(UNIX)
+	find_package(GLEW REQUIRED)
 	target_link_libraries(FirstPerson
 		m
 		GLEW::GLEW
