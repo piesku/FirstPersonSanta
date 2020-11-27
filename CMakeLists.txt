@@ -33,6 +33,9 @@ add_executable(FirstPerson
 	game/sys_render.c
 	game/sys_transform.c
 	game/world.c
+
+	# TODO Build as a separate library.
+	LodePNG/lodepng.c
 )
 
 if(MSVC)
@@ -60,12 +63,10 @@ elseif(UNIX)
 	find_package(OpenGL REQUIRED)
 	find_package(GLEW REQUIRED)
 	find_package(SDL2 CONFIG REQUIRED)
-	find_package(SDL2_image CONFIG REQUIRED)
 	target_link_libraries(FirstPerson
 		m
 		${OPENGL_LIBRARIES}
 		${GLEW_LIBRARIES}
 		${SDL2_LIBRARIES}
-		${SDL2_IMAGE_LIBRARIES}
 	)
 endif()

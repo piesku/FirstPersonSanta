@@ -3,13 +3,13 @@
 #include <time.h>
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 #ifdef __APPLE__
 #include <OpenGL/gl3.h>
 #else
 #include <GL/glew.h>
 #endif
 
+#include "LodePNG/lodepng.h"
 #include "common/texture.h"
 #include "game/client.h"
 #include "game/world.h"
@@ -28,6 +28,22 @@ struct engine {
 	struct client client;
 	struct world* world;
 };
+
+void engine_load_texture(struct engine* engine, enum texture_index index, const char* filename)
+{
+	uint8_t* image = NULL;
+	uint32_t width = 0;
+	uint32_t height = 0;
+	uint32_t error = lodepng_decode32_file(&image, &width, &height, filename);
+	if (error) {
+		printf("Failed to load texture: %s\n", filename);
+		exit(1);
+	}
+
+	engine->client.textures[index] = create_texture_rgba(
+			image, width, height);
+	free(image);
+}
 
 void engine_init_display(struct engine* engine)
 {
@@ -81,24 +97,7 @@ void engine_init_display(struct engine* engine)
 	}
 #endif
 
-	int img_flags = IMG_INIT_PNG;
-	int img_init_rv = IMG_Init(img_flags);
-	if ((img_init_rv & img_flags) != img_flags) {
-		printf("Failed to init SDL2_image: %s\n", IMG_GetError());
-		exit(1);
-	}
-
-	{
-		SDL_Surface* image = IMG_Load("textures/checker1.png");
-		if (image == NULL) {
-			printf("IMG_Load: %s\n", IMG_GetError());
-			exit(1);
-		}
-		engine->client.textures[TEX_CHECKER] = create_texture_rgba(
-				image->pixels, image->w, image->h);
-		SDL_FreeSurface(image);
-	}
-
+	engine_load_texture(engine, TEX_CHECKER, "textures/checker1.png");
 	client_setup(&engine->client, engine->viewport_width, engine->viewport_height);
 }
 
@@ -106,7 +105,6 @@ void engine_term_display(struct engine* engine)
 {
 	client_teardown(&engine->client);
 
-	IMG_Quit();
 	SDL_GL_DeleteContext(engine->context);
 	SDL_DestroyWindow(engine->window);
 	SDL_Quit();
