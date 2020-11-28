@@ -30,7 +30,7 @@ _FirstPerson_ uses [vcpkg](https://github.com/microsoft/vcpkg) to manage depende
     - If you choose a different location:
 
         - Pass `-DCMAKE_TOOLCHAIN_FILE=[path to vcpkg]/scripts/buildsystems/vcpkg.cmake` to the `cmake ..` command below.
-        - (Visual Studio Code) San the path in the [workspace's `settings.json`](https://github.com/microsoft/vcpkg#visual-studio-code-with-cmake-tools).
+        - (Visual Studio Code) Set the toolchain path in [`settings.json`](https://github.com/microsoft/vcpkg#visual-studio-code-with-cmake-tools).
 
 2. Install the dependencies:
 
