@@ -10,6 +10,7 @@ struct material mat_textured_unlit(void);
 struct mesh mesh_cube(void);
 
 void sys_camera(struct client* client, struct world* world);
+void sys_collide(struct client* client, struct world* world, float delta);
 void sys_control_keyboard(struct client* client, struct world* world, float delta);
 void sys_control_mouse(struct client* client, struct world* world, float delta);
 void sys_light(struct client* client, struct world* world);
@@ -68,6 +69,7 @@ void client_world_update(struct client* client, struct world* world, float delta
 	sys_control_mouse(client, world, delta);
 	sys_move(client, world, delta);
 	sys_transform(client, world, delta);
+	sys_collide(client, world, delta);
 }
 
 void client_frame_update(struct client* client, struct world* world)

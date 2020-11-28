@@ -7,6 +7,7 @@ project(FirstPerson)
 add_executable(FirstPerson
 	main.c
 
+	common/aabb.c
 	common/malloc.c
 	common/mat4.c
 	common/material.c
@@ -18,6 +19,7 @@ add_executable(FirstPerson
 	game/blu_camera.c
 	game/client.c
 	game/com_camera.c
+	game/com_collide.c
 	game/com_control_player.c
 	game/com_light.c
 	game/com_move.c
@@ -29,6 +31,7 @@ add_executable(FirstPerson
 	game/sce_cube.c
 	game/sce_main.c
 	game/sys_camera.c
+	game/sys_collide.c
 	game/sys_control_keyboard.c
 	game/sys_control_mouse.c
 	game/sys_light.c

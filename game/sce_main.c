@@ -2,6 +2,7 @@
 #include <time.h>
 
 #include "blu_camera.h"
+#include "com_collide.h"
 #include "com_render.h"
 #include "com_transform.h"
 #include "index.h"
@@ -16,6 +17,11 @@ void scene_main(struct world* world)
 		world->transform[camera]->translation[0] = 0.0;
 		world->transform[camera]->translation[1] = 2.0;
 		world->transform[camera]->translation[2] = 0.0;
+
+		Collide* collide = mix_collide(world, camera);
+		collide->dynamic = true;
+		collide->layers = LAYER_PLAYER;
+		collide->mask = LAYER_TERRAIN;
 	}
 
 	{
@@ -69,5 +75,10 @@ void scene_main(struct world* world)
 		render->material = MAT_TEXTURED_UNLIT;
 		render->mesh = MESH_CUBE;
 		render->texture = TEX_CHECKER;
+
+		Collide* collide = mix_collide(world, entity);
+		collide->dynamic = false;
+		collide->layers = LAYER_TERRAIN;
+		collide->mask = LAYER_PLAYER;
 	}
 }

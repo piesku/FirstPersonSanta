@@ -14,7 +14,7 @@ typedef float vec4[4];
 typedef float quat[4];
 typedef float mat4[16];
 
-float sign(float x);
+float signf(float x);
 float absf(float x);
 float minf(float a, float b);
 float maxf(float a, float b);
