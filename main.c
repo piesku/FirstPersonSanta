@@ -10,6 +10,7 @@
 #include "game/client.h"
 #include "game/world.h"
 
+void scene_collide(struct world* world);
 void scene_cube(struct world* world);
 void scene_main(struct world* world);
 
@@ -118,7 +119,7 @@ int main(int argc, char* argv[])
 	};
 
 	engine_init_display(&engine);
-	scene_main(engine.world);
+	scene_collide(engine.world);
 
 	bool quit = false;
 	while (quit == false) {
@@ -223,8 +224,8 @@ int main(int argc, char* argv[])
 		float delta_s = (float)delta / CLOCKS_PER_SEC;
 		engine.client.delta = delta_s;
 
-		char fps[20];
-		snprintf(fps, 20, "Frame: %4.3fs", delta_s);
+		char fps[32];
+		snprintf(fps, 32, "Frame: %4.3fs (%2.0f fps)", delta_s, 1.0f / delta_s);
 		SDL_SetWindowTitle(engine.window, fps);
 
 		client_world_update(&engine.client, engine.world, delta_s);

@@ -2,7 +2,7 @@
 
 #include "../common/entity.h"
 
-#define MAX_ENTITIES 11
+#define MAX_ENTITIES 10001
 
 enum has_component {
 	HAS_CAMERA = 1 << 0,

@@ -27,7 +27,6 @@ static inline void check_for_collision(Collide* collider, Collide* other)
 						.hit = {hit[0], hit[1], hit[2]},
 				};
 				collider->count++;
-				printf("Hit! %d", (int)collider->entity);
 			}
 			if (other_can_intersect && other->count < MAX_COLLISIONS) {
 				other->collisions[other->count] = (struct collision){
@@ -35,7 +34,6 @@ static inline void check_for_collision(Collide* collider, Collide* other)
 						.hit = {-hit[0], -hit[1], -hit[2]},
 				};
 				other->count++;
-				printf("Hit! %d", (int)other->entity);
 			}
 		}
 	}
@@ -62,9 +60,12 @@ void sys_collide(struct client* client, struct world* world, float delta)
 		}
 	}
 
+	// Check each collider for collisions with other colliders.
 	for (entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
 			Collide* collide = world->collide[i];
+
+			// Start with i + 1 so that each pair of colliders is checked only once.
 			for (entity j = i + 1; j < MAX_ENTITIES; j++) {
 				if ((world->signature[j] & QUERY) == QUERY) {
 					Collide* other = world->collide[j];

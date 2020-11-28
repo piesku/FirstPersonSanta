@@ -6,12 +6,12 @@
 #include "../common/entity.h"
 #include "../common/matrix.h"
 
-#define MAX_COLLISIONS 2
+#define MAX_COLLISIONS 5
 
 enum layer_mask {
-	LAYER_NONE,
-	LAYER_PLAYER,
-	LAYER_TERRAIN,
+	LAYER_NONE = 1 << 0,
+	LAYER_PLAYER = 1 << 1,
+	LAYER_TERRAIN = 1 << 2,
 };
 
 struct collision {
