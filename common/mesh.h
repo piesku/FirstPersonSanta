@@ -1,10 +1,6 @@
 #pragma once
 
-#ifdef __APPLE__
-#include <OpenGL/gl3.h>
-#else
-#include <GL/glew.h>
-#endif
+#include "gl.h"
 
 struct mesh {
 	GLuint vertex_buffer;

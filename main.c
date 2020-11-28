@@ -4,12 +4,8 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#ifdef __APPLE__
-#include <OpenGL/gl3.h>
-#else
-#include <GL/glew.h>
-#endif
 
+#include "common/gl.h"
 #include "common/texture.h"
 #include "game/client.h"
 #include "game/world.h"

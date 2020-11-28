@@ -2,12 +2,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#ifdef __APPLE__
-#include <OpenGL/gl3.h>
-#else
-#include <GL/glew.h>
-#endif
-
+#include "../common/gl.h"
 #include "../common/material.h"
 #include "../common/mesh.h"
 #include "index.h"
