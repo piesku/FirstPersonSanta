@@ -37,6 +37,10 @@ _FirstPerson_ uses [vcpkg](https://github.com/microsoft/vcpkg) to manage depende
         $ ./vcpkg install sdl2 sdl2-image          # For macOS
         $ ./vcpkg install sdl2 sdl2-image glew     # For Linux
 
+    - If the dependencies fail to build, you might need to install some extra headers. On Ubuntu:
+
+            $ sudo apt install libgl-dev libxext-dev
+
 3. `cd` into the repo and run `cmake` as usual:
 
         $ mkdir build
