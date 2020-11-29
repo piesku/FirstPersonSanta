@@ -24,7 +24,7 @@ void scene_collide(struct world* world)
 		collide->mask = LAYER_TERRAIN;
 	}
 
-	for (int i = 0; i < 500; i++) {
+	for (int i = 0; i < 200; i++) {
 		entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
