@@ -15,6 +15,9 @@ void sys_control_keyboard(struct client* client, struct world* world, float delt
 void sys_control_mouse(struct client* client, struct world* world, float delta);
 void sys_light(struct client* client, struct world* world);
 void sys_move(struct client* client, struct world* world, float delta);
+void sys_physics_integrate(struct client* client, struct world* world, float delta);
+void sys_physics_kinematic(struct client* client, struct world* world, float delta);
+void sys_physics_resolve(struct client* client, struct world* world, float delta);
 void sys_render(struct client* client, struct world* world);
 void sys_transform(struct client* client, struct world* world, float delta);
 
@@ -65,11 +68,21 @@ void client_teardown(struct client* client)
 
 void client_world_update(struct client* client, struct world* world, float delta)
 {
+	// Input.
 	sys_control_keyboard(client, world, delta);
 	sys_control_mouse(client, world, delta);
+
+	// Game logic.
 	sys_move(client, world, delta);
 	sys_transform(client, world, delta);
+
+	// Collisions and physics.
+	sys_physics_integrate(client, world, delta);
+	sys_transform(client, world, delta);
+	sys_physics_kinematic(client, world, delta);
 	sys_collide(client, world, delta);
+	sys_physics_resolve(client, world, delta);
+	sys_transform(client, world, delta);
 }
 
 void client_frame_update(struct client* client, struct world* world)

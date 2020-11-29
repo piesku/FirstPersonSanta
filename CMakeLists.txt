@@ -24,6 +24,7 @@ add_executable(FirstPerson
 	game/com_light.c
 	game/com_move.c
 	game/com_render.c
+	game/com_rigid_body.c
 	game/com_transform.c
 	game/mat_colored_unlit.c
 	game/mat_textured_unlit.c
@@ -31,12 +32,16 @@ add_executable(FirstPerson
 	game/sce_collide.c
 	game/sce_cube.c
 	game/sce_main.c
+	game/sce_physics.c
 	game/sys_camera.c
 	game/sys_collide.c
 	game/sys_control_keyboard.c
 	game/sys_control_mouse.c
 	game/sys_light.c
 	game/sys_move.c
+	game/sys_physics_integrate.c
+	game/sys_physics_kinematic.c
+	game/sys_physics_resolve.c
 	game/sys_render.c
 	game/sys_transform.c
 	game/world.c

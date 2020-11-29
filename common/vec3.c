@@ -16,6 +16,25 @@ float vec3_length(const vec3 a)
 	return len;
 }
 
+float vec3_dot(const vec3 a, const vec3 b)
+{
+	return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+}
+
+void vec3_set(vec3 out, float x, float y, float z)
+{
+	out[0] = x;
+	out[1] = y;
+	out[2] = z;
+}
+
+void vec3_copy(vec3 out, const vec3 a)
+{
+	out[0] = a[0];
+	out[1] = a[1];
+	out[2] = a[2];
+}
+
 void vec3_normalize(vec3 out, const vec3 a)
 {
 	float x = a[0];
@@ -24,7 +43,7 @@ void vec3_normalize(vec3 out, const vec3 a)
 	float len = x * x + y * y + z * z;
 
 	if (len > 0.0f) {
-		len = 1.0f / sqrt(len);
+		len = 1.0f / sqrtf(len);
 	}
 
 	out[0] = a[0] * len;

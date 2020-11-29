@@ -13,6 +13,7 @@
 void scene_collide(struct world* world);
 void scene_cube(struct world* world);
 void scene_main(struct world* world);
+void scene_physics(struct world* world);
 
 struct engine {
 	clock_t last_time;
@@ -119,7 +120,7 @@ int main(int argc, char* argv[])
 	};
 
 	engine_init_display(&engine);
-	scene_collide(engine.world);
+	scene_physics(engine.world);
 
 	bool quit = false;
 	while (quit == false) {

@@ -22,6 +22,9 @@ float lerp(float from, float to, float progress);
 float clamp(float mini, float maxi, float num);
 
 float vec3_length(const vec3 a);
+float vec3_dot(const vec3 a, const vec3 b);
+void vec3_set(vec3 out, float x, float y, float z);
+void vec3_copy(vec3 out, const vec3 a);
 void vec3_normalize(vec3 out, const vec3 a);
 void vec3_add(vec3 out, const vec3 a, const vec3 b);
 void vec3_subtract(vec3 out, const vec3 a, const vec3 b);

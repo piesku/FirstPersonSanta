@@ -11,7 +11,8 @@ enum has_component {
 	HAS_MOVE = 1 << 3,
 	HAS_LIGHT = 1 << 4,
 	HAS_RENDER = 1 << 5,
-	HAS_TRANSFORM = 1 << 6,
+	HAS_RIGID_BODY = 1 << 6,
+	HAS_TRANSFORM = 1 << 7,
 };
 
 struct world {
@@ -23,6 +24,7 @@ struct world {
 	struct move* move[MAX_ENTITIES];
 	struct light* light[MAX_ENTITIES];
 	union render* render[MAX_ENTITIES];
+	struct rigid_body* rigid_body[MAX_ENTITIES];
 	struct transform* transform[MAX_ENTITIES];
 };
 

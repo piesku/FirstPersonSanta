@@ -12,6 +12,7 @@ enum layer_mask {
 	LAYER_NONE = 1 << 0,
 	LAYER_PLAYER = 1 << 1,
 	LAYER_TERRAIN = 1 << 2,
+	LAYER_MOVABLE = 1 << 3,
 };
 
 struct collision {
