@@ -120,7 +120,7 @@ int main(int argc, char* argv[])
 	};
 
 	engine_init_display(&engine);
-	scene_physics(engine.world);
+	scene_main(engine.world);
 
 	bool quit = false;
 	while (quit == false) {

@@ -117,7 +117,24 @@ void sys_render(struct client* client, struct world* world)
 			switch (render->kind) {
 				case RENDER_COLORED_UNLIT:
 					use_colored_unlit(client, &render->colored_unlit);
+
+					glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+					glLineWidth(10.0f);
+
+					RenderColoredUnlit outline = render->colored_unlit;
+					outline.color[0] = 0;
+					outline.color[1] = 0;
+					outline.color[2] = 0;
+					outline.color[3] = 1;
+
+					draw_colored_unlit(client, transform, &outline);
+
+					glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+					glEnable(GL_POLYGON_OFFSET_FILL);
+					glPolygonOffset(1.0, 1.0);
 					draw_colored_unlit(client, transform, &render->colored_unlit);
+					glDisable(GL_POLYGON_OFFSET_FILL);
+
 					break;
 				case RENDER_COLORED_DIFFUSE:
 					use_colored_diffuse(client, &render->colored_diffuse);
