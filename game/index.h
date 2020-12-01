@@ -1,6 +1,8 @@
 #pragma once
 
 enum texture_index {
+	TEX_RENDER_RGBA,
+	TEX_RENDER_DEPTH,
 	TEX_CHECKER,
 	TEXTURES_LENGTH,
 };

@@ -33,7 +33,7 @@ struct client {
 	struct material materials[MATERIALS_LENGTH];
 	struct mesh meshes[MESHES_LENGTH];
 
-	struct camera* camera;
+	union camera* cameras[2];
 	struct lights {
 		float positions[4 * 8];
 		float details[4 * 8];

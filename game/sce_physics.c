@@ -14,7 +14,7 @@ void scene_physics(struct world* world)
 	srand(time(NULL));
 
 	{
-		entity entity = blueprint_camera(world);
+		entity entity = blueprint_camera_display(world);
 		world->transform[entity]->translation[0] = 0.0;
 		world->transform[entity]->translation[1] = 2.0;
 		world->transform[entity]->translation[2] = 50.0;

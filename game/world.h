@@ -18,7 +18,7 @@ enum has_component {
 struct world {
 	signature signature[MAX_ENTITIES];
 
-	struct camera* camera[MAX_ENTITIES];
+	union camera* camera[MAX_ENTITIES];
 	struct collide* collide[MAX_ENTITIES];
 	struct control_player* control_player[MAX_ENTITIES];
 	struct move* move[MAX_ENTITIES];

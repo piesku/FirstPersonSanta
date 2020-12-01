@@ -13,7 +13,7 @@ void scene_main(struct world* world)
 	srand(time(NULL));
 
 	{
-		entity camera = blueprint_camera(world);
+		entity camera = blueprint_camera_display(world);
 		world->transform[camera]->translation[0] = 0.0;
 		world->transform[camera]->translation[1] = 2.0;
 		world->transform[camera]->translation[2] = 0.0;

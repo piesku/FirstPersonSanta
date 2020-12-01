@@ -34,7 +34,7 @@ void engine_load_texture(struct engine* engine, enum texture_index index, const 
 		printf("IMG_Load: %s\n", IMG_GetError());
 		exit(1);
 	}
-	engine->client.textures[index] = create_texture_rgba(
+	engine->client.textures[index] = create_texture_from(
 			image->pixels, image->w, image->h);
 	SDL_FreeSurface(image);
 }

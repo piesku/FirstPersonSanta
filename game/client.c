@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "../common/matrix.h"
+#include "../common/texture.h"
 
 struct material mat_colored_unlit(void);
 struct material mat_textured_unlit(void);
@@ -36,7 +37,11 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	client->materials[MAT_TEXTURED_UNLIT] = mat_textured_unlit();
 	client->meshes[MESH_CUBE] = mesh_cube();
 
-	client->camera = NULL;
+	client->textures[TEX_RENDER_RGBA] = create_texture_rgba(256, 256);
+	client->textures[TEX_RENDER_DEPTH] = create_texture_depth(256, 256);
+
+	client->cameras[0] = NULL;
+	client->cameras[1] = NULL;
 
 	// OpenGL 3.3. (core profile, i.e. in strict mode) requires at least one VAO.
 	GLuint vao;

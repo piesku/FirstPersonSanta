@@ -13,7 +13,7 @@ void scene_cube(struct world* world)
 
 	{
 		// Camera
-		entity camera = blueprint_camera(world);
+		entity camera = blueprint_camera_display(world);
 	}
 
 	{
