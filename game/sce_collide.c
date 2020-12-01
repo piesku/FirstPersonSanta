@@ -35,9 +35,9 @@ void scene_collide(struct world* world)
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_CUBE;
-		render->color[0] = (rand() % 100) / 100.0f;
-		render->color[1] = (rand() % 100) / 100.0f;
-		render->color[2] = (rand() % 100) / 100.0f;
+		render->color.x = (rand() % 100) / 100.0f;
+		render->color.y= (rand() % 100) / 100.0f;
+		render->color.z = (rand() % 100) / 100.0f;
 
 		Collide* collide = mix_collide(world, entity);
 		collide->dynamic = true;

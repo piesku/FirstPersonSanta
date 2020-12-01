@@ -23,7 +23,7 @@ static inline void draw_colored_unlit(struct client* client, Transform* transfor
 	struct material material = client->materials[render->material];
 
 	glUniformMatrix4fv(material.layout.colored_unlit.world, 1, GL_FALSE, transform->world);
-	glUniform4fv(material.layout.colored_unlit.color, 1, render->color);
+	glUniform4fv(material.layout.colored_unlit.color, 1, &render->color);
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.vertex_buffer);
 	glEnableVertexAttribArray(material.layout.colored_unlit.vertex_position);
@@ -50,7 +50,7 @@ static inline void draw_colored_diffuse(struct client* client, Transform* transf
 
 	glUniformMatrix4fv(material.layout.colored_diffuse.world, 1, GL_FALSE, transform->world);
 	glUniformMatrix4fv(material.layout.colored_diffuse.self, 1, GL_FALSE, transform->self);
-	glUniform4fv(material.layout.colored_diffuse.color, 1, render->color);
+	glUniform4fv(material.layout.colored_diffuse.color, 1, &render->color);
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.vertex_buffer);
 	glEnableVertexAttribArray(material.layout.colored_diffuse.vertex_position);

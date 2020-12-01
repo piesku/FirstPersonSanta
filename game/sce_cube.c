@@ -26,8 +26,8 @@ void scene_cube(struct world* world)
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_CUBE;
-		render->color[0] = 0.32;
-		render->color[1] = 0.4;
-		render->color[2] = 0.88;
+		render->color.x = 0.32;
+		render->color.y = 0.4;
+		render->color.z = 0.88;
 	}
 }
