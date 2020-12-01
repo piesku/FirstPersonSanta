@@ -33,8 +33,12 @@ typedef struct quat {
 	float w;
 } quat;
 
-
-typedef float mat4[16];
+typedef struct mat4 {
+	float m00; float m01; float m02; float m03;
+	float m10; float m11; float m12; float m13;
+	float m20; float m21; float m22; float m23;
+	float m30; float m31; float m32; float m33;
+} mat4;
 
 float signf(float x);
 float absf(float x);
@@ -60,16 +64,16 @@ void quat_from_axis(quat* out, const vec3 axis, float angle);
 void quat_lerp(quat* out, const quat a, const quat b, float t);
 void quat_slerp(quat* out, const quat a, const quat b, float t);
 
-void mat4_identity(mat4 a);
-void mat4_set(mat4 out,
+void mat4_identity(mat4* a);
+void mat4_set(mat4* out,
 		float m00, float m01, float m02, float m03,
 		float m10, float m11, float m12, float m13,
 		float m20, float m21, float m22, float m23,
 		float m30, float m31, float m32, float m33);
-bool mat4_invert(mat4 out, const mat4 a);
-void mat4_multiply(mat4 out, const mat4 a, const mat4 b);
-void mat4_translate(mat4 out, const mat4 mat, const vec3 vec);
-bool mat4_rotate(mat4 out, const mat4 mat, float angle, const vec3 axis);
-void mat4_perspective(mat4 out, float fovy, float aspect, float near, float far);
-void mat4_compose(mat4 out, const vec3 v, const quat q, const vec3 s);
+bool mat4_invert(mat4* out, const mat4 a);
+void mat4_multiply(mat4* out, const mat4 a, const mat4 b);
+void mat4_translate(mat4* out, const mat4 mat, const vec3 vec);
+bool mat4_rotate(mat4* out, const mat4 mat, float angle, const vec3 axis);
+void mat4_perspective(mat4* out, float fovy, float aspect, float near, float far);
+void mat4_compose(mat4* out, const vec3 v, const quat q, const vec3 s);
 void mat4_get_translation(vec3* out, const mat4 mat);

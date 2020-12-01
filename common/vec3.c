@@ -75,11 +75,11 @@ void vec3_scale(vec3* out, const vec3 a, float b)
 void vec3_transform_point(vec3* out, const vec3 a, const mat4 m)
 {
 	float x = a.x, y = a.y, z = a.z;
-	float w = m[3] * x + m[7] * y + m[11] * z + m[15];
+	float w = m.m03 * x + m.m13 * y + m.m23 * z + m.m33;
 	w = w || 1.0f;
-	out->x = (m[0] * x + m[4] * y + m[8] * z + m[12]) / w;
-	out->y = (m[1] * x + m[5] * y + m[9] * z + m[13]) / w;
-	out->z = (m[2] * x + m[6] * y + m[10] * z + m[14]) / w;
+	out->x = (m.m00 * x + m.m10 * y + m.m20 * z + m.m30) / w;
+	out->y = (m.m01 * x + m.m11 * y + m.m21 * z + m.m31) / w;
+	out->z = (m.m02 * x + m.m12 * y + m.m21 * z + m.m32) / w;
 }
 
 void vec3_transform_direction(vec3* out, const vec3 a, const mat4 m)
