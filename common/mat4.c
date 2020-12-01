@@ -4,7 +4,7 @@
 
 void mat4_identity(mat4* mat)
 {
-	mat4_set(&mat,
+	mat4_set(mat,
 			1.0f, 0.0f, 0.0f, 0.0f,
 			0.0f, 1.0f, 0.0f, 0.0f,
 			0.0f, 0.0f, 1.0f, 0.0f,
