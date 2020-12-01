@@ -22,7 +22,7 @@ struct world {
 	struct collide* collide[MAX_ENTITIES];
 	struct control_player* control_player[MAX_ENTITIES];
 	struct move* move[MAX_ENTITIES];
-	struct light* light[MAX_ENTITIES];
+	union light* light[MAX_ENTITIES];
 	union render* render[MAX_ENTITIES];
 	struct rigid_body* rigid_body[MAX_ENTITIES];
 	struct transform* transform[MAX_ENTITIES];

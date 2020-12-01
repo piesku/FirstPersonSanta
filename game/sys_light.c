@@ -18,20 +18,31 @@ static inline void update(struct client* client, struct world* world, entity ent
 	mat4_get_translation(world_position, transform->world);
 
 	if (light->kind == LIGHT_DIRECTIONAL) {
-		// For directional lights, their normalized position in the world
-		// describes the light's normal.
 		vec3_normalize(world_position, world_position);
+	}
+
+	switch (light->kind) {
+		case LIGHT_DIRECTIONAL:
+			// The normalized world position describes the light's normal.
+			vec3_normalize(world_position, world_position);
+
+			client->lights.details[4 * idx + 0] = light->directional.color[0];
+			client->lights.details[4 * idx + 1] = light->directional.color[1];
+			client->lights.details[4 * idx + 2] = light->directional.color[2];
+			client->lights.details[4 * idx + 3] = light->directional.intensity;
+			break;
+		case LIGHT_POINT:
+			client->lights.details[4 * idx + 0] = light->point.color[0];
+			client->lights.details[4 * idx + 1] = light->point.color[1];
+			client->lights.details[4 * idx + 2] = light->point.color[2];
+			client->lights.details[4 * idx + 3] = light->point.intensity;
+			break;
 	}
 
 	client->lights.positions[4 * idx + 0] = world_position[0];
 	client->lights.positions[4 * idx + 1] = world_position[1];
 	client->lights.positions[4 * idx + 2] = world_position[2];
 	client->lights.positions[4 * idx + 3] = (float)light->kind;
-
-	client->lights.details[4 * idx + 0] = light->color[0];
-	client->lights.details[4 * idx + 1] = light->color[1];
-	client->lights.details[4 * idx + 2] = light->color[2];
-	client->lights.details[4 * idx + 3] = light->intensity;
 }
 
 void sys_light(struct client* client, struct world* world)
