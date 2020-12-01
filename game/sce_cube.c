@@ -21,7 +21,7 @@ void scene_cube(struct world* world)
 		entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
-		transform->translation[2] = -5.0;
+		transform->translation.z = -5.0;
 
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;

@@ -15,17 +15,17 @@ void scene_physics(struct world* world)
 
 	{
 		entity entity = blueprint_camera(world);
-		world->transform[entity]->translation[0] = 0.0;
-		world->transform[entity]->translation[1] = 2.0;
-		world->transform[entity]->translation[2] = 50.0;
+		world->transform[entity]->translation.x = 0.0;
+		world->transform[entity]->translation.y = 2.0;
+		world->transform[entity]->translation.z = 50.0;
 
 		Collide* collide = mix_collide(world, entity);
 		collide->dynamic = true;
 		collide->layers = LAYER_PLAYER;
 		collide->mask = LAYER_TERRAIN;
-		collide->aabb.size[0] = 2.0f;
-		collide->aabb.size[1] = 2.0f;
-		collide->aabb.size[2] = 2.0f;
+		collide->aabb.size.x = 2.0f;
+		collide->aabb.size.y = 2.0f;
+		collide->aabb.size.z = 2.0f;
 
 		RigidBody* rigid_body = mix_rigid_body(world, entity);
 		rigid_body->kind = RIGID_KINEMATIC;
@@ -36,9 +36,9 @@ void scene_physics(struct world* world)
 		entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
-		transform->scale[0] = 20.0;
-		transform->scale[1] = 1.0;
-		transform->scale[2] = 20.0;
+		transform->scale.x = 20.0;
+		transform->scale.y = 1.0;
+		transform->scale.z = 20.0;
 
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;
@@ -51,9 +51,9 @@ void scene_physics(struct world* world)
 		collide->dynamic = false;
 		collide->layers = LAYER_TERRAIN;
 		collide->mask = LAYER_NONE;
-		collide->aabb.size[0] = 20.0f;
-		collide->aabb.size[1] = 1.0f;
-		collide->aabb.size[2] = 20.0f;
+		collide->aabb.size.x = 20.0f;
+		collide->aabb.size.y = 1.0f;
+		collide->aabb.size.z = 20.0f;
 
 		RigidBody* rigid_body = mix_rigid_body(world, entity);
 		rigid_body->kind = RIGID_STATIC;
@@ -63,9 +63,9 @@ void scene_physics(struct world* world)
 		entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
-		transform->translation[0] = (rand() % 10 - 5) * 0.9f;
-		transform->translation[1] = (float)i + 20.0f;
-		transform->translation[2] = (rand() % 10 - 5) * 0.9f;
+		transform->translation.x = (rand() % 10 - 5) * 0.9f;
+		transform->translation.y = (float)i + 20.0f;
+		transform->translation.z = (rand() % 10 - 5) * 0.9f;
 
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;

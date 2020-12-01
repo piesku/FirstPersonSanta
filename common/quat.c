@@ -44,9 +44,9 @@ void quat_from_euler(quat out, float x, float y, float z)
 void quat_from_axis(quat out, const vec3 axis, float angle)
 {
 	float half = angle / 2.0f;
-	out[0] = sinf(half) * axis[0];
-	out[1] = sinf(half) * axis[1];
-	out[2] = sinf(half) * axis[2];
+	out[0] = sinf(half) * axis.x;
+	out[1] = sinf(half) * axis.y;
+	out[2] = sinf(half) * axis.z;
 	out[3] = cosf(half);
 }
 

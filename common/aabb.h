@@ -18,5 +18,5 @@ struct aabb {
 };
 
 void compute_aabb_without_scale(mat4 world, struct aabb* aabb);
-void penetrate_aabb(vec3 out, struct aabb* a, struct aabb* b);
+void penetrate_aabb(vec3* out, struct aabb* a, struct aabb* b);
 bool intersect_aabb(struct aabb* a, struct aabb* b);

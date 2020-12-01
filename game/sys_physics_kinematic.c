@@ -14,14 +14,14 @@ static inline void update(struct world* world, entity entity, float delta)
 
 	if (rigid_body->kind == RIGID_KINEMATIC) {
 		vec3 current_position = {0};
-		mat4_get_translation(current_position, transform->world);
+		mat4_get_translation(&current_position, transform->world);
 		vec3 movement = {0};
-		vec3_subtract(movement, current_position, rigid_body->last_position);
+		vec3_subtract(&movement, current_position, rigid_body->last_position);
 
 		// Compute velocity from this frame's movement.
-		vec3_scale(rigid_body->velocity_integrated, movement, 1 / delta);
+		vec3_scale(&rigid_body->velocity_integrated, movement, 1 / delta);
 
-		vec3_copy(rigid_body->last_position, current_position);
+		vec3_copy(&rigid_body->last_position, current_position);
 	}
 }
 

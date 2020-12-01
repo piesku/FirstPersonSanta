@@ -17,27 +17,27 @@ static inline void update(struct client* client, struct world* world, entity ent
 	Move* move = world->move[entity];
 
 	if (control->move) {
-		move->direction[0] = 0;
-		move->direction[1] = 0;
-		move->direction[2] = 0;
+		move->direction.x = 0;
+		move->direction.y = 0;
+		move->direction.z = 0;
 
 		if (client->input_state.key_w) {
-			move->direction[2] += 1;
+			move->direction.z += 1;
 			move->dirty |= MOVE_DIRTY_DIRECTION;
 		}
 
 		if (client->input_state.key_s) {
-			move->direction[2] -= 1;
+			move->direction.z -= 1;
 			move->dirty |= MOVE_DIRTY_DIRECTION;
 		}
 
 		if (client->input_state.key_a) {
-			move->direction[0] += 1;
+			move->direction.x += 1;
 			move->dirty |= MOVE_DIRTY_DIRECTION;
 		}
 
 		if (client->input_state.key_d) {
-			move->direction[0] -= 1;
+			move->direction.x -= 1;
 			move->dirty |= MOVE_DIRTY_DIRECTION;
 		}
 	}

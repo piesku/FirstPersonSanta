@@ -27,22 +27,22 @@ static inline void update(struct client* client, struct world* world, entity ent
 
 		// Transform the direction into the world or the parent space. This will
 		// also scale the result by the scale encoded in the transform.
-		vec3_transform_direction(direction, move->direction, transform->world);
+		vec3_transform_direction(&direction, move->direction, transform->world);
 		if (transform->parent) {
-			vec3_transform_direction(direction,
+			vec3_transform_direction(&direction,
 					direction,
 					world->transform[transform->parent]->self);
 		}
 
 		// Normalize the direction to remove the transform's scale. The length
 		// of the orignal direction is now lost.
-		vec3_normalize(direction, direction);
+		vec3_normalize(&direction, direction);
 
 		// Scale by the amount and distance traveled in this tick.
-		vec3_scale(direction, direction, amount * move->movement_speed * delta);
+		vec3_scale(&direction, direction, amount * move->movement_speed * delta);
 
 		// Apply the movement to the transform.
-		vec3_add(transform->translation, transform->translation, direction);
+		vec3_add(&transform->translation, transform->translation, direction);
 		transform->dirty = true;
 
 		move->dirty &= ~MOVE_DIRTY_DIRECTION;

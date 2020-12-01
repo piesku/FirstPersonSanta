@@ -31,7 +31,7 @@ static inline void update(struct world* world, entity entity, float delta)
 				// Dynamic rigid bodies are only supported for top-level
 				// entities. Thus, no need to apply the world → self → local
 				// conversion to the collision response. Local space is world space.
-				vec3_add(transform->translation, transform->translation, collision.hit);
+				vec3_add(&transform->translation, transform->translation, collision.hit);
 				transform->dirty = true;
 
 				// Assume mass = 1 for all rigid bodies. On collision,
@@ -46,29 +46,29 @@ static inline void update(struct world* world, entity entity, float delta)
 						//   v — the incident velocity vector
 						//   n — the normal of the surface of reflection
 						// Compute n.
-						vec3_normalize(a, collision.hit);
+						vec3_normalize(&a, collision.hit);
 						// Compute - 2 * (v·n) * n.
-						vec3_scale(a, a, -2 * vec3_dot(rigid_body->velocity_integrated, a));
-						vec3_add(rigid_body->velocity_resolved, rigid_body->velocity_integrated, a);
+						vec3_scale(&a, a, -2 * vec3_dot(rigid_body->velocity_integrated, a));
+						vec3_add(&rigid_body->velocity_resolved, rigid_body->velocity_integrated, a);
 						break;
 					case RIGID_DYNAMIC:
 					case RIGID_KINEMATIC:
-						vec3_copy(rigid_body->velocity_resolved, other_body->velocity_integrated);
+						vec3_copy(&rigid_body->velocity_resolved, other_body->velocity_integrated);
 						break;
 				}
 
 				// Collisions aren't 100% elastic.
-				vec3_scale(rigid_body->velocity_resolved, rigid_body->velocity_resolved, 0.8);
+				vec3_scale(&rigid_body->velocity_resolved, rigid_body->velocity_resolved, 0.8);
 
-				if (collision.hit[1] > 0 && rigid_body->velocity_resolved[1] < 1) {
+				if (collision.hit.y > 0 && rigid_body->velocity_resolved.y < 1) {
 					// Collision from the bottom stops the downward movement.
-					rigid_body->velocity_resolved[1] = 0;
+					rigid_body->velocity_resolved.y = 0;
 				}
 			}
 		}
 
 		if (!has_collision) {
-			vec3_copy(rigid_body->velocity_resolved, rigid_body->velocity_integrated);
+			vec3_copy(&rigid_body->velocity_resolved, rigid_body->velocity_integrated);
 		}
 	}
 }

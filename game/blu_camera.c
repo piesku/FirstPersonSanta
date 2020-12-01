@@ -12,9 +12,9 @@ entity blueprint_camera(struct world* world)
 	entity a = create_entity(world);
 
 	Transform* transform_a = mix_transform(world, a);
-	transform_a->translation[0] = 0.0;
-	transform_a->translation[1] = 0.0;
-	transform_a->translation[2] = 2.0;
+	transform_a->translation.x = 0.0;
+	transform_a->translation.y = 0.0;
+	transform_a->translation.z = 2.0;
 	transform_a->rotation[0] = 0.0;
 	transform_a->rotation[1] = 1.0;
 	transform_a->rotation[2] = 0.0;

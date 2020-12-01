@@ -127,7 +127,7 @@ void mat4_multiply(mat4 out, const mat4 a, const mat4 b)
 
 void mat4_translate(mat4 out, const mat4 mat, const vec3 vec)
 {
-	float x = vec[0], y = vec[1], z = vec[2];
+	float x = vec.x, y = vec.y, z = vec.z;
 	float a00, a01, a02, a03;
 	float a10, a11, a12, a13;
 	float a20, a21, a22, a23;
@@ -173,7 +173,7 @@ void mat4_translate(mat4 out, const mat4 mat, const vec3 vec)
 
 bool mat4_rotate(mat4 out, const mat4 mat, float angle, const vec3 axis)
 {
-	float x = axis[0], y = axis[1], z = axis[2];
+	float x = axis.x, y = axis.y, z = axis.z;
 	float len = sqrtf(x * x + y * y + z * z);
 	float s, c, t;
 	float a00, a01, a02, a03;
@@ -281,9 +281,9 @@ void mat4_compose(mat4 out, const vec3 v, const quat q, const vec3 s)
 	float wx = w * x2;
 	float wy = w * y2;
 	float wz = w * z2;
-	float sx = s[0];
-	float sy = s[1];
-	float sz = s[2];
+	float sx = s.x;
+	float sy = s.y;
+	float sz = s.z;
 	out[0] = (1.0f - (yy + zz)) * sx;
 	out[1] = (xy + wz) * sx;
 	out[2] = (xz - wy) * sx;
@@ -296,15 +296,15 @@ void mat4_compose(mat4 out, const vec3 v, const quat q, const vec3 s)
 	out[9] = (yz - wx) * sz;
 	out[10] = (1.0f - (xx + yy)) * sz;
 	out[11] = 0.0f;
-	out[12] = v[0];
-	out[13] = v[1];
-	out[14] = v[2];
+	out[12] = v.x;
+	out[13] = v.y;
+	out[14] = v.z;
 	out[15] = 1.0f;
 }
 
-void mat4_get_translation(vec3 out, const mat4 mat)
+void mat4_get_translation(vec3* out, const mat4 mat)
 {
-	out[0] = mat[12];
-	out[1] = mat[13];
-	out[2] = mat[14];
+	out->x = mat[12];
+	out->y = mat[13];
+	out->z = mat[14];
 }
