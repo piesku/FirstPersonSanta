@@ -265,10 +265,10 @@ void mat4_perspective(mat4 out, float fovy, float aspect, float near, float far)
 void mat4_compose(mat4 out, const vec3 v, const quat q, const vec3 s)
 {
 	// Quaternion math
-	float x = q[0];
-	float y = q[1];
-	float z = q[2];
-	float w = q[3];
+	float x = q.x;
+	float y = q.y;
+	float z = q.z;
+	float w = q.w;
 	float x2 = x + x;
 	float y2 = y + y;
 	float z2 = z + z;
