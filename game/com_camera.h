@@ -37,7 +37,7 @@ typedef struct camera_framebuffer {
 	float far;
 	mat4 projection;
 	struct eye eye;
-	enum framebuffer_index target;
+	enum render_target_index target;
 } CameraFramebuffer;
 
 typedef union camera {

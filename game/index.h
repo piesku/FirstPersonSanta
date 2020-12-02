@@ -1,10 +1,10 @@
 #pragma once
 
-enum framebuffer_index {
-	FB_NONE,
-	FB_RENDER,
-	FB_MINIMAP,
-	FRAMEBUFFERS_LENGTH,
+enum render_target_index {
+	RENDER_TARGET_NONE,
+	RENDER_TARGET_RENDER,
+	RENDER_TARGET_MINIMAP,
+	RENDER_TARGETS_LENGTH,
 };
 
 enum texture_index {

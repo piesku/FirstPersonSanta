@@ -35,7 +35,7 @@ struct client {
 	struct input_state input_state;
 	struct input_state input_delta;
 
-	struct render_target targets[FRAMEBUFFERS_LENGTH];
+	struct render_target targets[RENDER_TARGETS_LENGTH];
 	struct material materials[MATERIALS_LENGTH];
 	struct mesh meshes[MESHES_LENGTH];
 	GLuint textures[TEXTURES_LENGTH];

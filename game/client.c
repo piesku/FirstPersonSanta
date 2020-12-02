@@ -34,7 +34,7 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	client_resize(client, width, height);
 
 	{
-		struct render_target* target = &client->targets[FB_RENDER];
+		struct render_target* target = &client->targets[RENDER_TARGET_RENDER];
 		target->width = width;
 		target->height = height;
 
@@ -61,7 +61,7 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	}
 
 	{
-		struct render_target* target = &client->targets[FB_MINIMAP];
+		struct render_target* target = &client->targets[RENDER_TARGET_MINIMAP];
 		target->width = 256;
 		target->height = 256;
 
@@ -126,7 +126,7 @@ void client_teardown(struct client* client)
 	glDeleteTextures(TEXTURES_LENGTH, client->textures);
 
 	// Delete framebuffers.
-	for (int8_t i = 0; i < FRAMEBUFFERS_LENGTH; i++) {
+	for (int8_t i = 0; i < RENDER_TARGETS_LENGTH; i++) {
 		glDeleteFramebuffers(1, &client->targets[i].framebuffer);
 	}
 }
