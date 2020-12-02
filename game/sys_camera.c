@@ -33,6 +33,7 @@ static inline void update_display(struct client* client, struct world* world, en
 					camera->far);
 		}
 	}
+
 	mat4_multiply(camera->eye.pv, camera->projection, transform->self);
 }
 
@@ -40,6 +41,27 @@ static inline void update_framebuffer(struct client* client, struct world* world
 {
 	Transform* transform = world->transform[entity];
 	CameraFramebuffer* camera = &world->camera[entity]->framebuffer;
+
+	if (client->resized) {
+		struct render_target* target = &client->targets[camera->target];
+		float aspect = (float)target->width / (float)target->height;
+		if (aspect > 1.0) {
+			// Landscape orientation.
+			mat4_perspective(camera->projection,
+					camera->fov_y,
+					aspect,
+					camera->near,
+					camera->far);
+		} else {
+			// Portrait orientation.
+			mat4_perspective(camera->projection,
+					camera->fov_y / aspect,
+					aspect,
+					camera->near,
+					camera->far);
+		}
+	}
+
 	mat4_multiply(camera->eye.pv, camera->projection, transform->self);
 }
 

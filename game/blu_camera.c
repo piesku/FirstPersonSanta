@@ -130,9 +130,6 @@ entity blueprint_camera_player(struct world* world)
 			camera->clear_color[2] = 0.9f;
 			camera->clear_color[3] = 1.0f;
 			camera->target = RENDER_TARGET_RENDER;
-
-			float aspect = 960.0f / 600.0f;
-			mat4_perspective(camera->projection, camera->fov_y, aspect, camera->near, camera->far);
 		}
 	}
 
@@ -168,8 +165,6 @@ entity blueprint_camera_minimap(struct world* world)
 		camera->clear_color[2] = 1.0f;
 		camera->clear_color[3] = 1.0f;
 		camera->target = RENDER_TARGET_MINIMAP;
-
-		mat4_perspective(camera->projection, camera->fov_y, 1.0f, camera->near, camera->far);
 	}
 
 	return a;
