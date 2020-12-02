@@ -9,6 +9,7 @@
 struct material mat_colored_unlit(void);
 struct material mat_textured_unlit(void);
 struct mesh mesh_cube(void);
+struct mesh mesh_quad(void);
 
 void sys_camera(struct client* client, struct world* world);
 void sys_collide(struct client* client, struct world* world, float delta);
@@ -56,6 +57,7 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	client->materials[MAT_COLORED_UNLIT] = mat_colored_unlit();
 	client->materials[MAT_TEXTURED_UNLIT] = mat_textured_unlit();
 	client->meshes[MESH_CUBE] = mesh_cube();
+	client->meshes[MESH_QUAD] = mesh_quad();
 
 	client->cameras[0] = NULL;
 	client->cameras[1] = NULL;

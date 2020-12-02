@@ -29,6 +29,7 @@ add_executable(FirstPerson
 	game/mat_colored_unlit.c
 	game/mat_textured_unlit.c
 	game/mesh_cube.c
+	game/mesh_quad.c
 	game/sce_collide.c
 	game/sce_cube.c
 	game/sce_main.c

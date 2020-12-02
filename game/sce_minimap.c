@@ -51,7 +51,7 @@ void scene_minimap(struct world* world)
 	}
 
 	{
-		// Minimap cube.
+		// Minimap quad.
 		entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
@@ -61,7 +61,7 @@ void scene_minimap(struct world* world)
 
 		RenderTexturedUnlit* render = mix_render_textured_unlit(world, entity);
 		render->material = MAT_TEXTURED_UNLIT;
-		render->mesh = MESH_CUBE;
+		render->mesh = MESH_QUAD;
 		render->texture = TEX_RENDER_RGBA;
 	}
 }
