@@ -15,9 +15,6 @@ entity blueprint_camera_display(struct world* world)
 	entity a = create_entity(world);
 
 	Transform* transform_a = mix_transform(world, a);
-	transform_a->translation[0] = 0.0;
-	transform_a->translation[1] = 0.0;
-	transform_a->translation[2] = 2.0;
 	transform_a->rotation[0] = 0.0;
 	transform_a->rotation[1] = 1.0;
 	transform_a->rotation[2] = 0.0;
@@ -102,31 +99,16 @@ entity blueprint_camera_framebuffer(struct world* world)
 		camera->fov_y = 1.0;
 		camera->near = 0.1;
 		camera->far = 1000.0;
-		camera->clear_color[0] = 0.9f;
-		camera->clear_color[1] = 0.9f;
-		camera->clear_color[2] = 0.9f;
+		camera->clear_color[0] = 1.0f;
+		camera->clear_color[1] = 1.0f;
+		camera->clear_color[2] = 1.0f;
 		camera->clear_color[3] = 1.0f;
 
 		mat4_perspective(camera->projection, camera->fov_y, 1.0f, camera->near, camera->far);
 
-		glCreateFramebuffers(1, &camera->target);
-		glBindFramebuffer(GL_FRAMEBUFFER, camera->target);
-
+		camera->target = FB_RENDER_TO_TEXTURE;
 		camera->render_texture = TEX_RENDER_RGBA;
-		glFramebufferTexture2D(
-				GL_FRAMEBUFFER,
-				GL_COLOR_ATTACHMENT0,
-				GL_TEXTURE_2D,
-				camera->render_texture,
-				0);
-
 		camera->depth_texture = TEX_RENDER_DEPTH;
-		glFramebufferTexture2D(
-				GL_FRAMEBUFFER,
-				GL_DEPTH_ATTACHMENT,
-				GL_TEXTURE_2D,
-				camera->depth_texture,
-				0);
 
 		camera->width = 256;
 		camera->height = 256;

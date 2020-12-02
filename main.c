@@ -13,6 +13,7 @@
 void scene_collide(struct world* world);
 void scene_cube(struct world* world);
 void scene_main(struct world* world);
+void scene_minimap(struct world* world);
 void scene_physics(struct world* world);
 
 struct engine {
@@ -120,7 +121,7 @@ int main(int argc, char* argv[])
 	};
 
 	engine_init_display(&engine);
-	scene_physics(engine.world);
+	scene_minimap(engine.world);
 
 	bool quit = false;
 	while (quit == false) {

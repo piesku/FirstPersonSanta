@@ -1,6 +1,13 @@
 #pragma once
 
+enum framebuffer_index {
+	FB_NONE,
+	FB_RENDER_TO_TEXTURE,
+	FRAMEBUFERS_LENGTH,
+};
+
 enum texture_index {
+	TEX_NONE,
 	TEX_RENDER_RGBA,
 	TEX_RENDER_DEPTH,
 	TEX_CHECKER,

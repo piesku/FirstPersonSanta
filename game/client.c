@@ -27,18 +27,35 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glFrontFace(GL_CW);
-	glViewport(0, 0, width, height);
 
-	client->width = width;
-	client->height = height;
-	client->resized = true;
+	client_resize(client, width, height);
+
+	client->textures[TEX_RENDER_RGBA] = create_texture_rgba(256, 256);
+	client->textures[TEX_RENDER_DEPTH] = create_texture_depth(256, 256);
+
+	{
+		GLuint* fb = &client->framebuffers[FB_RENDER_TO_TEXTURE];
+		glCreateFramebuffers(1, fb);
+		glBindFramebuffer(GL_FRAMEBUFFER, *fb);
+
+		glFramebufferTexture2D(
+				GL_FRAMEBUFFER,
+				GL_COLOR_ATTACHMENT0,
+				GL_TEXTURE_2D,
+				client->textures[TEX_RENDER_RGBA],
+				0);
+
+		glFramebufferTexture2D(
+				GL_FRAMEBUFFER,
+				GL_DEPTH_ATTACHMENT,
+				GL_TEXTURE_2D,
+				client->textures[TEX_RENDER_DEPTH],
+				0);
+	}
 
 	client->materials[MAT_COLORED_UNLIT] = mat_colored_unlit();
 	client->materials[MAT_TEXTURED_UNLIT] = mat_textured_unlit();
 	client->meshes[MESH_CUBE] = mesh_cube();
-
-	client->textures[TEX_RENDER_RGBA] = create_texture_rgba(256, 256);
-	client->textures[TEX_RENDER_DEPTH] = create_texture_depth(256, 256);
 
 	client->cameras[0] = NULL;
 	client->cameras[1] = NULL;
@@ -62,13 +79,18 @@ void client_teardown(struct client* client)
 	for (int8_t i = 0; i < MATERIALS_LENGTH; i++) {
 		glDeleteProgram(client->materials[i].program);
 	}
+
 	// Delete buffer objects.
 	for (int8_t i = 0; i < MESHES_LENGTH; i++) {
 		glDeleteBuffers(1, &client->meshes[i].vertex_buffer);
 		glDeleteBuffers(1, &client->meshes[i].index_buffer);
 	}
+
 	// Delete textures.
 	glDeleteTextures(TEXTURES_LENGTH, client->textures);
+
+	// Delete framebuffers.
+	glDeleteFramebuffers(FRAMEBUFERS_LENGTH, client->framebuffers);
 }
 
 void client_world_update(struct client* client, struct world* world, float delta)

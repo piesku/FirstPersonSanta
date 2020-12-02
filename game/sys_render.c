@@ -8,6 +8,7 @@
 #include "com_camera.h"
 #include "com_render.h"
 #include "com_transform.h"
+#include "index.h"
 #include "world.h"
 
 static int32_t QUERY = HAS_TRANSFORM | HAS_RENDER;
@@ -93,13 +94,12 @@ static inline void draw_textured_unlit(struct client* client, Transform* transfo
 	glDrawElements(material.mode, mesh.index_count, GL_UNSIGNED_SHORT, 0);
 }
 
-void render(struct client* client, struct world* world, struct eye* eye)
+void render(struct client* client, struct world* world, struct eye* eye, enum texture_index target_texture)
 {
 	for (entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
 			Transform* transform = world->transform[i];
 			Render* render = world->render[i];
-
 
 			switch (render->kind) {
 				case RENDER_COLORED_UNLIT: {
@@ -115,6 +115,11 @@ void render(struct client* client, struct world* world, struct eye* eye)
 					break;
 				}
 				case RENDER_TEXTURED_UNLIT: {
+					if (render->textured_unlit.texture == target_texture) {
+						// Prevent a feedback loop between the entity's texture
+						// and the current target being rendered to.
+						break;
+					}
 					struct material* material = &client->materials[render->textured_unlit.material];
 					use_textured_unlit(client, material, eye);
 					draw_textured_unlit(client, transform, &render->textured_unlit);
@@ -124,7 +129,6 @@ void render(struct client* client, struct world* world, struct eye* eye)
 		}
 	}
 }
-
 
 void sys_render(struct client* client, struct world* world)
 {
@@ -139,13 +143,13 @@ void sys_render(struct client* client, struct world* world)
 				camera->clear_color[2],
 				camera->clear_color[3]);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		render(client, world, &camera->eye);
+		render(client, world, &camera->eye, TEX_NONE);
 	}
 
 	if (client->cameras[1] != NULL) {
 		// Render to framebuffer.
 		CameraFramebuffer* camera = client->cameras[1];
-		glBindFramebuffer(GL_FRAMEBUFFER, camera->target);
+		glBindFramebuffer(GL_FRAMEBUFFER, client->framebuffers[camera->target]);
 		glViewport(0, 0, camera->width, camera->height);
 		glClearColor(
 				camera->clear_color[0],
@@ -153,7 +157,6 @@ void sys_render(struct client* client, struct world* world)
 				camera->clear_color[2],
 				camera->clear_color[3]);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		render(client, world, &camera->eye);
+		render(client, world, &camera->eye, camera->render_texture);
 	}
-
 }

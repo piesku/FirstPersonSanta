@@ -32,6 +32,7 @@ add_executable(FirstPerson
 	game/sce_collide.c
 	game/sce_cube.c
 	game/sce_main.c
+	game/sce_minimap.c
 	game/sce_physics.c
 	game/sys_camera.c
 	game/sys_collide.c

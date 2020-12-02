@@ -2,9 +2,10 @@
 
 #include <stdint.h>
 
-#include "../common/gl.h"
 #include "../common/entity.h"
 #include "../common/matrix.h"
+
+#include "index.h"
 
 enum camera_kind {
 	CAMERA_DISPLAY,
@@ -34,9 +35,9 @@ typedef struct camera_framebuffer {
 	float far;
 	mat4 projection;
 	struct eye eye;
-	GLuint target;
-	GLuint render_texture;
-	GLuint depth_texture;
+	enum framebuffer_index target;
+	enum texture_index render_texture;
+	enum texture_index depth_texture;
 	uint32_t width;
 	uint32_t height;
 } CameraFramebuffer;
