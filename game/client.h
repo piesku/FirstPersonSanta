@@ -7,6 +7,12 @@
 #include "../common/mesh.h"
 #include "index.h"
 
+struct render_target {
+	GLuint framebuffer;
+	uint32_t width;
+	uint32_t height;
+};
+
 struct input_state {
 	int16_t arrow_up;
 	int16_t arrow_down;
@@ -29,10 +35,10 @@ struct client {
 	struct input_state input_state;
 	struct input_state input_delta;
 
-	GLuint framebuffers[FRAMEBUFFERS_LENGTH];
-	GLuint textures[TEXTURES_LENGTH];
+	struct render_target targets[FRAMEBUFFERS_LENGTH];
 	struct material materials[MATERIALS_LENGTH];
 	struct mesh meshes[MESHES_LENGTH];
+	GLuint textures[TEXTURES_LENGTH];
 
 	union camera* cameras[3];
 	struct lights {

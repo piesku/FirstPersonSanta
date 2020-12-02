@@ -129,16 +129,10 @@ entity blueprint_camera_player(struct world* world)
 			camera->clear_color[1] = 0.9f;
 			camera->clear_color[2] = 0.9f;
 			camera->clear_color[3] = 1.0f;
+			camera->target = FB_RENDER;
 
 			float aspect = 960.0f / 600.0f;
 			mat4_perspective(camera->projection, camera->fov_y, aspect, camera->near, camera->far);
-
-			camera->target = FB_RENDER;
-			camera->render_texture = TEX_RENDER_RGBA;
-			camera->depth_texture = TEX_RENDER_DEPTH;
-
-			camera->width = 960;
-			camera->height = 600;
 		}
 	}
 
@@ -173,15 +167,9 @@ entity blueprint_camera_minimap(struct world* world)
 		camera->clear_color[1] = 1.0f;
 		camera->clear_color[2] = 1.0f;
 		camera->clear_color[3] = 1.0f;
+		camera->target = FB_MINIMAP;
 
 		mat4_perspective(camera->projection, camera->fov_y, 1.0f, camera->near, camera->far);
-
-		camera->target = FB_MINIMAP;
-		camera->render_texture = TEX_MINIMAP_RGBA;
-		camera->depth_texture = TEX_MINIMAP_DEPTH;
-
-		camera->width = 256;
-		camera->height = 256;
 	}
 
 	return a;

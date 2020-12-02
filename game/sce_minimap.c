@@ -58,6 +58,7 @@ void scene_minimap(struct world* world)
 		transform->translation[0] = 2;
 		transform->translation[1] = 0;
 		transform->translation[2] = 0;
+		quat_from_euler(transform->rotation, -45, 0, 0);
 
 		RenderTexturedUnlit* render = mix_render_textured_unlit(world, entity);
 		render->material = MAT_TEXTURED_UNLIT;

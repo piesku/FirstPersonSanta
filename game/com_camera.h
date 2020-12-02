@@ -38,10 +38,6 @@ typedef struct camera_framebuffer {
 	mat4 projection;
 	struct eye eye;
 	enum framebuffer_index target;
-	enum texture_index render_texture;
-	enum texture_index depth_texture;
-	uint32_t width;
-	uint32_t height;
 } CameraFramebuffer;
 
 typedef union camera {

@@ -34,10 +34,14 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	client_resize(client, width, height);
 
 	{
-		client->textures[TEX_RENDER_RGBA] = create_texture_rgba(width, height);
-		client->textures[TEX_RENDER_DEPTH] = create_texture_depth(width, height);
+		struct render_target* target = &client->targets[FB_RENDER];
+		target->width = width;
+		target->height = height;
 
-		GLuint* fb = &client->framebuffers[FB_RENDER];
+		client->textures[TEX_RENDER_RGBA] = create_texture_rgba(target->width, target->height);
+		client->textures[TEX_RENDER_DEPTH] = create_texture_depth(target->width, target->height);
+
+		GLuint* fb = &target->framebuffer;
 		glCreateFramebuffers(1, fb);
 		glBindFramebuffer(GL_FRAMEBUFFER, *fb);
 
@@ -57,10 +61,14 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	}
 
 	{
-		client->textures[TEX_MINIMAP_RGBA] = create_texture_rgba(256, 256);
-		client->textures[TEX_MINIMAP_DEPTH] = create_texture_depth(256, 256);
+		struct render_target* target = &client->targets[FB_MINIMAP];
+		target->width = 256;
+		target->height = 256;
 
-		GLuint* fb = &client->framebuffers[FB_MINIMAP];
+		client->textures[TEX_MINIMAP_RGBA] = create_texture_rgba(target->width, target->height);
+		client->textures[TEX_MINIMAP_DEPTH] = create_texture_depth(target->width, target->height);
+
+		GLuint* fb = &target->framebuffer;
 		glCreateFramebuffers(1, fb);
 		glBindFramebuffer(GL_FRAMEBUFFER, *fb);
 
@@ -118,7 +126,9 @@ void client_teardown(struct client* client)
 	glDeleteTextures(TEXTURES_LENGTH, client->textures);
 
 	// Delete framebuffers.
-	glDeleteFramebuffers(FRAMEBUFFERS_LENGTH, client->framebuffers);
+	for (int8_t i = 0; i < FRAMEBUFFERS_LENGTH; i++) {
+		glDeleteFramebuffers(1, &client->targets[i].framebuffer);
+	}
 }
 
 void client_world_update(struct client* client, struct world* world, float delta)
