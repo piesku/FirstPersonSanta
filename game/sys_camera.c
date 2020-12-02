@@ -39,7 +39,7 @@ static inline void update_display(struct client* client, struct world* world, en
 static inline void update_framebuffer(struct client* client, struct world* world, entity entity)
 {
 	Transform* transform = world->transform[entity];
-	CameraDisplay* camera = &world->camera[entity]->display;
+	CameraFramebuffer* camera = &world->camera[entity]->framebuffer;
 	mat4_multiply(camera->eye.pv, camera->projection, transform->self);
 }
 
@@ -47,6 +47,9 @@ void sys_camera(struct client* client, struct world* world)
 {
 	client->cameras[0] = NULL;
 	client->cameras[1] = NULL;
+	client->cameras[2] = NULL;
+
+	int counter = 1;
 
 	for (entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
@@ -57,7 +60,7 @@ void sys_camera(struct client* client, struct world* world)
 					update_display(client, world, i);
 					break;
 				case CAMERA_FRAMEBUFFER:
-					client->cameras[1] = camera;
+					client->cameras[counter++] = camera;
 					update_framebuffer(client, world, i);
 					break;
 			}

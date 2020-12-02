@@ -16,7 +16,7 @@ void scene_minimap(struct world* world)
 
 	{
 		// Main camera.
-		entity entity = blueprint_camera_display(world);
+		entity entity = blueprint_camera_player(world);
 
 		Transform* transform = world->transform[entity];
 		transform->translation[0] = 0.0;
@@ -41,7 +41,7 @@ void scene_minimap(struct world* world)
 
 	{
 		// Minimap camera.
-		entity entity = blueprint_camera_framebuffer(world);
+		entity entity = blueprint_camera_minimap(world);
 
 		Transform* transform = world->transform[entity];
 		transform->translation[0] = 0.0;
@@ -62,6 +62,6 @@ void scene_minimap(struct world* world)
 		RenderTexturedUnlit* render = mix_render_textured_unlit(world, entity);
 		render->material = MAT_TEXTURED_UNLIT;
 		render->mesh = MESH_QUAD;
-		render->texture = TEX_RENDER_RGBA;
+		render->texture = TEX_MINIMAP_RGBA;
 	}
 }

@@ -34,6 +34,14 @@ struct layout_textured_unlit {
 	GLint vertex_texcoord;
 };
 
+struct layout_postprocess {
+	// Uniforms
+	GLint sampler;
+	// Attributes
+	GLint vertex_position;
+	GLint vertex_texcoord;
+};
+
 struct material {
 	GLenum mode;
 	GLuint program;
@@ -41,6 +49,7 @@ struct material {
 		struct layout_colored_unlit colored_unlit;
 		struct layout_colored_diffuse colored_diffuse;
 		struct layout_textured_unlit textured_unlit;
+		struct layout_postprocess postprocess;
 	} layout;
 };
 

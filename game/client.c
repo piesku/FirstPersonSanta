@@ -8,6 +8,7 @@
 
 struct material mat_colored_unlit(void);
 struct material mat_textured_unlit(void);
+struct material mat_postprocess(void);
 struct mesh mesh_cube(void);
 struct mesh mesh_quad(void);
 
@@ -20,6 +21,7 @@ void sys_move(struct client* client, struct world* world, float delta);
 void sys_physics_integrate(struct client* client, struct world* world, float delta);
 void sys_physics_kinematic(struct client* client, struct world* world, float delta);
 void sys_physics_resolve(struct client* client, struct world* world, float delta);
+void sys_postprocess(struct client* client, struct world* world);
 void sys_render(struct client* client, struct world* world);
 void sys_transform(struct client* client, struct world* world, float delta);
 
@@ -31,11 +33,11 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 
 	client_resize(client, width, height);
 
-	client->textures[TEX_RENDER_RGBA] = create_texture_rgba(256, 256);
-	client->textures[TEX_RENDER_DEPTH] = create_texture_depth(256, 256);
-
 	{
-		GLuint* fb = &client->framebuffers[FB_RENDER_TO_TEXTURE];
+		client->textures[TEX_RENDER_RGBA] = create_texture_rgba(width, height);
+		client->textures[TEX_RENDER_DEPTH] = create_texture_depth(width, height);
+
+		GLuint* fb = &client->framebuffers[FB_RENDER];
 		glCreateFramebuffers(1, fb);
 		glBindFramebuffer(GL_FRAMEBUFFER, *fb);
 
@@ -54,8 +56,32 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 				0);
 	}
 
+	{
+		client->textures[TEX_MINIMAP_RGBA] = create_texture_rgba(256, 256);
+		client->textures[TEX_MINIMAP_DEPTH] = create_texture_depth(256, 256);
+
+		GLuint* fb = &client->framebuffers[FB_MINIMAP];
+		glCreateFramebuffers(1, fb);
+		glBindFramebuffer(GL_FRAMEBUFFER, *fb);
+
+		glFramebufferTexture2D(
+				GL_FRAMEBUFFER,
+				GL_COLOR_ATTACHMENT0,
+				GL_TEXTURE_2D,
+				client->textures[TEX_MINIMAP_RGBA],
+				0);
+
+		glFramebufferTexture2D(
+				GL_FRAMEBUFFER,
+				GL_DEPTH_ATTACHMENT,
+				GL_TEXTURE_2D,
+				client->textures[TEX_MINIMAP_DEPTH],
+				0);
+	}
+
 	client->materials[MAT_COLORED_UNLIT] = mat_colored_unlit();
 	client->materials[MAT_TEXTURED_UNLIT] = mat_textured_unlit();
+	client->materials[MAT_POSTPROCESS] = mat_postprocess();
 	client->meshes[MESH_CUBE] = mesh_cube();
 	client->meshes[MESH_QUAD] = mesh_quad();
 
@@ -92,7 +118,7 @@ void client_teardown(struct client* client)
 	glDeleteTextures(TEXTURES_LENGTH, client->textures);
 
 	// Delete framebuffers.
-	glDeleteFramebuffers(FRAMEBUFERS_LENGTH, client->framebuffers);
+	glDeleteFramebuffers(FRAMEBUFFERS_LENGTH, client->framebuffers);
 }
 
 void client_world_update(struct client* client, struct world* world, float delta)
@@ -119,6 +145,7 @@ void client_frame_update(struct client* client, struct world* world)
 	sys_camera(client, world);
 	sys_light(client, world);
 	sys_render(client, world);
+	sys_postprocess(client, world);
 
 	client->resized = false;
 }

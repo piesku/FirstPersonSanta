@@ -29,12 +29,12 @@ struct client {
 	struct input_state input_state;
 	struct input_state input_delta;
 
-	GLuint framebuffers[FRAMEBUFERS_LENGTH];
+	GLuint framebuffers[FRAMEBUFFERS_LENGTH];
 	GLuint textures[TEXTURES_LENGTH];
 	struct material materials[MATERIALS_LENGTH];
 	struct mesh meshes[MESHES_LENGTH];
 
-	union camera* cameras[2];
+	union camera* cameras[3];
 	struct lights {
 		float positions[4 * 8];
 		float details[4 * 8];

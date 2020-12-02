@@ -159,4 +159,18 @@ void sys_render(struct client* client, struct world* world)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		render(client, world, &camera->eye, camera->render_texture);
 	}
+
+	if (client->cameras[2] != NULL) {
+		// Render to framebuffer.
+		CameraFramebuffer* camera = client->cameras[2];
+		glBindFramebuffer(GL_FRAMEBUFFER, client->framebuffers[camera->target]);
+		glViewport(0, 0, camera->width, camera->height);
+		glClearColor(
+				camera->clear_color[0],
+				camera->clear_color[1],
+				camera->clear_color[2],
+				camera->clear_color[3]);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		render(client, world, &camera->eye, camera->render_texture);
+	}
 }
