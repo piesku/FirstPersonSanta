@@ -37,6 +37,8 @@ static inline void update(struct client* client, struct world* world, entity ent
 			client->lights.details[4 * idx + 2] = light->point.color.z;
 			client->lights.details[4 * idx + 3] = light->point.intensity;
 			break;
+		case LIGHT_OFF:
+			break;
 	}
 
 	client->lights.positions[4 * idx + 0] = world_position.x;
