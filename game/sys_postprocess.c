@@ -20,13 +20,20 @@ void sys_postprocess(struct client* client, struct world* world)
 
 	struct material* material = &client->materials[MAT_POSTPROCESS];
 	struct mesh* mesh = &client->meshes[MESH_QUAD];
-	GLuint texture = client->textures[TEX_RENDER_RGBA];
 
 	glUseProgram(material->program);
 
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glUniform1i(material->layout.postprocess.sampler, 0);
+	glBindTexture(GL_TEXTURE_2D, client->textures[TEX_RENDER_RGBA]);
+	glUniform1i(material->layout.postprocess.color_map, 0);
+
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, client->textures[TEX_RENDER_NORMALS]);
+	glUniform1i(material->layout.postprocess.normal_map, 1);
+
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, client->textures[TEX_RENDER_DEPTH]);
+	glUniform1i(material->layout.postprocess.depth_map, 2);
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertex_buffer);
 	glEnableVertexAttribArray(material->layout.postprocess.vertex_position);

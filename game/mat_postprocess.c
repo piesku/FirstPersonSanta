@@ -18,23 +18,15 @@ struct material mat_postprocess(void)
 			"#version 330\n"
 			"precision mediump float;"
 
-			"uniform sampler2D sampler;"
+			"uniform sampler2D color_map;"
+			"uniform sampler2D normal_map;"
+			"uniform sampler2D depth_map;"
 
 			"in vec2 vert_texcoord;"
 			"out vec4 frag_color;"
 
-			"vec2 distort(vec2 p) {"
-			"    p = (p - vec2(0.5, 0.5)) * 2.0;"
-			"    float theta = atan(p.y, p.x);"
-			"    float radius = length(p);"
-			"    radius = pow(radius, 1.5);"
-			"    p.x = radius * cos(theta);"
-			"    p.y = radius * sin(theta);"
-			"    return 0.5 * (p + 1.0);"
-			"}"
-
 			"void main() {"
-			"    frag_color = texture(sampler, distort(vert_texcoord));"
+			"    frag_color = texture(color_map, vert_texcoord);"
 			"}";
 
 	GLuint program = create_program(vertex_shader_source, fragment_shader_source);
@@ -43,7 +35,9 @@ struct material mat_postprocess(void)
 			.program = program,
 			.layout.postprocess =
 					(struct layout_postprocess){
-							.sampler = glGetUniformLocation(program, "sampler"),
+							.color_map = glGetUniformLocation(program, "color_map"),
+							.normal_map = glGetUniformLocation(program, "normal_map"),
+							.depth_map = glGetUniformLocation(program, "depth_map"),
 							.vertex_position = glGetAttribLocation(program, "position"),
 							.vertex_texcoord = glGetAttribLocation(program, "texcoord"),
 					},

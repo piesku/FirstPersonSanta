@@ -29,9 +29,8 @@ void scene_minimap(struct world* world)
 		entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
-		transform->translation[0] = 0;
-		transform->translation[1] = 0;
-		transform->translation[2] = 0;
+		vec3_set(transform->translation, 0, 0, 0);
+		quat_from_euler(transform->rotation, -45, 45, 0);
 
 		RenderTexturedUnlit* render = mix_render_textured_unlit(world, entity);
 		render->material = MAT_TEXTURED_UNLIT;
@@ -44,10 +43,8 @@ void scene_minimap(struct world* world)
 		entity entity = blueprint_camera_minimap(world);
 
 		Transform* transform = world->transform[entity];
-		transform->translation[0] = 0.0;
-		transform->translation[1] = 5.0;
-		transform->translation[2] = 0.0;
-		quat_from_euler(transform->rotation, 90, 0, 180);
+		vec3_set(transform->translation, 0, 5, 0);
+		quat_from_euler(transform->rotation, 90, 180, 0);
 	}
 
 	{
@@ -55,9 +52,7 @@ void scene_minimap(struct world* world)
 		entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
-		transform->translation[0] = 2;
-		transform->translation[1] = 0;
-		transform->translation[2] = 0;
+		vec3_set(transform->translation, 2, 0, 0);
 		quat_from_euler(transform->rotation, -45, 0, 0);
 
 		RenderTexturedUnlit* render = mix_render_textured_unlit(world, entity);
