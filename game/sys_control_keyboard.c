@@ -42,36 +42,24 @@ static inline void update(struct client* client, struct world* world, entity ent
 
 	if (control->yaw) {
 		if (client->input_state.arrow_left) {
-			move->local_rotation.x = 0;
-			move->local_rotation.y = 1;
-			move->local_rotation.z = 0;
-			move->local_rotation.w = 0;
+			move->local_rotation = (quat){0, 1, 0, 0};
 			move->dirty |= MOVE_DIRTY_LOCAL_ROTATION;
 		}
 
 		if (client->input_state.arrow_right) {
-			move->local_rotation.x = 0;
-			move->local_rotation.y = -1;
-			move->local_rotation.z = 0;
-			move->local_rotation.w = 0;
+			move->local_rotation = (quat){0, -1, 0, 0};
 			move->dirty |= MOVE_DIRTY_LOCAL_ROTATION;
 		}
 	}
 
 	if (control->pitch) {
 		if (client->input_state.arrow_up) {
-			move->self_rotation.x = -1;
-			move->self_rotation.y = 0;
-			move->self_rotation.z = 0;
-			move->self_rotation.w = 0;
+			move->self_rotation = (quat){-1, 0, 0, 0};
 			move->dirty |= MOVE_DIRTY_SELF_ROTATION;
 		}
 
 		if (client->input_state.arrow_down) {
-			move->self_rotation.x = 1;
-			move->self_rotation.y = 0;
-			move->self_rotation.z = 0;
-			move->self_rotation.w = 0;
+			move->self_rotation = (quat){1, 0, 0, 0};
 			move->dirty |= MOVE_DIRTY_SELF_ROTATION;
 		}
 	}

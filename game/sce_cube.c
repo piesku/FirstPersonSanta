@@ -2,8 +2,8 @@
 #include <time.h>
 
 #include "blu_camera.h"
-#include "com_transform.h"
 #include "com_render.h"
+#include "com_transform.h"
 #include "index.h"
 #include "world.h"
 
@@ -26,8 +26,6 @@ void scene_cube(struct world* world)
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_CUBE;
-		render->color.x = 0.32;
-		render->color.y = 0.4;
-		render->color.z = 0.88;
+		render->color = (vec4){0.32, 0.4, 0.88, 1.0};
 	}
 }
