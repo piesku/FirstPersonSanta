@@ -35,12 +35,12 @@ void mat4_set(mat4* out,
 	out->m33 = m33;
 };
 
-bool mat4_invert(mat4* out, const mat4 mat)
+bool mat4_invert(mat4* out, const mat4* mat)
 {
-	float a00 = mat.m00, a01 = mat.m01, a02 = mat.m02, a03 = mat.m03;
-	float a10 = mat.m10, a11 = mat.m11, a12 = mat.m12, a13 = mat.m13;
-	float a20 = mat.m20, a21 = mat.m21, a22 = mat.m22, a23 = mat.m23;
-	float a30 = mat.m30, a31 = mat.m31, a32 = mat.m32, a33 = mat.m33;
+	float a00 = mat->m00, a01 = mat->m01, a02 = mat->m02, a03 = mat->m03;
+	float a10 = mat->m10, a11 = mat->m11, a12 = mat->m12, a13 = mat->m13;
+	float a20 = mat->m20, a21 = mat->m21, a22 = mat->m22, a23 = mat->m23;
+	float a30 = mat->m30, a31 = mat->m31, a32 = mat->m32, a33 = mat->m33;
 
 	float b00 = a00 * a11 - a01 * a10;
 	float b01 = a00 * a12 - a02 * a10;
@@ -83,73 +83,73 @@ bool mat4_invert(mat4* out, const mat4 mat)
 	return true;
 }
 
-void mat4_multiply(mat4* out, const mat4 a, const mat4 b)
+void mat4_multiply(mat4* out, const mat4* a, const mat4* b)
 {
-	float a00 = a.m00, a01 = a.m01, a02 = a.m02, a03 = a.m03;
-	float a10 = a.m10, a11 = a.m11, a12 = a.m12, a13 = a.m13;
-	float a20 = a.m20, a21 = a.m21, a22 = a.m22, a23 = a.m23;
-	float a30 = a.m30, a31 = a.m31, a32 = a.m32, a33 = a.m33;
+	float a00 = a->m00, a01 = a->m01, a02 = a->m02, a03 = a->m03;
+	float a10 = a->m10, a11 = a->m11, a12 = a->m12, a13 = a->m13;
+	float a20 = a->m20, a21 = a->m21, a22 = a->m22, a23 = a->m23;
+	float a30 = a->m30, a31 = a->m31, a32 = a->m32, a33 = a->m33;
 
 	// Cache only the current line of the second matrix
-	float b0 = b.m00, b1 = b.m01, b2 = b.m02, b3 = b.m03;
+	float b0 = b->m00, b1 = b->m01, b2 = b->m02, b3 = b->m03;
 	out->m00 = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
 	out->m01 = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
 	out->m02 = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
 	out->m03 = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
 
-	b0 = b.m10;
-	b1 = b.m11;
-	b2 = b.m12;
-	b3 = b.m13;
+	b0 = b->m10;
+	b1 = b->m11;
+	b2 = b->m12;
+	b3 = b->m13;
 	out->m10 = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
 	out->m11 = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
 	out->m12 = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
 	out->m13 = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
 
-	b0 = b.m20;
-	b1 = b.m21;
-	b2 = b.m22;
-	b3 = b.m23;
+	b0 = b->m20;
+	b1 = b->m21;
+	b2 = b->m22;
+	b3 = b->m23;
 	out->m20 = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
 	out->m21 = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
 	out->m22 = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
 	out->m23 = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
 
-	b0 = b.m30;
-	b1 = b.m31;
-	b2 = b.m32;
-	b3 = b.m33;
+	b0 = b->m30;
+	b1 = b->m31;
+	b2 = b->m32;
+	b3 = b->m33;
 	out->m30 = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
 	out->m31 = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
 	out->m32 = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
 	out->m33 = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
 };
 
-void mat4_translate(mat4* out, const mat4 mat, const vec3 vec)
+void mat4_translate(mat4* out, const mat4* mat, const vec3* vec)
 {
-	float x = vec.x, y = vec.y, z = vec.z;
+	float x = vec->x, y = vec->y, z = vec->z;
 	float a00, a01, a02, a03;
 	float a10, a11, a12, a13;
 	float a20, a21, a22, a23;
 
-	if (&mat == out) {
-		out->m30 = mat.m00 * x + mat.m10 * y + mat.m20 * z + mat.m30;
-		out->m31 = mat.m01 * x + mat.m11 * y + mat.m21 * z + mat.m31;
-		out->m32 = mat.m02 * x + mat.m12 * y + mat.m22 * z + mat.m32;
-		out->m33 = mat.m03 * x + mat.m13 * y + mat.m23 * z + mat.m33;
+	if (mat == out) {
+		out->m30 = mat->m00 * x + mat->m10 * y + mat->m20 * z + mat->m30;
+		out->m31 = mat->m01 * x + mat->m11 * y + mat->m21 * z + mat->m31;
+		out->m32 = mat->m02 * x + mat->m12 * y + mat->m22 * z + mat->m32;
+		out->m33 = mat->m03 * x + mat->m13 * y + mat->m23 * z + mat->m33;
 	} else {
-		a00 = mat.m00;
-		a01 = mat.m01;
-		a02 = mat.m02;
-		a03 = mat.m03;
-		a10 = mat.m10;
-		a11 = mat.m11;
-		a12 = mat.m12;
-		a13 = mat.m13;
-		a20 = mat.m20;
-		a21 = mat.m21;
-		a22 = mat.m22;
-		a23 = mat.m23;
+		a00 = mat->m00;
+		a01 = mat->m01;
+		a02 = mat->m02;
+		a03 = mat->m03;
+		a10 = mat->m10;
+		a11 = mat->m11;
+		a12 = mat->m12;
+		a13 = mat->m13;
+		a20 = mat->m20;
+		a21 = mat->m21;
+		a22 = mat->m22;
+		a23 = mat->m23;
 
 		out->m00 = a00;
 		out->m01 = a01;
@@ -164,16 +164,16 @@ void mat4_translate(mat4* out, const mat4 mat, const vec3 vec)
 		out->m22 = a22;
 		out->m23 = a23;
 
-		out->m30 = a00 * x + a10 * y + a20 * z + mat.m30;
-		out->m31 = a01 * x + a11 * y + a21 * z + mat.m31;
-		out->m32 = a02 * x + a12 * y + a22 * z + mat.m32;
-		out->m33 = a03 * x + a13 * y + a23 * z + mat.m33;
+		out->m30 = a00 * x + a10 * y + a20 * z + mat->m30;
+		out->m31 = a01 * x + a11 * y + a21 * z + mat->m31;
+		out->m32 = a02 * x + a12 * y + a22 * z + mat->m32;
+		out->m33 = a03 * x + a13 * y + a23 * z + mat->m33;
 	}
 }
 
-bool mat4_rotate(mat4* out, const mat4 mat, float angle, const vec3 axis)
+bool mat4_rotate(mat4* out, const mat4* mat, float angle, const vec3* axis)
 {
-	float x = axis.x, y = axis.y, z = axis.z;
+	float x = axis->x, y = axis->y, z = axis->z;
 	float len = sqrtf(x * x + y * y + z * z);
 	float s, c, t;
 	float a00, a01, a02, a03;
@@ -196,18 +196,18 @@ bool mat4_rotate(mat4* out, const mat4 mat, float angle, const vec3 axis)
 	c = cosf(angle);
 	t = 1.0f - c;
 
-	a00 = mat.m00;
-	a01 = mat.m01;
-	a02 = mat.m02;
-	a03 = mat.m03;
-	a10 = mat.m10;
-	a11 = mat.m11;
-	a12 = mat.m12;
-	a13 = mat.m13;
-	a20 = mat.m20;
-	a21 = mat.m21;
-	a22 = mat.m22;
-	a23 = mat.m23;
+	a00 = mat->m00;
+	a01 = mat->m01;
+	a02 = mat->m02;
+	a03 = mat->m03;
+	a10 = mat->m10;
+	a11 = mat->m11;
+	a12 = mat->m12;
+	a13 = mat->m13;
+	a20 = mat->m20;
+	a21 = mat->m21;
+	a22 = mat->m22;
+	a23 = mat->m23;
 
 	// Construct the elements of the rotation matrix
 	b00 = x * x * t + c;
@@ -262,13 +262,13 @@ void mat4_perspective(mat4* out, float fovy, float aspect, float near, float far
 	out->m33 = 0.0f;
 }
 
-void mat4_compose(mat4* out, const vec3 v, const quat q, const vec3 s)
+void mat4_compose(mat4* out, const vec3* v, const quat* q, const vec3* s)
 {
 	// Quaternion math
-	float x = q.x;
-	float y = q.y;
-	float z = q.z;
-	float w = q.w;
+	float x = q->x;
+	float y = q->y;
+	float z = q->z;
+	float w = q->w;
 	float x2 = x + x;
 	float y2 = y + y;
 	float z2 = z + z;
@@ -281,9 +281,9 @@ void mat4_compose(mat4* out, const vec3 v, const quat q, const vec3 s)
 	float wx = w * x2;
 	float wy = w * y2;
 	float wz = w * z2;
-	float sx = s.x;
-	float sy = s.y;
-	float sz = s.z;
+	float sx = s->x;
+	float sy = s->y;
+	float sz = s->z;
 	out->m00 = (1.0f - (yy + zz)) * sx;
 	out->m01 = (xy + wz) * sx;
 	out->m02 = (xz - wy) * sx;
@@ -296,15 +296,15 @@ void mat4_compose(mat4* out, const vec3 v, const quat q, const vec3 s)
 	out->m21 = (yz - wx) * sz;
 	out->m22 = (1.0f - (xx + yy)) * sz;
 	out->m23 = 0.0f;
-	out->m30 = v.x;
-	out->m31 = v.y;
-	out->m32 = v.z;
+	out->m30 = v->x;
+	out->m31 = v->y;
+	out->m32 = v->z;
 	out->m33 = 1.0f;
 }
 
-void mat4_get_translation(vec3* out, const mat4 mat)
+void mat4_get_translation(vec3* out, const mat4* mat)
 {
-	out->x = mat.m30;
-	out->y = mat.m31;
-	out->z = mat.m32;
+	out->x = mat->m30;
+	out->y = mat->m31;
+	out->z = mat->m32;
 }

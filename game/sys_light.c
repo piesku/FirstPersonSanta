@@ -15,16 +15,16 @@ static inline void update(struct client* client, struct world* world, entity ent
 	Light* light = world->light[entity];
 
 	vec3 world_position;
-	mat4_get_translation(&world_position, transform->world);
+	mat4_get_translation(&world_position, &transform->world);
 
 	if (light->kind == LIGHT_DIRECTIONAL) {
-		vec3_normalize(&world_position, world_position);
+		vec3_normalize(&world_position, &world_position);
 	}
 
 	switch (light->kind) {
 		case LIGHT_DIRECTIONAL:
 			// The normalized world position describes the light's normal.
-			vec3_normalize(&world_position, world_position);
+			vec3_normalize(&world_position, &world_position);
 
 			client->lights.details[4 * idx + 0] = light->directional.color.x;
 			client->lights.details[4 * idx + 1] = light->directional.color.y;

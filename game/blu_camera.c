@@ -12,13 +12,8 @@ entity blueprint_camera(struct world* world)
 	entity a = create_entity(world);
 
 	Transform* transform_a = mix_transform(world, a);
-	transform_a->translation.x = 0.0;
-	transform_a->translation.y = 0.0;
-	transform_a->translation.z = 2.0;
-	transform_a->rotation.x = 0.0;
-	transform_a->rotation.y = 1.0;
-	transform_a->rotation.z = 0.0;
-	transform_a->rotation.w = 0.0;
+	transform_a->translation = (vec3){ .x = 0.0, .y = 0.0, .z = 2.0 };
+	transform_a->rotation = (quat){ .x = 0.0, .y = 1.0, .z = 0.0, .w = 0.0 };
 
 	Move* move = mix_move(world, a);
 	move->movement_speed = 10.0;

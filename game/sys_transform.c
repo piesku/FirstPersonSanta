@@ -12,17 +12,17 @@ static inline void update_transform(struct world* world, Transform* transform)
 		transform->dirty = false;
 
 		mat4_compose(&transform->world,
-				transform->translation,
-				transform->rotation,
-				transform->scale);
+				&transform->translation,
+				&transform->rotation,
+				&transform->scale);
 
 		if (transform->parent) {
 			mat4_multiply(&transform->world,
-					world->transform[transform->parent]->world,
-					transform->world);
+					&world->transform[transform->parent]->world,
+					&transform->world);
 		}
 
-		mat4_invert(&transform->self, transform->world);
+		mat4_invert(&transform->self, &transform->world);
 
 		for (int i = 0; i < MAX_CHILDREN; i++) {
 			entity child = transform->children[i];

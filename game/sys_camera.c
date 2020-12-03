@@ -33,7 +33,7 @@ static inline void update(struct client* client, struct world* world, entity ent
 					camera->far);
 		}
 	}
-	mat4_multiply(&camera->pv, camera->projection, transform->self);
+	mat4_multiply(&camera->pv, &camera->projection, &transform->self);
 }
 
 void sys_camera(struct client* client, struct world* world)

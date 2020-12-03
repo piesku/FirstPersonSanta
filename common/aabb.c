@@ -2,10 +2,10 @@
 
 void compute_aabb_without_scale(mat4 world, struct aabb* aabb)
 {
-	mat4_get_translation(&aabb->center, world);
-	vec3_scale(&aabb->half, aabb->size, 0.5f);
-	vec3_subtract(&aabb->min, aabb->center, aabb->half);
-	vec3_add(&aabb->max, aabb->center, aabb->half);
+	mat4_get_translation(&aabb->center, &world);
+	vec3_scale(&aabb->half, &aabb->size, 0.5f);
+	vec3_subtract(&aabb->min, &aabb->center, &aabb->half);
+	vec3_add(&aabb->max, &aabb->center, &aabb->half);
 }
 
 void penetrate_aabb(vec3* out, struct aabb* a, struct aabb* b)

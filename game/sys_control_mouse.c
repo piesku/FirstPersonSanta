@@ -29,7 +29,7 @@ static inline void update(struct client* client, struct world* world, entity ent
 		// instant and precise feel. Note that the rotation won't be passed to
 		// sys_move; instead it's applied here and ignores Move.RotationSpeed on
 		// purpose.
-		quat_from_axis(&rotation, AXIS_Y, -amount * DEG_TO_RAD);
+		quat_from_axis(&rotation, &AXIS_Y, -amount * DEG_TO_RAD);
 
 		// Yaw is pre-multiplied, i.e. applied relative to the entity's local
 		// space; the Y axis is not affected by its current orientation.
@@ -39,7 +39,7 @@ static inline void update(struct client* client, struct world* world, entity ent
 
 	if (control->pitch && client->input_delta.mouse_y) {
 		float amount = client->input_delta.mouse_y * control->pitch;
-		quat_from_axis(&rotation, AXIS_X, amount * DEG_TO_RAD);
+		quat_from_axis(&rotation, &AXIS_X, amount * DEG_TO_RAD);
 
 		// Pitch is post-multiplied, i.e. applied relative to the entity's self
 		// space; the X axis is always aligned with its left and right sides.
