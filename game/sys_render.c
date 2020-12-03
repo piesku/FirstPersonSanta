@@ -24,11 +24,16 @@ static inline void draw_colored_unlit(struct client* client, Transform* transfor
 	struct material material = client->materials[render->material];
 
 	glUniformMatrix4fv(material.layout.colored_unlit.world, 1, GL_FALSE, transform->world);
+	glUniformMatrix4fv(material.layout.colored_unlit.self, 1, GL_FALSE, transform->self);
 	glUniform4fv(material.layout.colored_unlit.color, 1, render->color);
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.vertex_buffer);
 	glEnableVertexAttribArray(material.layout.colored_unlit.vertex_position);
 	glVertexAttribPointer(material.layout.colored_unlit.vertex_position, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.normal_buffer);
+	glEnableVertexAttribArray(material.layout.colored_unlit.vertex_normal);
+	glVertexAttribPointer(material.layout.colored_unlit.vertex_normal, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.index_buffer);
 	glDrawElements(material.mode, mesh.index_count, GL_UNSIGNED_SHORT, 0);
@@ -76,6 +81,7 @@ static inline void draw_textured_unlit(struct client* client, Transform* transfo
 	GLuint texture = client->textures[render->texture];
 
 	glUniformMatrix4fv(material.layout.textured_unlit.world, 1, GL_FALSE, transform->world);
+	glUniformMatrix4fv(material.layout.textured_unlit.self, 1, GL_FALSE, transform->self);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture);
@@ -88,6 +94,10 @@ static inline void draw_textured_unlit(struct client* client, Transform* transfo
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.texcoord_buffer);
 	glEnableVertexAttribArray(material.layout.textured_unlit.vertex_texcoord);
 	glVertexAttribPointer(material.layout.textured_unlit.vertex_texcoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.normal_buffer);
+	glEnableVertexAttribArray(material.layout.textured_unlit.vertex_normal);
+	glVertexAttribPointer(material.layout.textured_unlit.vertex_normal, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.index_buffer);
 	glDrawElements(material.mode, mesh.index_count, GL_UNSIGNED_SHORT, 0);

@@ -129,7 +129,7 @@ entity blueprint_camera_player(struct world* world)
 			camera->clear_color[1] = 0.9f;
 			camera->clear_color[2] = 0.9f;
 			camera->clear_color[3] = 1.0f;
-			camera->target = RENDER_TARGET_RENDER;
+			camera->target = RENDER_TARGET_DEFAULT;
 		}
 	}
 

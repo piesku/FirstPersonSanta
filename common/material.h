@@ -6,9 +6,11 @@ struct layout_colored_unlit {
 	// Uniforms
 	GLint pv;
 	GLint world;
+	GLint self;
 	GLint color;
 	// Attributes
 	GLint vertex_position;
+	GLint vertex_normal;
 };
 
 struct layout_colored_diffuse {
@@ -28,9 +30,11 @@ struct layout_textured_unlit {
 	// Uniforms
 	GLint pv;
 	GLint world;
+	GLint self;
 	GLint sampler;
 	// Attributes
 	GLint vertex_position;
+	GLint vertex_normal;
 	GLint vertex_texcoord;
 };
 

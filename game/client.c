@@ -1,5 +1,6 @@
 #include "client.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -34,11 +35,12 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	client_resize(client, width, height);
 
 	{
-		struct render_target* target = &client->targets[RENDER_TARGET_RENDER];
+		struct render_target* target = &client->targets[RENDER_TARGET_DEFAULT];
 		target->width = width;
 		target->height = height;
 
 		client->textures[TEX_RENDER_RGBA] = create_texture_rgba(target->width, target->height);
+		client->textures[TEX_RENDER_NORMALS] = create_texture_rgba(target->width, target->height);
 		client->textures[TEX_RENDER_DEPTH] = create_texture_depth(target->width, target->height);
 
 		GLuint* fb = &target->framebuffer;
@@ -54,10 +56,27 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 
 		glFramebufferTexture2D(
 				GL_FRAMEBUFFER,
+				GL_COLOR_ATTACHMENT1,
+				GL_TEXTURE_2D,
+				client->textures[TEX_RENDER_NORMALS],
+				0);
+
+		glFramebufferTexture2D(
+				GL_FRAMEBUFFER,
 				GL_DEPTH_ATTACHMENT,
 				GL_TEXTURE_2D,
 				client->textures[TEX_RENDER_DEPTH],
 				0);
+
+		GLenum draw_buffers[2] = {
+				GL_COLOR_ATTACHMENT0,
+				GL_COLOR_ATTACHMENT1};
+		glDrawBuffers(2, draw_buffers);
+
+		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+			printf("Failed to set up the framebuffer.\n");
+			exit(1);
+		}
 	}
 
 	{
@@ -66,6 +85,7 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 		target->height = 256;
 
 		client->textures[TEX_MINIMAP_RGBA] = create_texture_rgba(target->width, target->height);
+		client->textures[TEX_MINIMAP_NORMALS] = create_texture_rgba(target->width, target->height);
 		client->textures[TEX_MINIMAP_DEPTH] = create_texture_depth(target->width, target->height);
 
 		GLuint* fb = &target->framebuffer;
@@ -81,10 +101,27 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 
 		glFramebufferTexture2D(
 				GL_FRAMEBUFFER,
+				GL_COLOR_ATTACHMENT1,
+				GL_TEXTURE_2D,
+				client->textures[TEX_MINIMAP_NORMALS],
+				0);
+
+		glFramebufferTexture2D(
+				GL_FRAMEBUFFER,
 				GL_DEPTH_ATTACHMENT,
 				GL_TEXTURE_2D,
 				client->textures[TEX_MINIMAP_DEPTH],
 				0);
+
+		GLenum draw_buffers[2] = {
+				GL_COLOR_ATTACHMENT0,
+				GL_COLOR_ATTACHMENT1};
+		glDrawBuffers(2, draw_buffers);
+
+		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+			printf("Failed to set up the framebuffer.\n");
+			exit(1);
+		}
 	}
 
 	client->materials[MAT_COLORED_UNLIT] = mat_colored_unlit();

@@ -31,6 +31,8 @@ GLuint create_texture_rgba(uint32_t width, uint32_t height)
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 	return texture;
 }
@@ -42,12 +44,14 @@ GLuint create_texture_depth(uint32_t width, uint32_t height)
 	glBindTexture(GL_TEXTURE_2D, texture);
 
 	glTexImage2D(
-			GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16,
+			GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24,
 			width, height, 0, GL_DEPTH_COMPONENT,
 			GL_UNSIGNED_INT, NULL);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 	return texture;
 }
