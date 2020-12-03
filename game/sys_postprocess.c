@@ -22,6 +22,7 @@ void sys_postprocess(struct client* client, struct world* world)
 	struct mesh* mesh = &client->meshes[MESH_QUAD];
 
 	glUseProgram(material->program);
+	glUniform2f(material->layout.postprocess.dimensions, (GLfloat)client->width, (GLfloat)client->height);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, client->textures[TEX_RENDER_RGBA]);

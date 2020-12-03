@@ -18,6 +18,7 @@ struct material mat_postprocess(void)
 			"#version 330\n"
 			"precision mediump float;"
 
+			"uniform vec2 dimensions;"
 			"uniform sampler2D color_map;"
 			"uniform sampler2D normal_map;"
 			"uniform sampler2D depth_map;"
@@ -41,7 +42,7 @@ struct material mat_postprocess(void)
 			"			vec2(1, -1), vec2(1, 0), vec2(1, 1)};"
 			"	vec4 sampled = vec4(0.0);"
 			"	for (int j = 0; j < 8; j++) {"
-			"		sampled += normal_depth_at(vert_texcoord + offsets[j] * 0.001);"
+			"		sampled += normal_depth_at(vert_texcoord + offsets[j] / dimensions);"
 			"	}"
 			"	sampled /= 8.0;"
 
@@ -54,6 +55,7 @@ struct material mat_postprocess(void)
 			.program = program,
 			.layout.postprocess =
 					(struct layout_postprocess){
+							.dimensions = glGetUniformLocation(program, "dimensions"),
 							.color_map = glGetUniformLocation(program, "color_map"),
 							.normal_map = glGetUniformLocation(program, "normal_map"),
 							.depth_map = glGetUniformLocation(program, "depth_map"),

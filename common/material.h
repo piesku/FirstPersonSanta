@@ -40,6 +40,7 @@ struct layout_textured_unlit {
 
 struct layout_postprocess {
 	// Uniforms
+	GLint dimensions;
 	GLint color_map;
 	GLint normal_map;
 	GLint depth_map;
