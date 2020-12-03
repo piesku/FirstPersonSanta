@@ -25,8 +25,27 @@ struct material mat_postprocess(void)
 			"in vec2 vert_texcoord;"
 			"out vec4 frag_color;"
 
+			"vec4 normal_depth_at(vec2 uv) {"
+			"	vec4 normal = texture(normal_map, uv);"
+			"	vec4 depth = texture(depth_map, uv);"
+			"	return vec4(normal.xyz, depth.x);"
+			"}"
+
 			"void main() {"
-			"    frag_color = texture(color_map, vert_texcoord);"
+			"	vec4 color = texture(color_map, vert_texcoord);"
+
+			"	vec4 current = normal_depth_at(vert_texcoord);"
+			"	vec2 offsets[8] = {"
+			"			vec2(-1, -1), vec2(-1, 0), vec2(-1, 1),"
+			"			vec2(0, -1), vec2(0, 1),"
+			"			vec2(1, -1), vec2(1, 0), vec2(1, 1)};"
+			"	vec4 sampled = vec4(0.0);"
+			"	for (int j = 0; j < 8; j++) {"
+			"		sampled += normal_depth_at(vert_texcoord + offsets[j] * 0.001);"
+			"	}"
+			"	sampled /= 8.0;"
+
+			"	frag_color = mix(color, vec4(0.0, 0.0, 0.0, 1.0), step(0.01, length(current - sampled)));"
 			"}";
 
 	GLuint program = create_program(vertex_shader_source, fragment_shader_source);
