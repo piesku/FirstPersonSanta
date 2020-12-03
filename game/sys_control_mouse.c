@@ -33,7 +33,7 @@ static inline void update(struct client* client, struct world* world, entity ent
 
 		// Yaw is pre-multiplied, i.e. applied relative to the entity's local
 		// space; the Y axis is not affected by its current orientation.
-		quat_multiply(&transform->rotation, rotation, transform->rotation);
+		quat_multiply(&transform->rotation, &rotation, &transform->rotation);
 		transform->dirty = true;
 	}
 
@@ -43,7 +43,7 @@ static inline void update(struct client* client, struct world* world, entity ent
 
 		// Pitch is post-multiplied, i.e. applied relative to the entity's self
 		// space; the X axis is always aligned with its left and right sides.
-		quat_multiply(&transform->rotation, transform->rotation, rotation);
+		quat_multiply(&transform->rotation, &transform->rotation, &rotation);
 		transform->dirty = true;
 	}
 }

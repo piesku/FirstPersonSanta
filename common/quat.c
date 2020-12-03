@@ -2,16 +2,16 @@
 
 #include <math.h>
 
-void quat_multiply(quat* out, const quat a, const quat b)
+void quat_multiply(quat* out, const quat* a, const quat* b)
 {
-	float ax = a.x;
-	float ay = a.y;
-	float az = a.z;
-	float aw = a.w;
-	float bx = b.x;
-	float by = b.y;
-	float bz = b.z;
-	float bw = b.w;
+	float ax = a->x;
+	float ay = a->y;
+	float az = a->z;
+	float aw = a->w;
+	float bx = b->x;
+	float by = b->y;
+	float bz = b->z;
+	float bw = b->w;
 
 	out->x = ax * bw + aw * bx + ay * bz - az * by;
 	out->y = ay * bw + aw * by + az * bx - ax * bz;
@@ -50,28 +50,28 @@ void quat_from_axis(quat* out, const vec3* axis, float angle)
 	out->w = cosf(half);
 }
 
-void quat_lerp(quat* out, const quat a, const quat b, float t)
+void quat_lerp(quat* out, const quat* a, const quat* b, float t)
 {
-	float ax = a.x;
-	float ay = a.y;
-	float az = a.z;
-	float aw = a.w;
-	out->x = ax + t * (b.x - ax);
-	out->y = ay + t * (b.y - ay);
-	out->z = az + t * (b.z - az);
-	out->w = aw + t * (b.w - aw);
+	float ax = a->x;
+	float ay = a->y;
+	float az = a->z;
+	float aw = a->w;
+	out->x = ax + t * (b->x - ax);
+	out->y = ay + t * (b->y - ay);
+	out->z = az + t * (b->z - az);
+	out->w = aw + t * (b->w - aw);
 }
 
-void quat_slerp(quat* out, const quat a, const quat b, float t)
+void quat_slerp(quat* out, const quat* a, const quat* b, float t)
 {
-	float ax = a.x;
-	float ay = a.y;
-	float az = a.z;
-	float aw = a.w;
-	float bx = b.x;
-	float by = b.y;
-	float bz = b.z;
-	float bw = b.w;
+	float ax = a->x;
+	float ay = a->y;
+	float az = a->z;
+	float aw = a->w;
+	float bx = b->x;
+	float by = b->y;
+	float bz = b->z;
+	float bw = b->w;
 
 	float omega, cosom, sinom, scale0, scale1;
 

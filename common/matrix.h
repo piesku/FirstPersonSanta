@@ -58,11 +58,11 @@ void vec3_scale(vec3* out, const vec3* a, float b);
 void vec3_transform_point(vec3* out, const vec3* a, const mat4 m);
 void vec3_transform_direction(vec3* out, const vec3* a, const mat4 m);
 
-void quat_multiply(quat* out, const quat a, const quat b);
+void quat_multiply(quat* out, const quat* a, const quat* b);
 void quat_from_euler(quat* out, float x, float y, float z);
 void quat_from_axis(quat* out, const vec3* axis, float angle);
-void quat_lerp(quat* out, const quat a, const quat b, float t);
-void quat_slerp(quat* out, const quat a, const quat b, float t);
+void quat_lerp(quat* out, const quat* a, const quat* b, float t);
+void quat_slerp(quat* out, const quat* a, const quat* b, float t);
 
 void mat4_identity(mat4* a);
 void mat4_set(mat4* out,

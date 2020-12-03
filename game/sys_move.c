@@ -53,10 +53,10 @@ static inline void update(struct client* client, struct world* world, entity ent
 		float t = move->rotation_speed / PI * delta;
 		if (t > 1.0f)
 			t = 1.0f;
-		quat_slerp(&rotation, NO_ROTATION, move->local_rotation, t);
+		quat_slerp(&rotation, &NO_ROTATION, &move->local_rotation, t);
 
 		// Pre-multiply.
-		quat_multiply(&transform->rotation, rotation, transform->rotation);
+		quat_multiply(&transform->rotation, &rotation, &transform->rotation);
 		transform->dirty = true;
 
 		move->dirty &= ~MOVE_DIRTY_LOCAL_ROTATION;
@@ -67,10 +67,10 @@ static inline void update(struct client* client, struct world* world, entity ent
 		float t = move->rotation_speed / PI * delta;
 		if (t > 1.0f)
 			t = 1.0f;
-		quat_slerp(&rotation, NO_ROTATION, move->self_rotation, t);
+		quat_slerp(&rotation, &NO_ROTATION, &move->self_rotation, t);
 
 		// Post-multiply.
-		quat_multiply(&transform->rotation, transform->rotation, rotation);
+		quat_multiply(&transform->rotation, &transform->rotation, &rotation);
 		transform->dirty = true;
 
 		move->dirty &= ~MOVE_DIRTY_SELF_ROTATION;
