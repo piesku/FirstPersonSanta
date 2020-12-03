@@ -27,11 +27,11 @@ static inline void update(struct client* client, struct world* world, entity ent
 
 		// Transform the direction into the world or the parent space. This will
 		// also scale the result by the scale encoded in the transform.
-		vec3_transform_direction(&direction, &move->direction, transform->world);
+		vec3_transform_direction(&direction, &move->direction, &transform->world);
 		if (transform->parent) {
 			vec3_transform_direction(&direction,
 					&direction,
-					world->transform[transform->parent]->self);
+					&world->transform[transform->parent]->self);
 		}
 
 		// Normalize the direction to remove the transform's scale. The length

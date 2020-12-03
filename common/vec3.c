@@ -72,21 +72,21 @@ void vec3_scale(vec3* out, const vec3* a, float b)
 	out->z = a->z * b;
 }
 
-void vec3_transform_point(vec3* out, const vec3* a, const mat4 m)
+void vec3_transform_point(vec3* out, const vec3* a, const mat4* m)
 {
 	float x = a->x, y = a->y, z = a->z;
-	float w = m.m03 * x + m.m13 * y + m.m23 * z + m.m33;
+	float w = m->m03 * x + m->m13 * y + m->m23 * z + m->m33;
 	w = w || 1.0f;
-	out->x = (m.m00 * x + m.m10 * y + m.m20 * z + m.m30) / w;
-	out->y = (m.m01 * x + m.m11 * y + m.m21 * z + m.m31) / w;
-	out->z = (m.m02 * x + m.m12 * y + m.m22 * z + m.m32) / w;
+	out->x = (m->m00 * x + m->m10 * y + m->m20 * z + m->m30) / w;
+	out->y = (m->m01 * x + m->m11 * y + m->m21 * z + m->m31) / w;
+	out->z = (m->m02 * x + m->m12 * y + m->m22 * z + m->m32) / w;
 }
 
-void vec3_transform_direction(vec3* out, const vec3* a, const mat4 m)
+void vec3_transform_direction(vec3* out, const vec3* a, const mat4* m)
 {
 	vec3 tip;
 	vec3 base;
 	vec3_transform_point(&tip, a, m);
-	mat4_get_translation(&base, &m);
+	mat4_get_translation(&base, m);
 	vec3_subtract(out, &tip, &base);
 }

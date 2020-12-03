@@ -15,13 +15,13 @@ void scene_physics(struct world* world)
 
 	{
 		entity entity = blueprint_camera(world);
-		world->transform[entity]->translation = (vec3){.x = 0.0, .y = 2.0, .z = 50.0};
+		world->transform[entity]->translation = (vec3){0.0, 2.0, 50.0};
 
 		Collide* collide = mix_collide(world, entity);
 		collide->dynamic = true;
 		collide->layers = LAYER_PLAYER;
 		collide->mask = LAYER_TERRAIN;
-		collide->aabb.size = (vec3){.x = 2.0f, .y = 2.0f, .z = 2.0f};
+		collide->aabb.size = (vec3){2.0f, 2.0f, 2.0f};
 
 		RigidBody* rigid_body = mix_rigid_body(world, entity);
 		rigid_body->kind = RIGID_KINEMATIC;

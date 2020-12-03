@@ -17,7 +17,7 @@ static inline void update(struct client* client, struct world* world, entity ent
 	Move* move = world->move[entity];
 
 	if (control->move) {
-		move->direction = (vec3){.x = 0, .y = 0, .z = 0};
+		move->direction = (vec3){0, 0, 0};
 
 		if (client->input_state.key_w) {
 			move->direction.z += 1;
