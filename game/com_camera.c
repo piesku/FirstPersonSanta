@@ -15,8 +15,8 @@ Camera* mix_camera(struct world* world, entity entity)
 			.pv = {0},
 	};
 
-	mat4_identity(camera->projection);
-	mat4_identity(camera->pv);
+	mat4_identity(&camera->projection);
+	mat4_identity(&camera->pv);
 
 	world->signature[entity] |= HAS_CAMERA;
 	return world->camera[entity] = camera;

@@ -19,21 +19,21 @@ static inline void update(struct client* client, struct world* world, entity ent
 		float aspect = (float)client->width / (float)client->height;
 		if (aspect > 1.0) {
 			// Landscape orientation.
-			mat4_perspective(camera->projection,
+			mat4_perspective(&camera->projection,
 					camera->fov_y,
 					aspect,
 					camera->near,
 					camera->far);
 		} else {
 			// Portrait orientation.
-			mat4_perspective(camera->projection,
+			mat4_perspective(&camera->projection,
 					camera->fov_y / aspect,
 					aspect,
 					camera->near,
 					camera->far);
 		}
 	}
-	mat4_multiply(camera->pv, camera->projection, transform->self);
+	mat4_multiply(&camera->pv, &camera->projection, &transform->self);
 }
 
 void sys_camera(struct client* client, struct world* world)

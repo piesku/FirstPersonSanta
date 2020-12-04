@@ -2,26 +2,26 @@
 
 #include <math.h>
 
-void quat_multiply(quat out, const quat a, const quat b)
+void quat_multiply(quat* out, const quat* a, const quat* b)
 {
-	float ax = a[0];
-	float ay = a[1];
-	float az = a[2];
-	float aw = a[3];
-	float bx = b[0];
-	float by = b[1];
-	float bz = b[2];
-	float bw = b[3];
+	float ax = a->x;
+	float ay = a->y;
+	float az = a->z;
+	float aw = a->w;
+	float bx = b->x;
+	float by = b->y;
+	float bz = b->z;
+	float bw = b->w;
 
-	out[0] = ax * bw + aw * bx + ay * bz - az * by;
-	out[1] = ay * bw + aw * by + az * bx - ax * bz;
-	out[2] = az * bw + aw * bz + ax * by - ay * bx;
-	out[3] = aw * bw - ax * bx - ay * by - az * bz;
+	out->x = ax * bw + aw * bx + ay * bz - az * by;
+	out->y = ay * bw + aw * by + az * bx - ax * bz;
+	out->z = az * bw + aw * bz + ax * by - ay * bx;
+	out->w = aw * bw - ax * bx - ay * by - az * bz;
 }
 
 // Compute a quaternion out of three Euler angles given in degrees.
 // The order of rotation is YXZ.
-void quat_from_euler(quat out, float x, float y, float z)
+void quat_from_euler(quat* out, float x, float y, float z)
 {
 	float half_to_rad = 0.5f * DEG_TO_RAD;
 	x *= half_to_rad;
@@ -35,43 +35,43 @@ void quat_from_euler(quat out, float x, float y, float z)
 	float sz = sinf(z);
 	float cz = cosf(z);
 
-	out[0] = sx * cy * cz + cx * sy * sz;
-	out[1] = cx * sy * cz - sx * cy * sz;
-	out[2] = cx * cy * sz - sx * sy * cz;
-	out[3] = cx * cy * cz + sx * sy * sz;
+	out->x = sx * cy * cz + cx * sy * sz;
+	out->y = cx * sy * cz - sx * cy * sz;
+	out->z = cx * cy * sz - sx * sy * cz;
+	out->w = cx * cy * cz + sx * sy * sz;
 }
 
-void quat_from_axis(quat out, const vec3 axis, float angle)
+void quat_from_axis(quat* out, const vec3* axis, float angle)
 {
 	float half = angle / 2.0f;
-	out[0] = sinf(half) * axis[0];
-	out[1] = sinf(half) * axis[1];
-	out[2] = sinf(half) * axis[2];
-	out[3] = cosf(half);
+	out->x = sinf(half) * axis->x;
+	out->y = sinf(half) * axis->y;
+	out->z = sinf(half) * axis->z;
+	out->w = cosf(half);
 }
 
-void quat_lerp(quat out, const quat a, const quat b, float t)
+void quat_lerp(quat* out, const quat* a, const quat* b, float t)
 {
-	float ax = a[0];
-	float ay = a[1];
-	float az = a[2];
-	float aw = a[3];
-	out[0] = ax + t * (b[0] - ax);
-	out[1] = ay + t * (b[1] - ay);
-	out[2] = az + t * (b[2] - az);
-	out[3] = aw + t * (b[3] - aw);
+	float ax = a->x;
+	float ay = a->y;
+	float az = a->z;
+	float aw = a->w;
+	out->x = ax + t * (b->x - ax);
+	out->y = ay + t * (b->y - ay);
+	out->z = az + t * (b->z - az);
+	out->w = aw + t * (b->w - aw);
 }
 
-void quat_slerp(quat out, const quat a, const quat b, float t)
+void quat_slerp(quat* out, const quat* a, const quat* b, float t)
 {
-	float ax = a[0];
-	float ay = a[1];
-	float az = a[2];
-	float aw = a[3];
-	float bx = b[0];
-	float by = b[1];
-	float bz = b[2];
-	float bw = b[3];
+	float ax = a->x;
+	float ay = a->y;
+	float az = a->z;
+	float aw = a->w;
+	float bx = b->x;
+	float by = b->y;
+	float bz = b->z;
+	float bw = b->w;
 
 	float omega, cosom, sinom, scale0, scale1;
 
@@ -99,8 +99,8 @@ void quat_slerp(quat out, const quat a, const quat b, float t)
 		scale1 = t;
 	}
 	// calculate final values
-	out[0] = scale0 * ax + scale1 * bx;
-	out[1] = scale0 * ay + scale1 * by;
-	out[2] = scale0 * az + scale1 * bz;
-	out[3] = scale0 * aw + scale1 * bw;
+	out->x = scale0 * ax + scale1 * bx;
+	out->y = scale0 * ay + scale1 * by;
+	out->z = scale0 * az + scale1 * bz;
+	out->w = scale0 * aw + scale1 * bw;
 }

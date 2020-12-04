@@ -14,9 +14,7 @@ void scene_collide(struct world* world)
 
 	{
 		entity camera = blueprint_camera(world);
-		world->transform[camera]->translation[0] = 0.0;
-		world->transform[camera]->translation[1] = 0.0;
-		world->transform[camera]->translation[2] = 0.0;
+		world->transform[camera]->translation = (vec3){0.0, 0.0, 0.0};
 
 		Collide* collide = mix_collide(world, camera);
 		collide->dynamic = true;
@@ -28,16 +26,21 @@ void scene_collide(struct world* world)
 		entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
-		transform->translation[0] = (rand() % 10 - 5) * 0.9;
-		transform->translation[1] = (rand() % 10 - 5) * 0.9;
-		transform->translation[2] = (rand() % 10 - 5) * 0.9;
+		transform->translation = (vec3){
+				.x = (rand() % 10 - 5) * 0.9,
+				.y = (rand() % 10 - 5) * 0.9,
+				.z = (rand() % 10 - 5) * 0.9,
+		};
 
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_CUBE;
-		render->color[0] = (rand() % 100) / 100.0f;
-		render->color[1] = (rand() % 100) / 100.0f;
-		render->color[2] = (rand() % 100) / 100.0f;
+		render->color = (vec4){
+				.x = (rand() % 100) / 100.0f,
+				.y = (rand() % 100) / 100.0f,
+				.z = (rand() % 100) / 100.0f,
+				.w = 1.0f,
+		};
 
 		Collide* collide = mix_collide(world, entity);
 		collide->dynamic = true;
