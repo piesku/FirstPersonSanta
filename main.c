@@ -137,7 +137,7 @@ int main(int argc, char* argv[])
 						break;
 					switch (event.key.keysym.scancode) {
 						case SDL_SCANCODE_ESCAPE:
-							SDL_SetRelativeMouseMode(false);
+							quit = true;
 							break;
 						case SDL_SCANCODE_UP:
 							engine.client.input_state.arrow_up = 1;
