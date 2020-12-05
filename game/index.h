@@ -28,5 +28,9 @@ enum mesh_index {
 	MESH_CUBE,
 	MESH_QUAD,
 	MESH_MONKEY,
+	// Furniture.
+	MESH_CHAIR,
+	MESH_LAMP,
+	MESH_SOFA,
 	MESHES_LENGTH,
 };

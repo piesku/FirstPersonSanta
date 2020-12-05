@@ -31,9 +31,12 @@ add_executable(FirstPerson
 	game/mat_colored_unlit.c
 	game/mat_postprocess.c
 	game/mat_textured_unlit.c
+	game/mesh_chair.c
 	game/mesh_cube.c
+	game/mesh_lamp.c
 	game/mesh_monkey.c
 	game/mesh_quad.c
+	game/mesh_sofa.c
 	game/sce_bounce.c
 	game/sce_collide.c
 	game/sce_cube.c
@@ -41,6 +44,7 @@ add_executable(FirstPerson
 	game/sce_minimap.c
 	game/sce_monkey.c
 	game/sce_physics.c
+	game/sce_room.c
 	game/sys_camera.c
 	game/sys_collide.c
 	game/sys_control_keyboard.c

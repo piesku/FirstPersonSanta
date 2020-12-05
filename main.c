@@ -17,6 +17,7 @@ void scene_main(struct world* world);
 void scene_minimap(struct world* world);
 void scene_monkey(struct world* world);
 void scene_physics(struct world* world);
+void scene_room(struct world* world);
 
 struct engine {
 	clock_t last_time;
@@ -123,7 +124,7 @@ int main(int argc, char* argv[])
 	};
 
 	engine_init_display(&engine);
-	scene_bounce(engine.world);
+	scene_room(engine.world);
 
 	bool quit = false;
 	while (quit == false) {
