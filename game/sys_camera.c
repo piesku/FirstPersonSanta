@@ -67,22 +67,25 @@ static inline void update_framebuffer(struct client* client, struct world* world
 
 void sys_camera(struct client* client, struct world* world)
 {
-	client->cameras[0] = NULL;
-	client->cameras[1] = NULL;
-	client->cameras[2] = NULL;
-
-	int counter = 1;
+	client->camera_forward = NULL;
+	client->camera_deferred = NULL;
+	client->camera_minimap = NULL;
 
 	for (entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
 			Camera* camera = world->camera[i];
 			switch (camera->kind) {
 				case CAMERA_DISPLAY:
-					client->cameras[0] = camera;
+					client->camera_forward = camera;
 					update_display(client, world, i);
 					break;
 				case CAMERA_FRAMEBUFFER:
-					client->cameras[counter++] = camera;
+					if (client->camera_deferred == NULL) {
+						// The first framebuffer camera in the scene is the main camera.
+						client->camera_deferred = camera;
+					} else {
+						client->camera_minimap = camera;
+					}
 					update_framebuffer(client, world, i);
 					break;
 			}

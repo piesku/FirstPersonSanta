@@ -40,7 +40,9 @@ struct client {
 	struct mesh meshes[MESHES_LENGTH];
 	GLuint textures[TEXTURES_LENGTH];
 
-	union camera* cameras[3];
+	struct camera_display* camera_forward;
+	struct camera_framebuffer* camera_deferred;
+	struct camera_framebuffer* camera_minimap;
 	struct lights {
 		float positions[4 * 8];
 		float details[4 * 8];

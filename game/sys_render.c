@@ -136,9 +136,9 @@ void render(struct client* client, struct world* world, struct eye* eye )
 
 void sys_render(struct client* client, struct world* world)
 {
-	if (client->cameras[0] != NULL) {
+	if (client->camera_forward != NULL) {
 		// Render to display.
-		CameraDisplay* camera = client->cameras[0];
+		CameraDisplay* camera = client->camera_forward;
 		glBindFramebuffer(GL_FRAMEBUFFER, NULL);
 		glViewport(0, 0, client->width, client->height);
 		glClearColor(
@@ -150,9 +150,9 @@ void sys_render(struct client* client, struct world* world)
 		render(client, world, &camera->eye);
 	}
 
-	if (client->cameras[1] != NULL) {
+	if (client->camera_deferred != NULL) {
 		// Render to framebuffer.
-		CameraFramebuffer* camera = client->cameras[1];
+		CameraFramebuffer* camera = client->camera_deferred;
 		struct render_target* target = &client->targets[camera->target];
 		glBindFramebuffer(GL_FRAMEBUFFER, target->framebuffer);
 		glViewport(0, 0, target->width, target->height);
@@ -165,9 +165,9 @@ void sys_render(struct client* client, struct world* world)
 		render(client, world, &camera->eye);
 	}
 
-	if (client->cameras[2] != NULL) {
+	if (client->camera_minimap != NULL) {
 		// Render to framebuffer.
-		CameraFramebuffer* camera = client->cameras[2];
+		CameraFramebuffer* camera = client->camera_minimap;
 		struct render_target* target = &client->targets[camera->target];
 		glBindFramebuffer(GL_FRAMEBUFFER, target->framebuffer);
 		glViewport(0, 0, target->width, target->height);

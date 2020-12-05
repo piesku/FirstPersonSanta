@@ -132,9 +132,6 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	client->meshes[MESH_QUAD] = mesh_quad();
 	client->meshes[MESH_MONKEY] = mesh_monkey();
 
-	client->cameras[0] = NULL;
-	client->cameras[1] = NULL;
-
 	// OpenGL 3.3. (core profile, i.e. in strict mode) requires at least one VAO.
 	GLuint vao;
 	glGenVertexArrays(1, &vao);
