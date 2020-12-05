@@ -1,11 +1,8 @@
 #include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 #include "../common/aabb.h"
 #include "../common/matrix.h"
 
-#include "client.h"
 #include "com_collide.h"
 #include "com_transform.h"
 #include "world.h"

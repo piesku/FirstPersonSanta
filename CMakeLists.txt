@@ -16,6 +16,7 @@ add_executable(FirstPerson
 	common/texture.c
 	common/vec3.c
 
+	game/actions.c
 	game/blu_camera.c
 	game/client.c
 	game/com_camera.c
@@ -26,12 +27,14 @@ add_executable(FirstPerson
 	game/com_render.c
 	game/com_rigid_body.c
 	game/com_transform.c
+	game/com_trigger.c
 	game/mat_colored_unlit.c
 	game/mat_postprocess.c
 	game/mat_textured_unlit.c
 	game/mesh_cube.c
 	game/mesh_monkey.c
 	game/mesh_quad.c
+	game/sce_bounce.c
 	game/sce_collide.c
 	game/sce_cube.c
 	game/sce_main.c
@@ -50,6 +53,7 @@ add_executable(FirstPerson
 	game/sys_render.c
 	game/sys_postprocess.c
 	game/sys_transform.c
+	game/sys_trigger.c
 	game/world.c
 )
 

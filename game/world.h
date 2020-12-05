@@ -13,6 +13,7 @@ enum has_component {
 	HAS_RENDER = 1 << 5,
 	HAS_RIGID_BODY = 1 << 6,
 	HAS_TRANSFORM = 1 << 7,
+	HAS_TRIGGER = 1 << 8,
 };
 
 struct world {
@@ -26,6 +27,7 @@ struct world {
 	union render* render[MAX_ENTITIES];
 	struct rigid_body* rigid_body[MAX_ENTITIES];
 	struct transform* transform[MAX_ENTITIES];
+	struct trigger* trigger[MAX_ENTITIES];
 };
 
 struct world* create_world(void);

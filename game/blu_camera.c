@@ -18,7 +18,7 @@ entity blueprint_camera_display(struct world* world)
 	transform_a->rotation = (quat){0.0, 1.0, 0.0, 0.0};
 
 	Move* move = mix_move(world, a);
-	move->movement_speed = 10.0;
+	move->movement_speed = 20.0;
 	move->rotation_speed = 2.0;
 
 	ControlPlayer* control = mix_control_player(world, a);

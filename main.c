@@ -10,6 +10,7 @@
 #include "game/client.h"
 #include "game/world.h"
 
+void scene_bounce(struct world* world);
 void scene_collide(struct world* world);
 void scene_cube(struct world* world);
 void scene_main(struct world* world);
@@ -122,7 +123,7 @@ int main(int argc, char* argv[])
 	};
 
 	engine_init_display(&engine);
-	scene_monkey(engine.world);
+	scene_bounce(engine.world);
 
 	bool quit = false;
 	while (quit == false) {

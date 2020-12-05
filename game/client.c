@@ -26,6 +26,7 @@ void sys_physics_resolve(struct world* world);
 void sys_postprocess(struct client* client);
 void sys_render(struct client* client, struct world* world);
 void sys_transform(struct world* world);
+void sys_trigger(struct client* client, struct world* world);
 
 void client_setup(struct client* client, int32_t width, int32_t height)
 {
@@ -182,6 +183,7 @@ void client_world_update(struct client* client, struct world* world, float delta
 	sys_transform(world);
 	sys_physics_kinematic(world, delta);
 	sys_collide(world);
+	sys_trigger(client, world);
 	sys_physics_resolve(world);
 	sys_transform(world);
 }
