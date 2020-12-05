@@ -17,8 +17,8 @@ Transform* mix_transform(struct world* world, entity entity)
 			.dirty = true,
 	};
 
-	mat4_identity(transform->world);
-	mat4_identity(transform->self);
+	mat4_identity(&transform->world);
+	mat4_identity(&transform->self);
 
 	world->signature[entity] |= HAS_TRANSFORM;
 	return world->transform[entity] = transform;

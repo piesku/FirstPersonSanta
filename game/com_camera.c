@@ -13,8 +13,8 @@ CameraDisplay* mix_camera_display(struct world* world, entity entity)
 			},
 	};
 
-	mat4_identity(camera->display.projection);
-	mat4_identity(camera->display.eye.pv);
+	mat4_identity(&camera->display.projection);
+	mat4_identity(&camera->display.eye.pv);
 
 	world->signature[entity] |= HAS_CAMERA;
 	world->camera[entity] = camera;
@@ -30,8 +30,8 @@ CameraFramebuffer* mix_camera_framebuffer(struct world* world, entity entity)
 			},
 	};
 
-	mat4_identity(camera->framebuffer.projection);
-	mat4_identity(camera->framebuffer.eye.pv);
+	mat4_identity(&camera->framebuffer.projection);
+	mat4_identity(&camera->framebuffer.eye.pv);
 
 	world->signature[entity] |= HAS_CAMERA;
 	world->camera[entity] = camera;

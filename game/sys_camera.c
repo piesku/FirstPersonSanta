@@ -19,14 +19,14 @@ static inline void update_display(struct client* client, struct world* world, en
 		float aspect = (float)client->width / (float)client->height;
 		if (aspect > 1.0) {
 			// Landscape orientation.
-			mat4_perspective(camera->projection,
+			mat4_perspective(&camera->projection,
 					camera->fov_y,
 					aspect,
 					camera->near,
 					camera->far);
 		} else {
 			// Portrait orientation.
-			mat4_perspective(camera->projection,
+			mat4_perspective(&camera->projection,
 					camera->fov_y / aspect,
 					aspect,
 					camera->near,
@@ -34,7 +34,7 @@ static inline void update_display(struct client* client, struct world* world, en
 		}
 	}
 
-	mat4_multiply(camera->eye.pv, camera->projection, transform->self);
+	mat4_multiply(&camera->eye.pv, &camera->projection, &transform->self);
 }
 
 static inline void update_framebuffer(struct client* client, struct world* world, entity entity)
@@ -47,14 +47,14 @@ static inline void update_framebuffer(struct client* client, struct world* world
 		float aspect = (float)target->width / (float)target->height;
 		if (aspect > 1.0) {
 			// Landscape orientation.
-			mat4_perspective(camera->projection,
+			mat4_perspective(&camera->projection,
 					camera->fov_y,
 					aspect,
 					camera->near,
 					camera->far);
 		} else {
 			// Portrait orientation.
-			mat4_perspective(camera->projection,
+			mat4_perspective(&camera->projection,
 					camera->fov_y / aspect,
 					aspect,
 					camera->near,
@@ -62,7 +62,7 @@ static inline void update_framebuffer(struct client* client, struct world* world
 		}
 	}
 
-	mat4_multiply(camera->eye.pv, camera->projection, transform->self);
+	mat4_multiply(&camera->eye.pv, &camera->projection, &transform->self);
 }
 
 void sys_camera(struct client* client, struct world* world)

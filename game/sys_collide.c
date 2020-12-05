@@ -21,18 +21,18 @@ void check_for_collision(Collide* collider, Collide* other)
 	if (collider_can_intersect || other_can_intersect) {
 		if (intersect_aabb(&collider->aabb, &other->aabb)) {
 			vec3 hit;
-			penetrate_aabb(hit, &collider->aabb, &other->aabb);
+			penetrate_aabb(&hit, &collider->aabb, &other->aabb);
 			if (collider_can_intersect && collider->count < MAX_COLLISIONS) {
 				collider->collisions[collider->count] = (struct collision){
 						.other = other->entity,
-						.hit = {hit[0], hit[1], hit[2]},
+						.hit = {hit.x, hit.y, hit.z},
 				};
 				collider->count++;
 			}
 			if (other_can_intersect && other->count < MAX_COLLISIONS) {
 				other->collisions[other->count] = (struct collision){
 						.other = collider->entity,
-						.hit = {-hit[0], -hit[1], -hit[2]},
+						.hit = {-hit.x, -hit.y, -hit.z},
 				};
 				other->count++;
 			}
@@ -51,9 +51,9 @@ void sys_collide(struct client* client, struct world* world, float delta)
 			if (collide->entity == 0) {
 				// It's a new collider.
 				collide->entity = i;
-				compute_aabb_without_scale(transform->world, &collide->aabb);
+				compute_aabb_without_scale(&transform->world, &collide->aabb);
 			} else if (collide->dynamic) {
-				compute_aabb_without_scale(transform->world, &collide->aabb);
+				compute_aabb_without_scale(&transform->world, &collide->aabb);
 			}
 
 			// Reset the collision count in this frame.

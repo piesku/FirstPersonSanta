@@ -14,21 +14,21 @@ static inline void update(struct world* world, entity entity, float delta)
 	RigidBody* rigid_body = world->rigid_body[entity];
 
 	if (rigid_body->kind == RIGID_DYNAMIC) {
-		vec3_copy(rigid_body->velocity_integrated, rigid_body->velocity_resolved);
+		vec3_copy(&rigid_body->velocity_integrated, &rigid_body->velocity_resolved);
 
 		// Compute change to velocity, including the gravity.
-		vec3_scale(rigid_body->acceleration, rigid_body->acceleration, delta);
-		vec3_add(rigid_body->velocity_integrated, rigid_body->velocity_integrated, rigid_body->acceleration);
-		rigid_body->velocity_integrated[1] += GRAVITY * delta;
+		vec3_scale(&rigid_body->acceleration, &rigid_body->acceleration, delta);
+		vec3_add(&rigid_body->velocity_integrated, &rigid_body->velocity_integrated, &rigid_body->acceleration);
+		rigid_body->velocity_integrated.y += GRAVITY * delta;
 
 		// Apply velocity to position.
 		vec3 vel_delta = {0};
-		vec3_scale(vel_delta, rigid_body->velocity_integrated, delta);
-		vec3_add(transform->translation, transform->translation, vel_delta);
+		vec3_scale(&vel_delta, &rigid_body->velocity_integrated, delta);
+		vec3_add(&transform->translation, &transform->translation, &vel_delta);
 		transform->dirty = true;
 
 		// Reset force/acceleration.
-		vec3_set(rigid_body->acceleration, 0, 0, 0);
+		vec3_set(&rigid_body->acceleration, 0, 0, 0);
 	}
 }
 
