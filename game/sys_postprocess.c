@@ -13,6 +13,11 @@
 
 void sys_postprocess(struct client* client, struct world* world)
 {
+	if (client->camera_deferred == NULL) {
+		// The main camera must be a framebuffer camera.
+		return;
+	}
+
 	glBindFramebuffer(GL_FRAMEBUFFER, NULL);
 	glViewport(0, 0, client->width, client->height);
 	glClearColor(0, 0, 0, 1);
