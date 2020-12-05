@@ -15,17 +15,17 @@ struct mesh mesh_quad(void);
 struct mesh mesh_monkey(void);
 
 void sys_camera(struct client* client, struct world* world);
-void sys_collide(struct client* client, struct world* world, float delta);
+void sys_collide(struct world* world);
 void sys_control_keyboard(struct client* client, struct world* world, float delta);
 void sys_control_mouse(struct client* client, struct world* world, float delta);
 void sys_light(struct client* client, struct world* world);
-void sys_move(struct client* client, struct world* world, float delta);
-void sys_physics_integrate(struct client* client, struct world* world, float delta);
-void sys_physics_kinematic(struct client* client, struct world* world, float delta);
-void sys_physics_resolve(struct client* client, struct world* world, float delta);
-void sys_postprocess(struct client* client, struct world* world);
+void sys_move(struct world* world, float delta);
+void sys_physics_integrate(struct world* world, float delta);
+void sys_physics_kinematic(struct world* world, float delta);
+void sys_physics_resolve(struct world* world);
+void sys_postprocess(struct client* client);
 void sys_render(struct client* client, struct world* world);
-void sys_transform(struct client* client, struct world* world, float delta);
+void sys_transform(struct world* world);
 
 void client_setup(struct client* client, int32_t width, int32_t height)
 {
@@ -174,16 +174,16 @@ void client_world_update(struct client* client, struct world* world, float delta
 	sys_control_mouse(client, world, delta);
 
 	// Game logic.
-	sys_move(client, world, delta);
-	sys_transform(client, world, delta);
+	sys_move(world, delta);
+	sys_transform(world);
 
 	// Collisions and physics.
-	sys_physics_integrate(client, world, delta);
-	sys_transform(client, world, delta);
-	sys_physics_kinematic(client, world, delta);
-	sys_collide(client, world, delta);
-	sys_physics_resolve(client, world, delta);
-	sys_transform(client, world, delta);
+	sys_physics_integrate(world, delta);
+	sys_transform(world);
+	sys_physics_kinematic(world, delta);
+	sys_collide(world);
+	sys_physics_resolve(world);
+	sys_transform(world);
 }
 
 void client_frame_update(struct client* client, struct world* world)

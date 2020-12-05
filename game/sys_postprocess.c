@@ -6,12 +6,9 @@
 
 #include "client.h"
 #include "com_camera.h"
-#include "com_render.h"
-#include "com_transform.h"
 #include "index.h"
-#include "world.h"
 
-void sys_postprocess(struct client* client, struct world* world)
+void sys_postprocess(struct client* client)
 {
 	if (client->camera_default->kind != CAMERA_FRAMEBUFFER) {
 		// The default camera renders directly to the screen.

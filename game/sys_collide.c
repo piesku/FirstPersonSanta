@@ -12,8 +12,7 @@
 
 static int32_t QUERY = HAS_TRANSFORM | HAS_COLLIDE;
 
-static inline
-void check_for_collision(Collide* collider, Collide* other)
+static inline void check_for_collision(Collide* collider, Collide* other)
 {
 	int32_t collider_can_intersect = collider->mask & other->layers;
 	int32_t other_can_intersect = other->mask & collider->layers;
@@ -40,7 +39,7 @@ void check_for_collision(Collide* collider, Collide* other)
 	}
 }
 
-void sys_collide(struct client* client, struct world* world, float delta)
+void sys_collide(struct world* world)
 {
 	// Set up colliders.
 	for (entity i = 1; i < MAX_ENTITIES; i++) {

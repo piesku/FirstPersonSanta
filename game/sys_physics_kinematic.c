@@ -25,7 +25,7 @@ static inline void update(struct world* world, entity entity, float delta)
 	}
 }
 
-void sys_physics_kinematic(struct client* client, struct world* world, float delta)
+void sys_physics_kinematic(struct world* world, float delta)
 {
 	for (entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
