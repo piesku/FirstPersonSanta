@@ -67,8 +67,7 @@ static inline void update_framebuffer(struct client* client, struct world* world
 
 void sys_camera(struct client* client, struct world* world)
 {
-	client->camera_forward = NULL;
-	client->camera_deferred = NULL;
+	client->camera_default = NULL;
 	client->camera_minimap = NULL;
 
 	for (entity i = 1; i < MAX_ENTITIES; i++) {
@@ -76,13 +75,12 @@ void sys_camera(struct client* client, struct world* world)
 			Camera* camera = world->camera[i];
 			switch (camera->kind) {
 				case CAMERA_DISPLAY:
-					client->camera_forward = camera;
+					client->camera_default = camera;
 					update_display(client, world, i);
 					break;
 				case CAMERA_FRAMEBUFFER:
-					if (client->camera_deferred == NULL) {
-						// The first framebuffer camera in the scene is the main camera.
-						client->camera_deferred = camera;
+					if (client->camera_default == NULL) {
+						client->camera_default = camera;
 					} else {
 						client->camera_minimap = camera;
 					}

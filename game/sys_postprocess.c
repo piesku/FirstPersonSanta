@@ -13,8 +13,8 @@
 
 void sys_postprocess(struct client* client, struct world* world)
 {
-	if (client->camera_deferred == NULL) {
-		// The main camera must be a framebuffer camera.
+	if (client->camera_default->kind != CAMERA_FRAMEBUFFER) {
+		// The default camera renders directly to the screen.
 		return;
 	}
 

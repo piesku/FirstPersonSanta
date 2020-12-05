@@ -103,7 +103,7 @@ static inline void draw_textured_unlit(struct client* client, Transform* transfo
 	glDrawElements(material.mode, mesh.index_count, GL_UNSIGNED_SHORT, 0);
 }
 
-void render(struct client* client, struct world* world, struct eye* eye )
+static void render_world(struct client* client, struct world* world, struct eye* eye)
 {
 	for (entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
@@ -134,49 +134,47 @@ void render(struct client* client, struct world* world, struct eye* eye )
 	}
 }
 
+static void render_display(struct client* client, struct world* world, CameraDisplay* camera)
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, NULL);
+	glViewport(0, 0, client->width, client->height);
+	glClearColor(
+			camera->clear_color.x,
+			camera->clear_color.y,
+			camera->clear_color.z,
+			camera->clear_color.w);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	render_world(client, world, &camera->eye);
+}
+
+static void render_framebuffer(struct client* client, struct world* world, CameraFramebuffer* camera)
+{
+	struct render_target* target = &client->targets[camera->target];
+	glBindFramebuffer(GL_FRAMEBUFFER, target->framebuffer);
+	glViewport(0, 0, target->width, target->height);
+	glClearColor(
+			camera->clear_color.x,
+			camera->clear_color.y,
+			camera->clear_color.z,
+			camera->clear_color.w);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	render_world(client, world, &camera->eye);
+}
+
 void sys_render(struct client* client, struct world* world)
 {
-	if (client->camera_forward != NULL) {
-		// Render to display.
-		CameraDisplay* camera = client->camera_forward;
-		glBindFramebuffer(GL_FRAMEBUFFER, NULL);
-		glViewport(0, 0, client->width, client->height);
-		glClearColor(
-				camera->clear_color.x,
-				camera->clear_color.y,
-				camera->clear_color.z,
-				camera->clear_color.w);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		render(client, world, &camera->eye);
-	}
-
-	if (client->camera_deferred != NULL) {
-		// Render to framebuffer.
-		CameraFramebuffer* camera = client->camera_deferred;
-		struct render_target* target = &client->targets[camera->target];
-		glBindFramebuffer(GL_FRAMEBUFFER, target->framebuffer);
-		glViewport(0, 0, target->width, target->height);
-		glClearColor(
-				camera->clear_color.x,
-				camera->clear_color.y,
-				camera->clear_color.z,
-				camera->clear_color.w);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		render(client, world, &camera->eye);
+	if (client->camera_default != NULL) {
+		switch (client->camera_default->kind) {
+			case CAMERA_DISPLAY:
+				render_display(client, world, client->camera_default);
+				break;
+			case CAMERA_FRAMEBUFFER:
+				render_framebuffer(client, world, client->camera_default);
+				break;
+		}
 	}
 
 	if (client->camera_minimap != NULL) {
-		// Render to framebuffer.
-		CameraFramebuffer* camera = client->camera_minimap;
-		struct render_target* target = &client->targets[camera->target];
-		glBindFramebuffer(GL_FRAMEBUFFER, target->framebuffer);
-		glViewport(0, 0, target->width, target->height);
-		glClearColor(
-				camera->clear_color.x,
-				camera->clear_color.y,
-				camera->clear_color.z,
-				camera->clear_color.w);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		render(client, world, &camera->eye);
+		render_framebuffer(client, world, &client->camera_minimap);
 	}
 }

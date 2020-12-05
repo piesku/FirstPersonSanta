@@ -7,8 +7,6 @@
 
 #include "index.h"
 
-#define MAX_CAMERAS 3
-
 enum camera_kind {
 	CAMERA_DISPLAY,
 	CAMERA_FRAMEBUFFER,
