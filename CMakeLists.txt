@@ -27,11 +27,16 @@ add_executable(FirstPerson
 	game/com_rigid_body.c
 	game/com_transform.c
 	game/mat_colored_unlit.c
+	game/mat_postprocess.c
 	game/mat_textured_unlit.c
 	game/mesh_cube.c
+	game/mesh_monkey.c
+	game/mesh_quad.c
 	game/sce_collide.c
 	game/sce_cube.c
 	game/sce_main.c
+	game/sce_minimap.c
+	game/sce_monkey.c
 	game/sce_physics.c
 	game/sys_camera.c
 	game/sys_collide.c
@@ -43,6 +48,7 @@ add_executable(FirstPerson
 	game/sys_physics_kinematic.c
 	game/sys_physics_resolve.c
 	game/sys_render.c
+	game/sys_postprocess.c
 	game/sys_transform.c
 	game/world.c
 )

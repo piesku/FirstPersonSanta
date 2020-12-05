@@ -13,7 +13,7 @@ void scene_cube(struct world* world)
 
 	{
 		// Camera
-		entity camera = blueprint_camera(world);
+		entity camera = blueprint_camera_display(world);
 	}
 
 	{
@@ -23,9 +23,9 @@ void scene_cube(struct world* world)
 		Transform* transform = mix_transform(world, entity);
 		transform->translation.z = -5.0;
 
-		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
-		render->material = MAT_COLORED_UNLIT;
+		RenderTexturedUnlit* render = mix_render_textured_unlit(world, entity);
+		render->material = MAT_TEXTURED_UNLIT;
+		render->texture = TEX_CHECKER;
 		render->mesh = MESH_CUBE;
-		render->color = (vec4){0.32, 0.4, 0.88, 1.0};
 	}
 }

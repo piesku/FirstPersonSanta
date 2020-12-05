@@ -14,7 +14,7 @@ void scene_physics(struct world* world)
 	srand(time(NULL));
 
 	{
-		entity entity = blueprint_camera(world);
+		entity entity = blueprint_camera_display(world);
 		world->transform[entity]->translation = (vec3){0.0, 2.0, 50.0};
 
 		Collide* collide = mix_collide(world, entity);

@@ -13,6 +13,8 @@
 void scene_collide(struct world* world);
 void scene_cube(struct world* world);
 void scene_main(struct world* world);
+void scene_minimap(struct world* world);
+void scene_monkey(struct world* world);
 void scene_physics(struct world* world);
 
 struct engine {
@@ -34,7 +36,7 @@ void engine_load_texture(struct engine* engine, enum texture_index index, const 
 		printf("IMG_Load: %s\n", IMG_GetError());
 		exit(1);
 	}
-	engine->client.textures[index] = create_texture_rgba(
+	engine->client.textures[index] = create_texture_from(
 			image->pixels, image->w, image->h);
 	SDL_FreeSurface(image);
 }
@@ -120,7 +122,7 @@ int main(int argc, char* argv[])
 	};
 
 	engine_init_display(&engine);
-	scene_physics(engine.world);
+	scene_monkey(engine.world);
 
 	bool quit = false;
 	while (quit == false) {
@@ -135,7 +137,7 @@ int main(int argc, char* argv[])
 						break;
 					switch (event.key.keysym.scancode) {
 						case SDL_SCANCODE_ESCAPE:
-							SDL_SetRelativeMouseMode(false);
+							quit = true;
 							break;
 						case SDL_SCANCODE_UP:
 							engine.client.input_state.arrow_up = 1;

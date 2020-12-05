@@ -13,7 +13,7 @@ void scene_collide(struct world* world)
 	srand(time(NULL));
 
 	{
-		entity camera = blueprint_camera(world);
+		entity camera = blueprint_camera_display(world);
 		world->transform[camera]->translation = (vec3){0.0, 0.0, 0.0};
 
 		Collide* collide = mix_collide(world, camera);

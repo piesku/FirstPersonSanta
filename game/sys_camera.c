@@ -10,10 +10,10 @@
 
 static int32_t QUERY = HAS_TRANSFORM | HAS_CAMERA;
 
-static inline void update(struct client* client, struct world* world, entity entity)
+static inline void update_display(struct client* client, struct world* world, entity entity)
 {
 	Transform* transform = world->transform[entity];
-	Camera* camera = world->camera[entity];
+	CameraDisplay* camera = &world->camera[entity]->display;
 
 	if (client->resized) {
 		float aspect = (float)client->width / (float)client->height;
@@ -33,20 +33,60 @@ static inline void update(struct client* client, struct world* world, entity ent
 					camera->far);
 		}
 	}
-	mat4_multiply(&camera->pv, &camera->projection, &transform->self);
+
+	mat4_multiply(&camera->eye.pv, &camera->projection, &transform->self);
+}
+
+static inline void update_framebuffer(struct client* client, struct world* world, entity entity)
+{
+	Transform* transform = world->transform[entity];
+	CameraFramebuffer* camera = &world->camera[entity]->framebuffer;
+
+	if (client->resized) {
+		struct render_target* target = &client->targets[camera->target];
+		float aspect = (float)target->width / (float)target->height;
+		if (aspect > 1.0) {
+			// Landscape orientation.
+			mat4_perspective(&camera->projection,
+					camera->fov_y,
+					aspect,
+					camera->near,
+					camera->far);
+		} else {
+			// Portrait orientation.
+			mat4_perspective(&camera->projection,
+					camera->fov_y / aspect,
+					aspect,
+					camera->near,
+					camera->far);
+		}
+	}
+
+	mat4_multiply(&camera->eye.pv, &camera->projection, &transform->self);
 }
 
 void sys_camera(struct client* client, struct world* world)
 {
-	client->camera = NULL;
+	client->camera_default = NULL;
+	client->camera_minimap = NULL;
 
 	for (entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
-			update(client, world, i);
-
-			// Support only one camera per scene.
-			client->camera = world->camera[i];
-			return;
+			Camera* camera = world->camera[i];
+			switch (camera->kind) {
+				case CAMERA_DISPLAY:
+					client->camera_default = camera;
+					update_display(client, world, i);
+					break;
+				case CAMERA_FRAMEBUFFER:
+					if (client->camera_default == NULL) {
+						client->camera_default = camera;
+					} else {
+						client->camera_minimap = camera;
+					}
+					update_framebuffer(client, world, i);
+					break;
+			}
 		}
 	}
 }
