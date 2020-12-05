@@ -36,7 +36,7 @@ struct material mat_textured_unlit(void)
 
 			"void main() {"
 			"    frag_color = texture(sampler, vert_texcoord);"
-			"    frag_normal = vert_normal;"
+			"    frag_normal = vert_normal * 0.5 + vec3(0.5);"
 			"}";
 	GLuint program = create_program(vertex_shader_source, fragment_shader_source);
 	struct material material = (struct material){
