@@ -56,4 +56,44 @@ void scene_monkey(struct world* world)
 		render->color[1] = 0.4;
 		render->color[2] = 0.88;
 	}
+
+	{
+		// Building 1.
+		entity entity = create_entity(world);
+
+		Transform* transform = mix_transform(world, entity);
+		transform->translation[0] = -5.0;
+		transform->translation[1] = 0.0;
+		transform->translation[2] = -10.0;
+		transform->scale[0] = 10.0;
+		transform->scale[1] = 20.0;
+		transform->scale[2] = 10.0;
+
+		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
+		render->material = MAT_COLORED_UNLIT;
+		render->mesh = MESH_CUBE;
+		render->color[0] = 0.32;
+		render->color[1] = 0.4;
+		render->color[2] = 0.88;
+	}
+
+	{
+		// Building 2.
+		entity entity = create_entity(world);
+
+		Transform* transform = mix_transform(world, entity);
+		transform->translation[0] = 10.0;
+		transform->translation[1] = 0.0;
+		transform->translation[2] = -30.0;
+		transform->scale[0] = 50.0;
+		transform->scale[1] = 40.0;
+		transform->scale[2] = 10.0;
+
+		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
+		render->material = MAT_COLORED_UNLIT;
+		render->mesh = MESH_CUBE;
+		render->color[0] = 0.32;
+		render->color[1] = 0.4;
+		render->color[2] = 0.88;
+	}
 }
