@@ -30,11 +30,13 @@ add_executable(FirstPerson
 	game/mat_postprocess.c
 	game/mat_textured_unlit.c
 	game/mesh_cube.c
+	game/mesh_monkey.c
 	game/mesh_quad.c
 	game/sce_collide.c
 	game/sce_cube.c
 	game/sce_main.c
 	game/sce_minimap.c
+	game/sce_monkey.c
 	game/sce_physics.c
 	game/sys_camera.c
 	game/sys_collide.c

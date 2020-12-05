@@ -27,5 +27,6 @@ enum material_index {
 enum mesh_index {
 	MESH_CUBE,
 	MESH_QUAD,
+	MESH_MONKEY,
 	MESHES_LENGTH,
 };

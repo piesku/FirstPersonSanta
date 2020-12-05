@@ -12,6 +12,7 @@ struct material mat_textured_unlit(void);
 struct material mat_postprocess(void);
 struct mesh mesh_cube(void);
 struct mesh mesh_quad(void);
+struct mesh mesh_monkey(void);
 
 void sys_camera(struct client* client, struct world* world);
 void sys_collide(struct client* client, struct world* world, float delta);
@@ -129,6 +130,7 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	client->materials[MAT_POSTPROCESS] = mat_postprocess();
 	client->meshes[MESH_CUBE] = mesh_cube();
 	client->meshes[MESH_QUAD] = mesh_quad();
+	client->meshes[MESH_MONKEY] = mesh_monkey();
 
 	client->cameras[0] = NULL;
 	client->cameras[1] = NULL;
