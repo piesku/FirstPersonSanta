@@ -41,12 +41,12 @@ struct material mat_postprocess(void)
 			"	vec3 current_normal = normal_at(vert_texcoord);"
 			"	float current_depth = depth_at(vert_texcoord);"
 
-			"	vec2 offsets[4] = {"
+			"	vec2 offsets[4] = vec2[]("
 			"			vec2(-1, -1) / dimensions,"
 			"			vec2(1, -1) / dimensions,"
 			"			vec2(-1, 1) / dimensions,"
-			"			vec2(1, 1) / dimensions,"
-			"	};"
+			"			vec2(1, 1) / dimensions"
+			"	);"
 
 			"	vec3 n1 = normal_at(vert_texcoord + offsets[0])"
 			"			- normal_at(vert_texcoord + offsets[3]);"
