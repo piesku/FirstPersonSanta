@@ -26,27 +26,43 @@ struct material mat_postprocess(void)
 			"in vec2 vert_texcoord;"
 			"out vec4 frag_color;"
 
-			"vec4 normal_depth_at(vec2 uv) {"
-			"	vec4 normal = texture(normal_map, uv);"
-			"	vec4 depth = texture(depth_map, uv);"
-			"	return vec4(normal.xyz, depth.x);"
+			"const vec4 edge_color = vec4(0.0, 0.0, 0.0, 1.0);"
+
+			"vec3 normal_at(vec2 uv) {"
+			"	return texture(normal_map, uv).xyz;"
+			"}"
+
+			"float depth_at(vec2 uv) {"
+			"	return texture(depth_map, uv).x;"
 			"}"
 
 			"void main() {"
-			"	vec4 color = texture(color_map, vert_texcoord);"
+			"	vec4 current_color = texture(color_map, vert_texcoord);"
+			"	vec3 current_normal = normal_at(vert_texcoord);"
+			"	float current_depth = depth_at(vert_texcoord);"
 
-			"	vec4 current = normal_depth_at(vert_texcoord);"
-			"	vec2 offsets[8] = {"
-			"			vec2(-1, -1), vec2(-1, 0), vec2(-1, 1),"
-			"			vec2(0, -1), vec2(0, 1),"
-			"			vec2(1, -1), vec2(1, 0), vec2(1, 1)};"
-			"	vec4 sampled = vec4(0.0);"
-			"	for (int j = 0; j < 8; j++) {"
-			"		sampled += normal_depth_at(vert_texcoord + offsets[j] / dimensions);"
+			"	vec2 offsets[4] = {"
+			"			vec2(-1, -1) / dimensions,"
+			"			vec2(1, -1) / dimensions,"
+			"			vec2(-1, 1) / dimensions,"
+			"			vec2(1, 1) / dimensions,"
+			"	};"
+
+			"	vec3 sampled_normal = vec3(0.0);"
+			"	float sampled_depth = 0.0;"
+			"	for (int i = 0; i < 4; i++) {"
+			"		sampled_normal += normal_at(vert_texcoord + offsets[i]);"
+			"		sampled_depth += depth_at(vert_texcoord + offsets[i]);"
 			"	}"
-			"	sampled /= 8.0;"
+			"	sampled_normal /= 4.0;"
+			"	sampled_depth /= 4.0;"
 
-			"	frag_color = mix(color, vec4(0.0, 0.0, 0.0, 1.0), step(0.01, length(current - sampled)));"
+			"	vec4 current_combined = vec4(current_normal, current_depth);"
+			"	vec4 sampled_combined = vec4(sampled_normal, sampled_depth);"
+
+			"	frag_color = mix("
+			"			current_color, edge_color,"
+			"			step(0.01, length(current_combined - sampled_combined)));"
 			"}";
 
 	GLuint program = create_program(vertex_shader_source, fragment_shader_source);
