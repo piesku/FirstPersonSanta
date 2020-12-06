@@ -202,7 +202,7 @@ void client_frame_update(struct client* client, struct world* world)
 	sys_camera(client, world);
 	sys_light(client, world);
 	sys_render(client, world);
-	sys_postprocess(client, world);
+	sys_postprocess(client);
 
 	client->resized = false;
 }

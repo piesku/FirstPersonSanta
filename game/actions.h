@@ -13,4 +13,7 @@ union action_data {
 	} trigger;
 };
 
+struct client;
+struct world;
+
 void dispatch(struct client* client, struct world* world, enum action action, union action_data payload);

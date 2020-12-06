@@ -26,8 +26,8 @@ struct material mat_colored_unlit(void)
 
 			"in vec3 vert_normal;"
 
-			"out layout(location = 0) vec4 frag_color;"
-			"out layout(location = 1) vec3 frag_normal;"
+			"layout(location = 0) out vec4 frag_color;"
+			"layout(location = 1) out vec3 frag_normal;"
 
 			"void main() {"
 			"    frag_color = color;"

@@ -1,6 +1,7 @@
 #include "actions.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "com_rigid_body.h"
 #include "client.h"

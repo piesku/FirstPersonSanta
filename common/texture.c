@@ -1,5 +1,7 @@
 #include "texture.h"
 
+#include <stdlib.h>
+
 GLuint create_texture_from(uint8_t* pixels, uint32_t width, uint32_t height)
 {
 	GLuint texture;

@@ -3,6 +3,7 @@
 #include "../common/aabb.h"
 #include "../common/entity.h"
 #include "../common/matrix.h"
+#include "actions.h"
 
 typedef struct trigger {
 	enum action action;
