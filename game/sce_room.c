@@ -92,10 +92,12 @@ void scene_room(struct world* world)
 		transform->scale = (vec3){0.5, 0.5, 0.5};
 		quat_from_euler(&transform->rotation, 0, -65, 0);
 
-		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
-		render->material = MAT_COLORED_UNLIT;
+		RenderTexturedUnlit* render = mix_render_textured_unlit(world, entity);
+		render->material = MAT_TEXTURED_UNLIT;
 		render->mesh = MESH_GIFT;
 		render->color = (vec4){0.32, 0.58, 0.58, 1.0};
+		render->texture = TEX_WRAPPING1;
+		render->texscale = (vec2){25.0, 25.0};
 	}
 
 	{

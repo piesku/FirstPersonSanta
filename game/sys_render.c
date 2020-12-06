@@ -82,6 +82,8 @@ static inline void draw_textured_unlit(struct client* client, Transform* transfo
 
 	glUniformMatrix4fv(material.layout.textured_unlit.world, 1, GL_FALSE, (const GLfloat*)&transform->world);
 	glUniformMatrix4fv(material.layout.textured_unlit.self, 1, GL_FALSE, (const GLfloat*)&transform->self);
+	glUniform4fv(material.layout.textured_unlit.color, 1, (const GLfloat*)&render->color);
+	glUniform2fv(material.layout.textured_unlit.texscale, 1, (const GLfloat*)&render->texscale);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture);

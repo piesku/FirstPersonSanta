@@ -32,6 +32,8 @@ typedef struct render_textured_unlit {
 	enum material_index material;
 	enum mesh_index mesh;
 	enum texture_index texture;
+	vec2 texscale;
+	vec4 color;
 } RenderTexturedUnlit;
 
 typedef union render {

@@ -104,6 +104,7 @@ void engine_init_display(struct engine* engine)
 	}
 
 	engine_load_texture(engine, TEX_CHECKER, "textures/checker1.png");
+	engine_load_texture(engine, TEX_WRAPPING1, "textures/pies.png");
 	client_setup(&engine->client, engine->viewport_width, engine->viewport_height);
 }
 

@@ -40,6 +40,8 @@ RenderTexturedUnlit* mix_render_textured_unlit(struct world* world, entity entit
 	*render = (Render){
 			.textured_unlit = {
 					.kind = RENDER_TEXTURED_UNLIT,
+					.color = {1.0, 1.0, 1.0, 1.0},
+					.texscale = {1.0, 1.0},
 			}};
 
 	world->signature[entity] |= HAS_RENDER;

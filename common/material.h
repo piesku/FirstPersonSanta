@@ -31,7 +31,9 @@ struct layout_textured_unlit {
 	GLint pv;
 	GLint world;
 	GLint self;
+	GLint color;
 	GLint sampler;
+	GLint texscale;
 	// Attributes
 	GLint vertex_position;
 	GLint vertex_normal;

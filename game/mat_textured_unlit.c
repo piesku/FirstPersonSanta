@@ -25,8 +25,9 @@ struct material mat_textured_unlit(void)
 			"#version 330\n"
 			"precision mediump float;"
 
-			"uniform sampler2D sampler;"
 			"uniform vec4 color;"
+			"uniform sampler2D sampler;"
+			"uniform vec2 texscale;"
 
 			"in vec2 vert_texcoord;"
 			"in vec3 vert_normal;"
@@ -35,7 +36,7 @@ struct material mat_textured_unlit(void)
 			"layout(location = 1) out vec3 frag_normal;"
 
 			"void main() {"
-			"    frag_color = texture(sampler, vert_texcoord);"
+			"    frag_color = color * texture(sampler, vert_texcoord * texscale);"
 			"    frag_normal = vert_normal * 0.5 + vec3(0.5);"
 			"}";
 	GLuint program = create_program(vertex_shader_source, fragment_shader_source);
@@ -47,7 +48,9 @@ struct material mat_textured_unlit(void)
 							.pv = glGetUniformLocation(program, "pv"),
 							.world = glGetUniformLocation(program, "world"),
 							.self = glGetUniformLocation(program, "self"),
+							.color = glGetUniformLocation(program, "color"),
 							.sampler = glGetUniformLocation(program, "sampler"),
+							.texscale = glGetUniformLocation(program, "texscale"),
 							.vertex_position = glGetAttribLocation(program, "position"),
 							.vertex_normal = glGetAttribLocation(program, "normal"),
 							.vertex_texcoord = glGetAttribLocation(program, "texcoord"),
