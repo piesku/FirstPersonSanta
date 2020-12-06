@@ -54,7 +54,7 @@ entity blueprint_camera_display(struct world* world)
 
 			CameraDisplay* camera = mix_camera_display(world, c);
 			camera->fov_y = 1.0;
-			camera->near = 0.1;
+			camera->near = 0.5;
 			camera->far = 1000.0;
 			camera->clear_color = (vec4){0.9f, 0.9f, 0.9f, 1.0f};
 		}
@@ -108,7 +108,7 @@ entity blueprint_camera_player(struct world* world)
 
 			CameraFramebuffer* camera = mix_camera_framebuffer(world, c);
 			camera->fov_y = 1.0;
-			camera->near = 0.1;
+			camera->near = 0.5;
 			camera->far = 1000.0;
 			camera->clear_color = (vec4){0.9f, 0.9f, 0.9f, 1.0f};
 			camera->target = RENDER_TARGET_DEFAULT;
@@ -137,7 +137,7 @@ entity blueprint_camera_minimap(struct world* world)
 
 		CameraFramebuffer* camera = mix_camera_framebuffer(world, b);
 		camera->fov_y = 1.0;
-		camera->near = 0.1;
+		camera->near = 1.0;
 		camera->far = 1000.0;
 		camera->clear_color = (vec4){1.0f, 1.0f, 1.0f, 1.0f};
 		camera->target = RENDER_TARGET_MINIMAP;

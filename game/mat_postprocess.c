@@ -62,7 +62,7 @@ struct material mat_postprocess(void)
 			"		float d2 = depth_at(vert_texcoord + offsets[1])"
 			"				- depth_at(vert_texcoord + offsets[2]);"
 			"		float z = sqrt(d1 * d1 + d2 * d2);"
-			"		frag_color = mix(current_color, edge_color, step(0.001, z));"
+			"		frag_color = mix(current_color, edge_color, step(0.01 / current_depth, z));"
 			"	}"
 			"}";
 
