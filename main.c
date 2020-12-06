@@ -1,6 +1,6 @@
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
-#include <time.h>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -20,7 +20,8 @@ void scene_physics(struct world* world);
 void scene_room(struct world* world);
 
 struct engine {
-	clock_t last_time;
+	uint64_t last_time;
+
 	SDL_Window* window;
 	SDL_GLContext context;
 
@@ -120,7 +121,7 @@ int main(int argc, char* argv[])
 {
 	struct engine engine = (struct engine){
 			.world = create_world(),
-			.last_time = clock() - 1,
+			.last_time = SDL_GetPerformanceCounter(),
 	};
 
 	engine_init_display(&engine);
@@ -223,10 +224,11 @@ int main(int argc, char* argv[])
 			}
 		}
 
-		clock_t current_time = clock();
-		clock_t delta = current_time - engine.last_time;
+		uint64_t current_time = SDL_GetPerformanceCounter();
+		uint64_t delta_ticks = current_time - engine.last_time;
+		engine.last_time = current_time;
 
-		float delta_s = (float)delta / CLOCKS_PER_SEC;
+		float delta_s = (float)(delta_ticks / (double)SDL_GetPerformanceFrequency());
 		engine.client.delta = delta_s;
 
 		char fps[32];
@@ -238,8 +240,6 @@ int main(int argc, char* argv[])
 
 		client_frame_update(&engine.client, engine.world);
 		SDL_GL_SwapWindow(engine.window);
-
-		engine.last_time = current_time;
 	}
 
 	engine_term_display(&engine);
