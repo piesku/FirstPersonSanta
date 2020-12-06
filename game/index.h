@@ -26,6 +26,7 @@ enum material_index {
 
 enum mesh_index {
 	MESH_CUBE,
+	MESH_GIFT,
 	MESH_QUAD,
 	MESH_MONKEY,
 	// Furniture.

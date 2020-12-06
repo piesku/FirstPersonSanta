@@ -84,6 +84,21 @@ void scene_room(struct world* world)
 	}
 
 	{
+		// Gift.
+		entity entity = create_entity(world);
+
+		Transform* transform = mix_transform(world, entity);
+		transform->translation = (vec3){0.5, 0.25, 1.5};
+		transform->scale = (vec3){0.5, 0.5, 0.5};
+		quat_from_euler(&transform->rotation, 0, -65, 0);
+
+		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
+		render->material = MAT_COLORED_UNLIT;
+		render->mesh = MESH_GIFT;
+		render->color = (vec4){0.32, 0.58, 0.58, 1.0};
+	}
+
+	{
 		// Building 1.
 		entity entity = create_entity(world);
 

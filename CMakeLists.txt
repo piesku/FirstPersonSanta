@@ -33,6 +33,7 @@ add_executable(FirstPerson
 	game/mat_textured_unlit.c
 	game/mesh_chair.c
 	game/mesh_cube.c
+	game/mesh_gift.c
 	game/mesh_lamp.c
 	game/mesh_monkey.c
 	game/mesh_quad.c
