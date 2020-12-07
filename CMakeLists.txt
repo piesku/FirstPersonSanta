@@ -78,7 +78,7 @@ target_link_libraries(FirstPerson
 )
 
 if(MSVC)
-	target_compile_options(FirstPerson PRIVATE /W3 /WX)
+	target_compile_options(FirstPerson PRIVATE /W4 /WX)
 	find_package(GLEW REQUIRED)
 	target_link_libraries(FirstPerson
 		GLEW::GLEW

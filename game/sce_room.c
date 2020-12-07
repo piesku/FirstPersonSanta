@@ -36,9 +36,9 @@ void scene_room(struct world* world)
 
 		{
 			entity camera = blueprint_camera_follow(world);
-			Transform* transform = world->transform[camera];
-			transform->translation = (vec3){0.0f, 50.0f, 1000.0f};
-			quat_from_euler(&transform->rotation, 30.0f, 180.0f, 0.0f);
+			Transform* camera_transform = world->transform[camera];
+			camera_transform->translation = (vec3){0.0f, 50.0f, 1000.0f};
+			quat_from_euler(&camera_transform->rotation, 30.0f, 180.0f, 0.0f);
 
 			Mimic* mimic = world->mimic[camera];
 			mimic->target = player_rig;
