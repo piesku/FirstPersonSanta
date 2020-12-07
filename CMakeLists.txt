@@ -11,6 +11,7 @@ add_executable(FirstPerson
 	common/malloc.c
 	common/mat4.c
 	common/material.c
+	common/mesh.c
 	common/number.c
 	common/quat.c
 	common/texture.c
@@ -67,6 +68,7 @@ add_executable(FirstPerson
 	game/world.c
 )
 
+find_path(CGLTF_INCLUDE_DIRS "cgltf.h")
 find_package(OpenGL REQUIRED)
 find_package(SDL2 CONFIG REQUIRED)
 find_package(SDL2-image CONFIG REQUIRED)
@@ -97,3 +99,4 @@ endif()
 
 # Copy assets
 file(COPY textures DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY models DESTINATION ${CMAKE_BINARY_DIR})

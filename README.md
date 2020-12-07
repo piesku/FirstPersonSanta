@@ -34,8 +34,8 @@ _FirstPerson_ uses [vcpkg](https://github.com/microsoft/vcpkg) to manage depende
 
 2. Install the dependencies:
 
-        $ ./vcpkg install sdl2 sdl2-image          # For macOS
-        $ ./vcpkg install sdl2 sdl2-image glew     # For Linux
+        $ ./vcpkg install sdl2 sdl2-image cgltf          # For macOS
+        $ ./vcpkg install sdl2 sdl2-image glew cgltf     # For Linux
 
     - If the dependencies fail to build, you might need to install some extra headers. On Ubuntu:
 
@@ -56,7 +56,7 @@ _FirstPerson_ uses [vcpkg](https://github.com/microsoft/vcpkg) to manage depende
 ## Implementation Notes
 
 ### Entity indices start at 1
-    
+
 Entity 0 is a special "null" entity. When used as `Transform.parent`, it signifies that the transform doesn't have a parent.
 
 ### `children[MAX_CHILDREN]`
@@ -81,4 +81,4 @@ The code is currently written with a single thread of execution in mind.  Specif
 
 ### Code style
 
-I've used `clang-format` to help maintain the consistency in the code base. I've tried something new, too: there's no limit on line width. I'm starting to think that deciding where to put line breaks is an integral part of the process of writing code, and that it shouldn't be automated. It's a hypothesis which I'm currently testing, and I might change my opinion on it in the future.  
+I've used `clang-format` to help maintain the consistency in the code base. I've tried something new, too: there's no limit on line width. I'm starting to think that deciding where to put line breaks is an integral part of the process of writing code, and that it shouldn't be automated. It's a hypothesis which I'm currently testing, and I might change my opinion on it in the future.

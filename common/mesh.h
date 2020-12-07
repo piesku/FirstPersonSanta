@@ -9,3 +9,5 @@ struct mesh {
 	GLuint index_buffer;
 	GLuint index_count;
 };
+
+void load_gltf_from_file(struct mesh* mesh, const char* file_location);
