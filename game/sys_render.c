@@ -138,7 +138,7 @@ static void render_world(struct client* client, struct world* world, struct eye*
 
 static void render_display(struct client* client, struct world* world, CameraDisplay* camera)
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, NULL);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, client->width, client->height);
 	glClearColor(
 			camera->clear_color.x,
@@ -168,15 +168,15 @@ void sys_render(struct client* client, struct world* world)
 	if (client->camera_default != NULL) {
 		switch (client->camera_default->kind) {
 			case CAMERA_DISPLAY:
-				render_display(client, world, client->camera_default);
+				render_display(client, world, &client->camera_default->display);
 				break;
 			case CAMERA_FRAMEBUFFER:
-				render_framebuffer(client, world, client->camera_default);
+				render_framebuffer(client, world, &client->camera_default->framebuffer);
 				break;
 		}
 	}
 
 	if (client->camera_minimap != NULL) {
-		render_framebuffer(client, world, &client->camera_minimap);
+		render_framebuffer(client, world, client->camera_minimap);
 	}
 }

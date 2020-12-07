@@ -6,7 +6,7 @@
 
 static int32_t QUERY = HAS_TRANSFORM | HAS_COLLIDE | HAS_TRIGGER;
 
-static inline update(struct client* client, struct world* world, entity entity)
+static inline void update(struct client* client, struct world* world, entity entity)
 {
 
 	Collide* collide = world->collide[entity];

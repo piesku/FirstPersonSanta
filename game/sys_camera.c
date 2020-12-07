@@ -82,7 +82,7 @@ void sys_camera(struct client* client, struct world* world)
 					if (client->camera_default == NULL) {
 						client->camera_default = camera;
 					} else {
-						client->camera_minimap = camera;
+						client->camera_minimap = &camera->framebuffer;
 					}
 					update_framebuffer(client, world, i);
 					break;

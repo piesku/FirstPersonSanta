@@ -1,5 +1,4 @@
 #include <stdint.h>
-#include <stdlib.h>
 
 #include "../common/gl.h"
 #include "../common/material.h"
@@ -15,7 +14,7 @@ void sys_postprocess(struct client* client)
 		return;
 	}
 
-	glBindFramebuffer(GL_FRAMEBUFFER, NULL);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, client->width, client->height);
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

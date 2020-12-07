@@ -3,6 +3,7 @@
 #include "com_render.h"
 #include "com_rigid_body.h"
 #include "com_transform.h"
+#include "world.h"
 
 entity blueprint_gift(struct world* world)
 {

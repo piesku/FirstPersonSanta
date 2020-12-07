@@ -16,7 +16,7 @@ static inline void update(struct world* world, entity entity)
 	Transform* follower_transform = world->transform[entity];
 	Transform* target_transform = world->transform[mimic->target];
 
-	vec4 target_world_position;
+	vec3 target_world_position;
 	mat4_get_translation(&target_world_position, &target_transform->world);
 	vec3_lerp(&follower_transform->translation,
 			&follower_transform->translation, &target_world_position, mimic->stiffness);
