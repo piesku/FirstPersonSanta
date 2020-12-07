@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -13,7 +14,7 @@ entity blueprint_camera_display(struct world* world);
 
 void scene_physics(struct world* world)
 {
-	srand(time(NULL));
+	srand((uint32_t)time(NULL));
 
 	{
 		entity entity = blueprint_camera_display(world);
@@ -27,7 +28,7 @@ void scene_physics(struct world* world)
 
 		RigidBody* rigid_body = mix_rigid_body(world, entity);
 		rigid_body->kind = RIGID_KINEMATIC;
-		rigid_body->bounciness = 0.1;
+		rigid_body->bounciness = 0.1f;
 	}
 
 	{
@@ -35,12 +36,12 @@ void scene_physics(struct world* world)
 		entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
-		transform->scale = (vec3){20.0, 1.0, 20.0};
+		transform->scale = (vec3){20.0f, 1.0f, 20.0f};
 
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_CUBE;
-		render->color = (vec4){0.32, 0.4, 0.88, 1.0};
+		render->color = (vec4){0.32f, 0.4f, 0.88f, 1.0f};
 
 		Collide* collide = mix_collide(world, entity);
 		collide->dynamic = false;

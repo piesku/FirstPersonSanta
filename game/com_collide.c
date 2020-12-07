@@ -16,7 +16,6 @@ Collide* mix_collide(struct world* world, entity entity)
 					.size = {1.0f, 1.0f, 1.0f},
 			},
 			.count = 0,
-			.collisions = {0},
 	};
 
 	world->signature[entity] |= HAS_COLLIDE;

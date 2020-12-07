@@ -13,115 +13,115 @@
 entity blueprint_camera_display(struct world* world)
 {
 	// Primary camera rig controllable by the player in the XZ plane.
-	entity a = create_entity(world);
+	entity root = create_entity(world);
 
-	Transform* transform_a = mix_transform(world, a);
-	transform_a->rotation = (quat){0.0, 1.0, 0.0, 0.0};
+	Transform* root_transform = mix_transform(world, root);
+	root_transform->rotation = (quat){0.0f, 1.0f, 0.0f, 0.0f};
 
-	Move* move = mix_move(world, a);
-	move->movement_speed = 20.0;
-	move->rotation_speed = 2.0;
+	Move* root_move = mix_move(world, root);
+	root_move->movement_speed = 20.0f;
+	root_move->rotation_speed = 2.0f;
 
-	ControlPlayer* control = mix_control_player(world, a);
-	control->move = true;
-	control->yaw = 0.1;
-	control->pitch = 0;
+	ControlPlayer* root_control = mix_control_player(world, root);
+	root_control->move = true;
+	root_control->yaw = 0.1f;
+	root_control->pitch = 0.0f;
 
 	{
 		// Secondary camera rig which can pitch up and down.
-		entity b = create_entity(world);
+		entity rig = create_entity(world);
+		root_transform->children[0] = rig;
 
-		Transform* transform_b = mix_transform(world, b);
-		transform_b->parent = a;
-		transform_a->children[0] = b;
+		Transform* rig_transform = mix_transform(world, rig);
+		rig_transform->parent = root;
 
-		Move* move = mix_move(world, b);
-		move->movement_speed = 0.0;
-		move->rotation_speed = 2.0;
+		Move* rig_move = mix_move(world, rig);
+		rig_move->movement_speed = 0.0f;
+		rig_move->rotation_speed = 2.0f;
 
-		ControlPlayer* control = mix_control_player(world, b);
-		control->move = false;
-		control->yaw = 0;
-		control->pitch = 0.1;
+		ControlPlayer* rig_control = mix_control_player(world, rig);
+		rig_control->move = false;
+		rig_control->yaw = 0.0f;
+		rig_control->pitch = 0.1f;
 
 		{
 			// Actual camera entity, rotated 180y to align with the rig's forward.
-			entity c = create_entity(world);
+			entity camera = create_entity(world);
+			rig_transform->children[0] = camera;
 
-			Transform* transform_c = mix_transform(world, c);
-			transform_c->rotation = (quat){0.0, 1.0, 0.0, 0.0};
-			transform_c->parent = b;
-			transform_b->children[0] = c;
+			Transform* camera_transform = mix_transform(world, camera);
+			camera_transform->rotation = (quat){0.0f, 1.0f, 0.0f, 0.0f};
+			camera_transform->parent = rig;
 
-			CameraDisplay* camera = mix_camera_display(world, c);
-			camera->fov_y = 1.0;
-			camera->near = 0.5;
-			camera->far = 1000.0;
-			camera->clear_color = (vec4){0.9f, 0.9f, 0.9f, 1.0f};
+			CameraDisplay* camera_display = mix_camera_display(world, camera);
+			camera_display->fov_y = 1.0f;
+			camera_display->near = 0.5f;
+			camera_display->far = 1000.0f;
+			camera_display->clear_color = (vec4){0.9f, 0.9f, 0.9f, 1.0f};
 		}
 	}
 
-	return a;
+	return root;
 }
 
 entity blueprint_camera_player(struct world* world)
 {
 	// Primary camera rig controllable by the player in the XZ plane.
-	entity a = create_entity(world);
+	entity root = create_entity(world);
 
-	Transform* transform_a = mix_transform(world, a);
-	transform_a->rotation = (quat){0.0, 1.0, 0.0, 0.0};
+	Transform* root_transform = mix_transform(world, root);
+	root_transform->rotation = (quat){0.0f, 1.0f, 0.0f, 0.0f};
 
-	Move* move = mix_move(world, a);
-	move->movement_speed = 10.0;
-	move->rotation_speed = 2.0;
+	Move* root_move = mix_move(world, root);
+	root_move->movement_speed = 10.0f;
+	root_move->rotation_speed = 2.0f;
 
-	ControlPlayer* control = mix_control_player(world, a);
-	control->move = true;
-	control->yaw = 0.1;
-	control->pitch = 0;
+	ControlPlayer* root_control = mix_control_player(world, root);
+	root_control->move = true;
+	root_control->yaw = 0.1f;
+	root_control->pitch = 0.0f;
 
 	{
 		// Secondary camera rig which can pitch up and down.
-		entity b = create_entity(world);
+		entity rig = create_entity(world);
+		root_transform->children[0] = rig;
 
-		Transform* transform_b = mix_transform(world, b);
-		transform_b->parent = a;
-		transform_a->children[0] = b;
+		Transform* rig_transform = mix_transform(world, rig);
+		rig_transform->parent = root;
 
-		Move* move = mix_move(world, b);
-		move->movement_speed = 0.0;
-		move->rotation_speed = 2.0;
+		Move* rig_move = mix_move(world, rig);
+		rig_move->movement_speed = 0.0f;
+		rig_move->rotation_speed = 2.0f;
 
-		ControlPlayer* control = mix_control_player(world, b);
-		control->move = false;
-		control->yaw = 0;
-		control->pitch = 0.1;
-		control->shoot = true;
+		ControlPlayer* rig_control = mix_control_player(world, rig);
+		rig_control->move = false;
+		rig_control->yaw = 0.0f;
+		rig_control->pitch = 0.1f;
+		rig_control->shoot = true;
 
-		Shoot* shoot = mix_shoot(world, b);
-		shoot->frequency = 0.2;
-		shoot->since_last = 0.2;
+		Shoot* rig_shoot = mix_shoot(world, rig);
+		rig_shoot->frequency = 0.2f;
+		rig_shoot->since_last = 0.2f;
 
 		{
 			// Actual camera entity, rotated 180y to align with the rig's forward.
-			entity c = create_entity(world);
+			entity camera = create_entity(world);
+			rig_transform->children[0] = camera;
 
-			Transform* transform_c = mix_transform(world, c);
-			transform_c->rotation = (quat){0.0, 1.0, 0.0, 0.0};
-			transform_c->parent = b;
-			transform_b->children[0] = c;
+			Transform* camera_transform = mix_transform(world, camera);
+			camera_transform->rotation = (quat){0.0f, 1.0f, 0.0f, 0.0f};
+			camera_transform->parent = rig;
 
-			CameraFramebuffer* camera = mix_camera_framebuffer(world, c);
-			camera->fov_y = 1.0;
-			camera->near = 0.5;
-			camera->far = 1000.0;
-			camera->clear_color = (vec4){0.9f, 0.9f, 0.9f, 1.0f};
-			camera->target = RENDER_TARGET_DEFAULT;
+			CameraFramebuffer* camera_framebuffer = mix_camera_framebuffer(world, camera);
+			camera_framebuffer->fov_y = 1.0f;
+			camera_framebuffer->near = 0.5f;
+			camera_framebuffer->far = 1000.0f;
+			camera_framebuffer->clear_color = (vec4){0.9f, 0.9f, 0.9f, 1.0f};
+			camera_framebuffer->target = RENDER_TARGET_DEFAULT;
 		}
 	}
 
-	return a;
+	return root;
 }
 
 entity blueprint_camera_follow(struct world* world)
@@ -129,9 +129,9 @@ entity blueprint_camera_follow(struct world* world)
 	entity root = create_entity(world);
 
 	Transform* root_transform = mix_transform(world, root);
-	root_transform->rotation = (quat){0.0, 1.0, 0.0, 0.0};
+	root_transform->rotation = (quat){0.0f, 1.0f, 0.0f, 0.0f};
 
-	Mimic* mimic = mix_mimic(world, root);
+	mix_mimic(world, root);
 
 	{
 		// Actual camera entity, rotated 180y to align with the rig's forward.
@@ -139,13 +139,13 @@ entity blueprint_camera_follow(struct world* world)
 		root_transform->children[0] = child;
 
 		Transform* child_transform = mix_transform(world, child);
-		child_transform->rotation = (quat){0.0, 1.0, 0.0, 0.0};
+		child_transform->rotation = (quat){0.0f, 1.0f, 0.0f, 0.0f};
 		child_transform->parent = root;
 
 		CameraFramebuffer* camera = mix_camera_framebuffer(world, child);
-		camera->fov_y = 1.0;
-		camera->near = 0.5;
-		camera->far = 1000.0;
+		camera->fov_y = 1.0f;
+		camera->near = 0.5f;
+		camera->far = 1000.0f;
 		camera->clear_color = (vec4){0.9f, 0.9f, 0.9f, 1.0f};
 		camera->target = RENDER_TARGET_DEFAULT;
 	}
@@ -156,27 +156,27 @@ entity blueprint_camera_follow(struct world* world)
 entity blueprint_camera_minimap(struct world* world)
 {
 	// Camera rig.
-	entity a = create_entity(world);
+	entity root = create_entity(world);
 
-	Transform* transform_a = mix_transform(world, a);
-	quat_from_euler(&transform_a->rotation, 90, 180, 0);
+	Transform* root_transform = mix_transform(world, root);
+	quat_from_euler(&root_transform->rotation, 90, 180, 0);
 
 	{
 		// Actual camera entity, rotated 180y to align with the rig's forward.
-		entity b = create_entity(world);
+		entity camera = create_entity(world);
+		root_transform->children[0] = camera;
 
-		Transform* transform_b = mix_transform(world, b);
-		transform_b->rotation = (quat){0.0, 1.0, 0.0, 0.0};
-		transform_b->parent = a;
-		transform_a->children[0] = b;
+		Transform* camera_transform = mix_transform(world, camera);
+		camera_transform->rotation = (quat){0.0, 1.0, 0.0, 0.0};
+		camera_transform->parent = root;
 
-		CameraFramebuffer* camera = mix_camera_framebuffer(world, b);
-		camera->fov_y = 1.0;
-		camera->near = 1.0;
-		camera->far = 1000.0;
-		camera->clear_color = (vec4){1.0f, 1.0f, 1.0f, 1.0f};
-		camera->target = RENDER_TARGET_MINIMAP;
+		CameraFramebuffer* camera_framebuffer = mix_camera_framebuffer(world, camera);
+		camera_framebuffer->fov_y = 1.0;
+		camera_framebuffer->near = 1.0;
+		camera_framebuffer->far = 1000.0;
+		camera_framebuffer->clear_color = (vec4){1.0f, 1.0f, 1.0f, 1.0f};
+		camera_framebuffer->target = RENDER_TARGET_MINIMAP;
 	}
 
-	return a;
+	return root;
 }

@@ -9,6 +9,9 @@
 
 void dispatch(struct client* client, struct world* world, enum action action, union action_data payload)
 {
+	// Unused parameter (for now).
+	(void)client;
+
 	switch (action) {
 		case ACTION_TRIGGER_BOUNCE: {
 			RigidBody* rigid_body = world->rigid_body[payload.trigger.other];

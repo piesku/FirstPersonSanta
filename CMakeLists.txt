@@ -78,17 +78,21 @@ target_link_libraries(FirstPerson
 )
 
 if(MSVC)
+	target_compile_options(FirstPerson PRIVATE /W3 /WX)
 	find_package(GLEW REQUIRED)
 	target_link_libraries(FirstPerson
 		GLEW::GLEW
 	)
 elseif(UNIX)
+    #target_compile_options(FirstPerson PRIVATE -Wall -Wextra -pedantic -Werror)
 	find_package(GLEW REQUIRED)
 	target_link_libraries(FirstPerson
 		m
 		GLEW::GLEW
 		SDL2::SDL2-static
 	)
+elseif(APPLE)
+    #target_compile_options(FirstPerson PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
 
 # Copy assets

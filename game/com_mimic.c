@@ -7,7 +7,7 @@ Mimic* mix_mimic(struct world* world, entity entity)
 {
 	Mimic* mimic = xmalloc(sizeof(*mimic));
 	*mimic = (Mimic){
-			.stiffness = 0.1,
+			.stiffness = 0.1f,
 	};
 
 	world->signature[entity] |= HAS_MIMIC;

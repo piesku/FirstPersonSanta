@@ -64,6 +64,7 @@ struct mesh mesh_cube(void)
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.normal_buffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_normals), vertex_normals, GL_STATIC_DRAW);
 
+#pragma warning(suppress : 4305)
 	GLfloat vertex_texcoords[] = {
 			0.666667, 0.333333,
 			0.333333, 0.333333,

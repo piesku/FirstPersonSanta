@@ -17,12 +17,12 @@ entity blueprint_gift(struct world* world);
 void scene_room(struct world* world)
 {
 	// Scale for all furniture.
-	float s = 3.0;
+	float s = 3.0f;
 
 	{
 		entity player = blueprint_camera_player(world);
 		Transform* transform = world->transform[player];
-		transform->translation = (vec3){0.0, 1.7, 5.0};
+		transform->translation = (vec3){0.0f, 1.7f, 5.0f};
 
 		entity player_rig = transform->children[0];
 		Transform* rig_transform = world->transform[player_rig];
@@ -37,12 +37,12 @@ void scene_room(struct world* world)
 		{
 			entity camera = blueprint_camera_follow(world);
 			Transform* transform = world->transform[camera];
-			transform->translation = (vec3){0.0, 50.0, 1000.0};
-			quat_from_euler(&transform->rotation, 30, 180, 0);
+			transform->translation = (vec3){0.0f, 50.0f, 1000.0f};
+			quat_from_euler(&transform->rotation, 30.0f, 180.0f, 0.0f);
 
 			Mimic* mimic = world->mimic[camera];
 			mimic->target = player_rig;
-			mimic->stiffness = 0.01;
+			mimic->stiffness = 0.01f;
 		}
 	}
 
@@ -51,13 +51,13 @@ void scene_room(struct world* world)
 		entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
-		transform->translation.y = -50.0;
-		transform->scale = (vec3){100.0, 100.0, 100.0};
+		transform->translation.y = -50.0f;
+		transform->scale = (vec3){100.0f, 100.0f, 100.0f};
 
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_CUBE;
-		render->color = (vec4){0.32, 0.4, 0.88, 1.0};
+		render->color = (vec4){0.32f, 0.4f, 0.88f, 1.0f};
 
 		Collide* collide = mix_collide(world, entity);
 		collide->dynamic = false;
@@ -74,14 +74,14 @@ void scene_room(struct world* world)
 		entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
-		transform->translation = (vec3){0.0, 0.0, 0.0};
-		transform->rotation = (quat){0.0, 1.0, 0.0, 0.0};
+		transform->translation = (vec3){0.0f, 0.0f, 0.0f};
+		transform->rotation = (quat){0.0f, 1.0f, 0.0f, 0.0f};
 		transform->scale = (vec3){s, s, s};
 
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_CHAIR;
-		render->color = (vec4){0.32, 0.4, 0.88, 1.0};
+		render->color = (vec4){0.32f, 0.4f, 0.88f, 1.0f};
 	}
 
 	{
@@ -89,14 +89,14 @@ void scene_room(struct world* world)
 		entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
-		transform->translation = (vec3){0.8, 0.0, 0.5};
+		transform->translation = (vec3){0.8f, 0.0f, 0.5f};
 		transform->scale = (vec3){s, s, s};
-		quat_from_euler(&transform->rotation, 0, 120, 0);
+		quat_from_euler(&transform->rotation, 0.0f, 120.0f, 0.0f);
 
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_SOFA;
-		render->color = (vec4){0.32, 0.4, 0.88, 1.0};
+		render->color = (vec4){0.32f, 0.4f, 0.88f, 1.0f};
 	}
 
 	{
@@ -104,14 +104,14 @@ void scene_room(struct world* world)
 		entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
-		transform->translation = (vec3){-0.5, 0.0, 0.2};
+		transform->translation = (vec3){-0.5f, 0.0f, 0.2f};
 		transform->scale = (vec3){s, s, s};
-		quat_from_euler(&transform->rotation, 0, -130, 0);
+		quat_from_euler(&transform->rotation, 0.0f, -130.0f, 0.0f);
 
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_LAMP;
-		render->color = (vec4){0.88, 0.32, 0.4, 1.0};
+		render->color = (vec4){0.88f, 0.32f, 0.4f, 1.0f};
 	}
 
 	{
@@ -119,8 +119,8 @@ void scene_room(struct world* world)
 		entity entity = blueprint_gift(world);
 
 		Transform* transform = world->transform[entity];
-		transform->translation = (vec3){0.5, 0.25, 1.5};
-		quat_from_euler(&transform->rotation, 0, -65, 0);
+		transform->translation = (vec3){0.5f, 0.25f, 1.5f};
+		quat_from_euler(&transform->rotation, 0.0f, -65.0f, 0.0f);
 	}
 
 	{
@@ -128,13 +128,13 @@ void scene_room(struct world* world)
 		entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
-		transform->translation = (vec3){-5.0, 0.0, -8.0};
-		transform->scale = (vec3){10.0, 20.0, 10.0};
+		transform->translation = (vec3){-5.0f, 0.0f, -8.0f};
+		transform->scale = (vec3){10.0f, 20.0f, 10.0f};
 
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_CUBE;
-		render->color = (vec4){0.32, 0.4, 0.88, 1.0};
+		render->color = (vec4){0.32f, 0.4f, 0.88f, 1.0f};
 	}
 
 	{
@@ -142,12 +142,12 @@ void scene_room(struct world* world)
 		entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
-		transform->translation = (vec3){10.0, 0.0, -15.0};
-		transform->scale = (vec3){50.0, 40.0, 10.0};
+		transform->translation = (vec3){10.0f, 0.0f, -15.0f};
+		transform->scale = (vec3){50.0f, 40.0f, 10.0f};
 
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_CUBE;
-		render->color = (vec4){0.32, 0.4, 0.88, 1.0};
+		render->color = (vec4){0.32f, 0.4f, 0.88f, 1.0f};
 	}
 }

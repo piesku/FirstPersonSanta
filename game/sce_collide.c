@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -12,7 +13,7 @@ entity blueprint_camera_display(struct world* world);
 
 void scene_collide(struct world* world)
 {
-	srand(time(NULL));
+	srand((uint32_t)time(NULL));
 
 	{
 		entity camera = blueprint_camera_display(world);
@@ -29,9 +30,9 @@ void scene_collide(struct world* world)
 
 		Transform* transform = mix_transform(world, entity);
 		transform->translation = (vec3){
-				.x = (rand() % 10 - 5) * 0.9,
-				.y = (rand() % 10 - 5) * 0.9,
-				.z = (rand() % 10 - 5) * 0.9,
+				.x = (rand() % 10 - 5) * 0.9f,
+				.y = (rand() % 10 - 5) * 0.9f,
+				.z = (rand() % 10 - 5) * 0.9f,
 		};
 
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);

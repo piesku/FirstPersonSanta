@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -14,7 +15,7 @@ entity blueprint_camera_minimap(struct world* world);
 
 void scene_minimap(struct world* world)
 {
-	srand(time(NULL));
+	srand((uint32_t)time(NULL));
 
 	{
 		// Main camera.

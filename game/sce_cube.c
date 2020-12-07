@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -11,7 +12,7 @@ entity blueprint_camera_display(struct world* world);
 
 void scene_cube(struct world* world)
 {
-	srand(time(NULL));
+	srand((uint32_t)time(NULL));
 
 	{
 		// Camera

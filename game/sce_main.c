@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -12,7 +13,7 @@ entity blueprint_camera_player(struct world* world);
 
 void scene_main(struct world* world)
 {
-	srand(time(NULL));
+	srand((uint32_t)time(NULL));
 
 	{
 		entity camera = blueprint_camera_player(world);
@@ -29,13 +30,13 @@ void scene_main(struct world* world)
 		entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
-		transform->translation.y = -50.0;
-		transform->scale = (vec3){100.0, 100.0, 100.0};
+		transform->translation.y = -50.0f;
+		transform->scale = (vec3){100.0f, 100.0f, 100.0f};
 
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_CUBE;
-		render->color = (vec4){0.32, 0.4, 0.88, 1.0};
+		render->color = (vec4){0.32f, 0.4f, 0.88f, 1.0f};
 	}
 
 	for (int i = 0; i < 3; i++) {
@@ -44,19 +45,19 @@ void scene_main(struct world* world)
 
 		Transform* transform = mix_transform(world, entity);
 		transform->translation = (vec3){
-				.x = rand() % 100 - 50,
-				.y = 0,
-				.z = rand() % 100 - 50,
+				.x = rand() % 100 - 50.0f,
+				.y = 0.0f,
+				.z = rand() % 100 - 50.0f,
 		};
 		transform->scale = (vec3){
-				.x = rand() % 45 + 5,
-				.y = rand() % 95 + 5,
-				.z = rand() % 45 + 5,
+				.x = rand() % 45 + 5.0f,
+				.y = rand() % 95 + 5.0f,
+				.z = rand() % 45 + 5.0f,
 		};
 
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_CUBE;
-		render->color = (vec4){0.32, 0.4, 0.88, 1.0};
+		render->color = (vec4){0.32f, 0.4f, 0.88f, 1.0f};
 	}
 }

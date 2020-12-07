@@ -10,7 +10,7 @@ float vec3_length(const vec3* a)
 	float len = x * x + y * y + z * z;
 
 	if (len > 0.0f) {
-		len = 1.0f / sqrt(len);
+		len = 1.0f / sqrtf(len);
 	}
 
 	return len;
@@ -76,7 +76,9 @@ void vec3_transform_point(vec3* out, const vec3* a, const mat4* m)
 {
 	float x = a->x, y = a->y, z = a->z;
 	float w = m->m03 * x + m->m13 * y + m->m23 * z + m->m33;
-	w = w || 1.0f;
+	if (w == 0.0f) {
+		w = 1.0f;
+	}
 	out->x = (m->m00 * x + m->m10 * y + m->m20 * z + m->m30) / w;
 	out->y = (m->m01 * x + m->m11 * y + m->m21 * z + m->m31) / w;
 	out->z = (m->m02 * x + m->m12 * y + m->m22 * z + m->m32) / w;

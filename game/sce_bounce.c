@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdint.h>
 #include <time.h>
 
 #include "../common/entity.h"
@@ -15,7 +16,7 @@ entity blueprint_camera_player(struct world* world);
 
 void scene_bounce(struct world* world)
 {
-	srand(time(NULL));
+	srand((uint32_t)time(NULL));
 
 	{
 		entity entity = blueprint_camera_player(world);
@@ -39,12 +40,12 @@ void scene_bounce(struct world* world)
 
 		Transform* transform = mix_transform(world, entity);
 		transform->translation.y = -50.0;
-		transform->scale = (vec3){100.0, 100.0, 100.0};
+		transform->scale = (vec3){100.0f, 100.0f, 100.0f};
 
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_CUBE;
-		render->color = (vec4){0.32, 0.4, 0.88, 1.0};
+		render->color = (vec4){0.32f, 0.4f, 0.88f, 1.0f};
 
 		Collide* collide = mix_collide(world, entity);
 		collide->dynamic = false;
@@ -62,16 +63,16 @@ void scene_bounce(struct world* world)
 
 		Transform* transform = mix_transform(world, entity);
 		transform->translation = (vec3){
-				.x = rand() % 80 - 40,
+				.x = rand() % 80 - 40.0f,
 				.y = 0.0f,
-				.z = rand() % 80 - 40,
+				.z = rand() % 80 - 40.0f,
 		};
-		transform->scale = (vec3){10.0, 0.1, 10.0};
+		transform->scale = (vec3){10.0f, 0.1f, 10.0f};
 
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_CUBE;
-		render->color = (vec4){0.32, 0.88, 0.4, 1.0};
+		render->color = (vec4){0.32f, 0.88f, 0.4f, 1.0f};
 
 		Collide* collide = mix_collide(world, entity);
 		collide->dynamic = false;

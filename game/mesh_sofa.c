@@ -4,6 +4,7 @@ struct mesh mesh_sofa(void)
 {
 	struct mesh mesh = {0};
 
+#pragma warning(suppress : 4305)
 	GLfloat vertex_positions[] = {
 			-0.889829, 0.23, 0.02,
 			-0.889829, 0.33, 0.02,
@@ -155,6 +156,7 @@ struct mesh mesh_sofa(void)
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.vertex_buffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_positions), vertex_positions, GL_STATIC_DRAW);
 
+#pragma warning(suppress : 4305)
 	GLfloat vertex_normals[] = {
 			1, 0, 0,
 			1, 0, 0,
@@ -306,6 +308,7 @@ struct mesh mesh_sofa(void)
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.normal_buffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_normals), vertex_normals, GL_STATIC_DRAW);
 
+#pragma warning(suppress : 4305)
 	GLfloat vertex_texcoords[] = {
 			-0.787402, 9.05512,
 			-0.787402, 12.9921,

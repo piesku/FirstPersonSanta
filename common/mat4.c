@@ -9,7 +9,7 @@ void mat4_identity(mat4* mat)
 			0.0f, 1.0f, 0.0f, 0.0f,
 			0.0f, 0.0f, 1.0f, 0.0f,
 			0.0f, 0.0f, 0.0f, 1.0f);
-};
+}
 
 void mat4_set(mat4* out,
 		float m00, float m01, float m02, float m03,
@@ -33,7 +33,7 @@ void mat4_set(mat4* out,
 	out->m31 = m31;
 	out->m32 = m32;
 	out->m33 = m33;
-};
+}
 
 bool mat4_invert(mat4* out, const mat4* mat)
 {
@@ -123,7 +123,7 @@ void mat4_multiply(mat4* out, const mat4* a, const mat4* b)
 	out->m31 = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
 	out->m32 = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
 	out->m33 = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
-};
+}
 
 void mat4_translate(mat4* out, const mat4* mat, const vec3* vec)
 {

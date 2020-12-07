@@ -4,6 +4,7 @@ struct mesh mesh_gift(void)
 {
 	struct mesh mesh = {0};
 
+#pragma warning(suppress : 4305)
 	GLfloat vertex_positions[] = {
 			-0.5, -0.5, 0.5,
 			-0.5, 0.5, 0.5,
@@ -106,6 +107,7 @@ struct mesh mesh_gift(void)
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.vertex_buffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_positions), vertex_positions, GL_STATIC_DRAW);
 
+#pragma warning(suppress : 4305)
 	GLfloat vertex_normals[] = {
 			-1, 0, 0,
 			-1, 0, 0,
@@ -208,6 +210,7 @@ struct mesh mesh_gift(void)
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.normal_buffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_normals), vertex_normals, GL_STATIC_DRAW);
 
+#pragma warning(suppress : 4305)
 	GLfloat vertex_texcoords[] = {
 			0.375, 0,
 			0.625, 0,

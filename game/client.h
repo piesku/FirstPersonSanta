@@ -23,8 +23,8 @@ struct input_state {
 	int16_t key_a;
 	int16_t key_d;
 	int16_t key_space;
-	int16_t mouse_x;
-	int16_t mouse_y;
+	int32_t mouse_x;
+	int32_t mouse_y;
 	int16_t mouse_button_left;
 };
 

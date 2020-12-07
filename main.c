@@ -120,6 +120,10 @@ void engine_term_display(struct engine* engine)
 
 int main(int argc, char* argv[])
 {
+	// Unused parameters.
+	(void)argc;
+	(void)argv;
+
 	struct engine engine = (struct engine){
 			.world = create_world(),
 			.last_time = SDL_GetPerformanceCounter(),
