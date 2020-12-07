@@ -23,7 +23,7 @@ static inline void update(struct world* world, entity entity)
 
 	quat target_world_rotation;
 	mat4_get_rotation(&target_world_rotation, &target_transform->world);
-	quat_lerp(&follower_transform->rotation,
+	quat_slerp(&follower_transform->rotation,
 			&follower_transform->rotation, &target_world_rotation, mimic->stiffness);
 
 	follower_transform->dirty = true;
