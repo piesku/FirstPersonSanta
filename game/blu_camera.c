@@ -1,5 +1,4 @@
-#include "blu_camera.h"
-
+#include "../common/entity.h"
 #include "../common/matrix.h"
 
 #include "com_camera.h"

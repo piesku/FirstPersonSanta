@@ -1,11 +1,13 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "blu_camera.h"
+#include "../common/entity.h"
 #include "com_render.h"
 #include "com_transform.h"
 #include "index.h"
 #include "world.h"
+
+entity blueprint_camera_display(struct world* world);
 
 void scene_cube(struct world* world)
 {

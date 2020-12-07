@@ -1,14 +1,16 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "../common/entity.h"
 #include "../common/matrix.h"
-
-#include "blu_camera.h"
 #include "com_collide.h"
 #include "com_render.h"
 #include "com_transform.h"
 #include "index.h"
 #include "world.h"
+
+entity blueprint_camera_player(struct world* world);
+entity blueprint_camera_minimap(struct world* world);
 
 void scene_minimap(struct world* world)
 {

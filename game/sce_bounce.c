@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "../common/entity.h"
 #include "actions.h"
-#include "blu_camera.h"
 #include "com_collide.h"
 #include "com_render.h"
 #include "com_rigid_body.h"
@@ -10,6 +10,8 @@
 #include "com_trigger.h"
 #include "index.h"
 #include "world.h"
+
+entity blueprint_camera_player(struct world* world);
 
 void scene_bounce(struct world* world)
 {
