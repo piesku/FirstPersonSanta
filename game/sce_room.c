@@ -3,12 +3,14 @@
 
 #include "../common/entity.h"
 #include "com_collide.h"
+#include "com_mimic.h"
 #include "com_render.h"
 #include "com_rigid_body.h"
 #include "com_transform.h"
 #include "index.h"
 #include "world.h"
 
+entity blueprint_camera_follow(struct world* world);
 entity blueprint_camera_player(struct world* world);
 entity blueprint_gift(struct world* world);
 
@@ -18,14 +20,30 @@ void scene_room(struct world* world)
 	float s = 3.0;
 
 	{
-		entity camera = blueprint_camera_player(world);
-		Transform* transform = world->transform[camera];
+		entity player = blueprint_camera_player(world);
+		Transform* transform = world->transform[player];
 		transform->translation = (vec3){0.0, 1.7, 5.0};
 
-		Collide* collide = mix_collide(world, camera);
+		entity player_rig = transform->children[0];
+		Transform* rig_transform = world->transform[player_rig];
+		entity player_camera = rig_transform->children[0];
+		world->signature[player_camera] &= ~HAS_CAMERA;
+
+		Collide* collide = mix_collide(world, player);
 		collide->dynamic = true;
 		collide->layers = LAYER_PLAYER;
 		collide->mask = LAYER_TERRAIN;
+
+		{
+			entity camera = blueprint_camera_follow(world);
+			Transform* transform = world->transform[camera];
+			transform->translation = (vec3){0.0, 50.0, 1000.0};
+			quat_from_euler(&transform->rotation, 30, 180, 0);
+
+			Mimic* mimic = world->mimic[camera];
+			mimic->target = player_rig;
+			mimic->stiffness = 0.01;
+		}
 	}
 
 	{

@@ -24,6 +24,7 @@ add_executable(FirstPerson
 	game/com_collide.c
 	game/com_control_player.c
 	game/com_light.c
+	game/com_mimic.c
 	game/com_move.c
 	game/com_render.c
 	game/com_rigid_body.c
@@ -53,6 +54,7 @@ add_executable(FirstPerson
 	game/sys_control_keyboard.c
 	game/sys_control_mouse.c
 	game/sys_light.c
+	game/sys_mimic.c
 	game/sys_move.c
 	game/sys_physics_integrate.c
 	game/sys_physics_kinematic.c

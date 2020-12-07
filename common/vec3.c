@@ -90,3 +90,10 @@ void vec3_transform_direction(vec3* out, const vec3* a, const mat4* m)
 	mat4_get_translation(&base, m);
 	vec3_subtract(out, &tip, &base);
 }
+
+void vec3_lerp(vec3* out, const vec3* a, const vec3* b, float t)
+{
+	out->x = a->x + t * (b->x - a->x);
+	out->y = a->y + t * (b->y - a->y);
+	out->z = a->z + t * (b->z - a->z);
+}

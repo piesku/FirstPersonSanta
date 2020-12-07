@@ -3,6 +3,7 @@
 
 #include "com_camera.h"
 #include "com_control_player.h"
+#include "com_mimic.h"
 #include "com_move.h"
 #include "com_shoot.h"
 #include "com_transform.h"
@@ -121,6 +122,35 @@ entity blueprint_camera_player(struct world* world)
 	}
 
 	return a;
+}
+
+entity blueprint_camera_follow(struct world* world)
+{
+	entity root = create_entity(world);
+
+	Transform* root_transform = mix_transform(world, root);
+	root_transform->rotation = (quat){0.0, 1.0, 0.0, 0.0};
+
+	Mimic* mimic = mix_mimic(world, root);
+
+	{
+		// Actual camera entity, rotated 180y to align with the rig's forward.
+		entity child = create_entity(world);
+		root_transform->children[0] = child;
+
+		Transform* child_transform = mix_transform(world, child);
+		child_transform->rotation = (quat){0.0, 1.0, 0.0, 0.0};
+		child_transform->parent = root;
+
+		CameraFramebuffer* camera = mix_camera_framebuffer(world, child);
+		camera->fov_y = 1.0;
+		camera->near = 0.5;
+		camera->far = 1000.0;
+		camera->clear_color = (vec4){0.9f, 0.9f, 0.9f, 1.0f};
+		camera->target = RENDER_TARGET_DEFAULT;
+	}
+
+	return root;
 }
 
 entity blueprint_camera_minimap(struct world* world)
