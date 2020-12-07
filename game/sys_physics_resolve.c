@@ -8,7 +8,6 @@
 #include "world.h"
 
 static int32_t QUERY = HAS_TRANSFORM | HAS_RIGID_BODY;
-static const float GRAVITY = -9.81f;
 
 static inline void update(struct world* world, entity entity)
 {

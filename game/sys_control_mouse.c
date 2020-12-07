@@ -14,7 +14,7 @@ static int QUERY = HAS_TRANSFORM | HAS_CONTROL_PLAYER;
 static const vec3 AXIS_X = {1.0f, 0.0f, 0.0f};
 static const vec3 AXIS_Y = {0.0f, 1.0f, 0.0f};
 
-static inline void update(struct client* client, struct world* world, entity entity, float delta)
+static inline void update(struct client* client, struct world* world, entity entity)
 {
 	ControlPlayer* control = world->control_player[entity];
 	Transform* transform = world->transform[entity];
@@ -56,11 +56,11 @@ static inline void update(struct client* client, struct world* world, entity ent
 	}
 }
 
-void sys_control_mouse(struct client* client, struct world* world, float delta)
+void sys_control_mouse(struct client* client, struct world* world)
 {
 	for (entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
-			update(client, world, i, delta);
+			update(client, world, i);
 		}
 	}
 }

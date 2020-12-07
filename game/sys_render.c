@@ -12,7 +12,7 @@
 
 static int32_t QUERY = HAS_TRANSFORM | HAS_RENDER;
 
-static inline void use_colored_unlit(struct client* client, struct material* material, struct eye* eye)
+static inline void use_colored_unlit(struct material* material, struct eye* eye)
 {
 	glUseProgram(material->program);
 	glUniformMatrix4fv(material->layout.colored_unlit.pv, 1, GL_FALSE, (const GLfloat*)&eye->pv);
@@ -68,7 +68,7 @@ static inline void draw_colored_diffuse(struct client* client, Transform* transf
 	glDrawElements(material.mode, mesh.index_count, GL_UNSIGNED_SHORT, 0);
 }
 
-static inline void use_textured_unlit(struct client* client, struct material* material, struct eye* eye)
+static inline void use_textured_unlit(struct material* material, struct eye* eye)
 {
 	glUseProgram(material->program);
 	glUniformMatrix4fv(material->layout.textured_unlit.pv, 1, GL_FALSE, (const GLfloat*)&eye->pv);
@@ -115,7 +115,7 @@ static void render_world(struct client* client, struct world* world, struct eye*
 			switch (render->kind) {
 				case RENDER_COLORED_UNLIT: {
 					struct material* material = &client->materials[render->colored_unlit.material];
-					use_colored_unlit(client, material, eye);
+					use_colored_unlit(material, eye);
 					draw_colored_unlit(client, transform, &render->colored_unlit);
 					break;
 				}
@@ -127,7 +127,7 @@ static void render_world(struct client* client, struct world* world, struct eye*
 				}
 				case RENDER_TEXTURED_UNLIT: {
 					struct material* material = &client->materials[render->textured_unlit.material];
-					use_textured_unlit(client, material, eye);
+					use_textured_unlit(material, eye);
 					draw_textured_unlit(client, transform, &render->textured_unlit);
 					break;
 				}

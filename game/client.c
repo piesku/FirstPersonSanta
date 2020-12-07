@@ -21,8 +21,8 @@ struct mesh mesh_sofa(void);
 
 void sys_camera(struct client* client, struct world* world);
 void sys_collide(struct world* world);
-void sys_control_keyboard(struct client* client, struct world* world, float delta);
-void sys_control_mouse(struct client* client, struct world* world, float delta);
+void sys_control_keyboard(struct client* client, struct world* world);
+void sys_control_mouse(struct client* client, struct world* world);
 void sys_light(struct client* client, struct world* world);
 void sys_mimic(struct world* world);
 void sys_move(struct world* world, float delta);
@@ -182,8 +182,8 @@ void client_teardown(struct client* client)
 void client_world_update(struct client* client, struct world* world, float delta)
 {
 	// Input.
-	sys_control_keyboard(client, world, delta);
-	sys_control_mouse(client, world, delta);
+	sys_control_keyboard(client, world);
+	sys_control_mouse(client, world);
 
 	// Game logic.
 	sys_shoot(world, delta);
