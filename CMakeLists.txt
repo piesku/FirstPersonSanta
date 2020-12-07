@@ -18,6 +18,7 @@ add_executable(FirstPerson
 
 	game/actions.c
 	game/blu_camera.c
+	game/blu_gift.c
 	game/client.c
 	game/com_camera.c
 	game/com_collide.c
@@ -26,6 +27,7 @@ add_executable(FirstPerson
 	game/com_move.c
 	game/com_render.c
 	game/com_rigid_body.c
+	game/com_shoot.c
 	game/com_transform.c
 	game/com_trigger.c
 	game/mat_colored_unlit.c
@@ -55,8 +57,9 @@ add_executable(FirstPerson
 	game/sys_physics_integrate.c
 	game/sys_physics_kinematic.c
 	game/sys_physics_resolve.c
-	game/sys_render.c
 	game/sys_postprocess.c
+	game/sys_render.c
+	game/sys_shoot.c
 	game/sys_transform.c
 	game/sys_trigger.c
 	game/world.c

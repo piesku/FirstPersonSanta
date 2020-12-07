@@ -5,6 +5,7 @@
 
 typedef struct control_player {
 	bool move;
+	bool shoot;
 	float yaw;
 	float pitch;
 } ControlPlayer;

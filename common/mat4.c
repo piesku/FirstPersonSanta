@@ -308,3 +308,64 @@ void mat4_get_translation(vec3* out, const mat4* mat)
 	out->y = mat->m31;
 	out->z = mat->m32;
 }
+
+static inline float hypotf3(float x, float y, float z)
+{
+	return sqrtf(x * x + y * y + z * z);
+}
+
+void mat4_get_scaling(vec3* out, const mat4* mat)
+{
+	out->x = hypotf3(mat->m00, mat->m01, mat->m02);
+	out->y = hypotf3(mat->m10, mat->m11, mat->m12);
+	out->z = hypotf3(mat->m20, mat->m21, mat->m22);
+}
+
+void mat4_get_rotation(quat* out, const mat4* mat)
+{
+	vec3 scaling;
+	mat4_get_scaling(&scaling, mat);
+
+	float isx = 1.0f / scaling.x;
+	float isy = 1.0f / scaling.y;
+	float isz = 1.0f / scaling.z;
+
+	float sm00 = mat->m00 * isx;
+	float sm01 = mat->m01 * isy;
+	float sm02 = mat->m02 * isz;
+	float sm10 = mat->m10 * isx;
+	float sm11 = mat->m11 * isy;
+	float sm12 = mat->m12 * isz;
+	float sm20 = mat->m20 * isx;
+	float sm21 = mat->m21 * isy;
+	float sm22 = mat->m22 * isz;
+
+	float trace = sm00 + sm11 + sm22;
+	float S = 0.0f;
+
+	if (trace > 0) {
+		S = sqrtf(trace + 1.0f) * 2.0f;
+		out->w = 0.25f * S;
+		out->x = (sm12 - sm21) / S;
+		out->y = (sm20 - sm02) / S;
+		out->z = (sm01 - sm10) / S;
+	} else if (sm00 > sm11 && sm00 > sm22) {
+		S = sqrtf(1.0f + sm00 - sm11 - sm22) * 2.0f;
+		out->w = (sm12 - sm21) / S;
+		out->x = 0.25f * S;
+		out->y = (sm01 + sm10) / S;
+		out->z = (sm20 + sm02) / S;
+	} else if (sm11 > sm22) {
+		S = sqrtf(1.0f + sm11 - sm00 - sm22) * 2.0f;
+		out->w = (sm20 - sm02) / S;
+		out->x = (sm01 + sm10) / S;
+		out->y = 0.25f * S;
+		out->z = (sm12 + sm21) / S;
+	} else {
+		S = sqrtf(1.0f + sm22 - sm00 - sm11) * 2.0f;
+		out->w = (sm01 - sm10) / S;
+		out->x = (sm20 + sm02) / S;
+		out->y = (sm12 + sm21) / S;
+		out->z = 0.25f * S;
+	}
+}

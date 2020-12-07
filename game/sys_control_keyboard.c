@@ -6,6 +6,7 @@
 #include "client.h"
 #include "com_control_player.h"
 #include "com_move.h"
+#include "com_shoot.h"
 #include "com_transform.h"
 #include "world.h"
 
@@ -62,6 +63,13 @@ static inline void update(struct client* client, struct world* world, entity ent
 			move->self_rotation = (quat){1, 0, 0, 0};
 			move->dirty |= MOVE_DIRTY_SELF_ROTATION;
 		}
+	}
+
+	if (control->shoot
+			&& world->signature[entity] & HAS_SHOOT
+			&& client->input_state.key_space) {
+		Shoot* shoot = world->shoot[entity];
+		shoot->trigger = true;
 	}
 }
 

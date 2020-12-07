@@ -1,12 +1,16 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "blu_camera.h"
+#include "../common/entity.h"
 #include "com_collide.h"
 #include "com_render.h"
+#include "com_rigid_body.h"
 #include "com_transform.h"
 #include "index.h"
 #include "world.h"
+
+entity blueprint_camera_player(struct world* world);
+entity blueprint_gift(struct world* world);
 
 void scene_room(struct world* world)
 {
@@ -36,6 +40,15 @@ void scene_room(struct world* world)
 		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_CUBE;
 		render->color = (vec4){0.32, 0.4, 0.88, 1.0};
+
+		Collide* collide = mix_collide(world, entity);
+		collide->dynamic = false;
+		collide->layers = LAYER_TERRAIN;
+		collide->mask = LAYER_NONE;
+		collide->aabb.size = (vec3){100.0f, 100.0f, 100.0f};
+
+		RigidBody* rigid_body = mix_rigid_body(world, entity);
+		rigid_body->kind = RIGID_STATIC;
 	}
 
 	{
@@ -85,19 +98,11 @@ void scene_room(struct world* world)
 
 	{
 		// Gift.
-		entity entity = create_entity(world);
+		entity entity = blueprint_gift(world);
 
-		Transform* transform = mix_transform(world, entity);
+		Transform* transform = world->transform[entity];
 		transform->translation = (vec3){0.5, 0.25, 1.5};
-		transform->scale = (vec3){0.5, 0.5, 0.5};
 		quat_from_euler(&transform->rotation, 0, -65, 0);
-
-		RenderTexturedUnlit* render = mix_render_textured_unlit(world, entity);
-		render->material = MAT_TEXTURED_UNLIT;
-		render->mesh = MESH_GIFT;
-		render->color = (vec4){0.32, 0.58, 0.58, 1.0};
-		render->texture = TEX_WRAPPING1;
-		render->texscale = (vec2){25.0, 25.0};
 	}
 
 	{

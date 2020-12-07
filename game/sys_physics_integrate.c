@@ -16,8 +16,11 @@ static inline void update(struct world* world, entity entity, float delta)
 	if (rigid_body->kind == RIGID_DYNAMIC) {
 		vec3_copy(&rigid_body->velocity_integrated, &rigid_body->velocity_resolved);
 
-		// Compute change to velocity, including the gravity.
+		// Transform the acceleration into the world space.
+		vec3_transform_direction(&rigid_body->acceleration, &rigid_body->acceleration, &transform->world);
 		vec3_scale(&rigid_body->acceleration, &rigid_body->acceleration, delta);
+
+		// Compute change to velocity, including the gravity.
 		vec3_add(&rigid_body->velocity_integrated, &rigid_body->velocity_integrated, &rigid_body->acceleration);
 		rigid_body->velocity_integrated.y += GRAVITY * delta;
 

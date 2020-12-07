@@ -12,8 +12,9 @@ enum has_component {
 	HAS_LIGHT = 1 << 4,
 	HAS_RENDER = 1 << 5,
 	HAS_RIGID_BODY = 1 << 6,
-	HAS_TRANSFORM = 1 << 7,
-	HAS_TRIGGER = 1 << 8,
+	HAS_SHOOT = 1 << 7,
+	HAS_TRANSFORM = 1 << 8,
+	HAS_TRIGGER = 1 << 9,
 };
 
 struct world {
@@ -26,6 +27,7 @@ struct world {
 	union light* light[MAX_ENTITIES];
 	union render* render[MAX_ENTITIES];
 	struct rigid_body* rigid_body[MAX_ENTITIES];
+	struct shoot* shoot[MAX_ENTITIES];
 	struct transform* transform[MAX_ENTITIES];
 	struct trigger* trigger[MAX_ENTITIES];
 };

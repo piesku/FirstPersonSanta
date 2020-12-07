@@ -77,3 +77,4 @@ bool mat4_rotate(mat4* out, const mat4* mat, float angle, const vec3* axis);
 void mat4_perspective(mat4* out, float fovy, float aspect, float near, float far);
 void mat4_compose(mat4* out, const vec3* v, const quat* q, const vec3* s);
 void mat4_get_translation(vec3* out, const mat4* mat);
+void mat4_get_rotation(quat* out, const mat4* mat);

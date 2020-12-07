@@ -28,6 +28,7 @@ void scene_bounce(struct world* world)
 
 		RigidBody* rigid_body = mix_rigid_body(world, entity);
 		rigid_body->kind = RIGID_DYNAMIC;
+		rigid_body->bounciness = 0.1f;
 	}
 
 	{

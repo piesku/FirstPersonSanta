@@ -5,6 +5,7 @@
 #include "com_camera.h"
 #include "com_control_player.h"
 #include "com_move.h"
+#include "com_shoot.h"
 #include "com_transform.h"
 #include "index.h"
 #include "world.h"
@@ -96,6 +97,11 @@ entity blueprint_camera_player(struct world* world)
 		control->move = false;
 		control->yaw = 0;
 		control->pitch = 0.1;
+		control->shoot = true;
+
+		Shoot* shoot = mix_shoot(world, b);
+		shoot->frequency = 0.2;
+		shoot->since_last = 0.2;
 
 		{
 			// Actual camera entity, rotated 180y to align with the rig's forward.

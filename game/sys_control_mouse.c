@@ -6,6 +6,7 @@
 #include "client.h"
 #include "com_control_player.h"
 #include "com_move.h"
+#include "com_shoot.h"
 #include "com_transform.h"
 #include "world.h"
 
@@ -45,6 +46,13 @@ static inline void update(struct client* client, struct world* world, entity ent
 		// space; the X axis is always aligned with its left and right sides.
 		quat_multiply(&transform->rotation, &transform->rotation, &rotation);
 		transform->dirty = true;
+	}
+
+	if (control->shoot
+			&& world->signature[entity] & HAS_SHOOT
+			&& client->input_state.mouse_button_left) {
+		Shoot* shoot = world->shoot[entity];
+		shoot->trigger = true;
 	}
 }
 

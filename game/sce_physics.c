@@ -25,6 +25,7 @@ void scene_physics(struct world* world)
 
 		RigidBody* rigid_body = mix_rigid_body(world, entity);
 		rigid_body->kind = RIGID_KINEMATIC;
+		rigid_body->bounciness = 0.1;
 	}
 
 	{

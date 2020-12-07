@@ -175,6 +175,12 @@ int main(int argc, char* argv[])
 							engine.client.input_state.key_d = 1;
 							engine.client.input_delta.key_d = 1;
 							break;
+						case SDL_SCANCODE_SPACE:
+							engine.client.input_state.key_space = 1;
+							engine.client.input_delta.key_space = 1;
+							break;
+						default:
+							break;
 					}
 					break;
 				case SDL_KEYUP:
@@ -213,6 +219,12 @@ int main(int argc, char* argv[])
 							engine.client.input_state.key_d = 0;
 							engine.client.input_delta.key_d = -1;
 							break;
+						case SDL_SCANCODE_SPACE:
+							engine.client.input_state.key_space = 0;
+							engine.client.input_delta.key_space = -1;
+							break;
+						default:
+							break;
 					}
 					break;
 				case SDL_MOUSEMOTION:
@@ -220,6 +232,27 @@ int main(int argc, char* argv[])
 					engine.client.input_state.mouse_y = event.motion.y;
 					engine.client.input_delta.mouse_x = event.motion.xrel;
 					engine.client.input_delta.mouse_y = event.motion.yrel;
+					break;
+				case SDL_MOUSEBUTTONDOWN:
+					switch (event.button.button) {
+						case SDL_BUTTON_LEFT:
+							engine.client.input_state.mouse_button_left = 1;
+							engine.client.input_delta.mouse_button_left = 1;
+							break;
+						default:
+							break;
+					}
+					break;
+				case SDL_MOUSEBUTTONUP:
+					switch (event.button.button) {
+						case SDL_BUTTON_LEFT:
+							engine.client.input_state.mouse_button_left = 0;
+							engine.client.input_delta.mouse_button_left = -1;
+							break;
+						default:
+							break;
+					}
+					break;
 				default:
 					break;
 			}

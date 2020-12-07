@@ -58,7 +58,8 @@ static inline void update(struct world* world, entity entity)
 				}
 
 				// Collisions aren't 100% elastic.
-				vec3_scale(&rigid_body->velocity_resolved, &rigid_body->velocity_resolved, 0.1);
+				vec3_scale(&rigid_body->velocity_resolved,
+						&rigid_body->velocity_resolved, rigid_body->bounciness);
 
 				if (collision.hit.y > 0 && rigid_body->velocity_resolved.y < 1) {
 					// Collision from the bottom stops the downward movement.

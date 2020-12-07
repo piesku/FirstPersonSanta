@@ -30,6 +30,7 @@ void sys_physics_kinematic(struct world* world, float delta);
 void sys_physics_resolve(struct world* world);
 void sys_postprocess(struct client* client);
 void sys_render(struct client* client, struct world* world);
+void sys_shoot(struct world* world, float delta);
 void sys_transform(struct world* world);
 void sys_trigger(struct client* client, struct world* world);
 
@@ -184,6 +185,7 @@ void client_world_update(struct client* client, struct world* world, float delta
 	sys_control_mouse(client, world, delta);
 
 	// Game logic.
+	sys_shoot(world, delta);
 	sys_move(world, delta);
 	sys_transform(world);
 
