@@ -29,7 +29,6 @@ struct engine {
 	int viewport_height;
 
 	struct client client;
-	struct world* world;
 };
 
 void engine_load_texture(struct engine* engine, enum texture_index index, const char* filename)
@@ -125,12 +124,14 @@ int main(int argc, char* argv[])
 	(void)argv;
 
 	struct engine engine = (struct engine){
-			.world = create_world(),
 			.last_time = SDL_GetPerformanceCounter(),
+			.client = {
+					.world = create_world(),
+			},
 	};
 
 	engine_init_display(&engine);
-	scene_room(engine.world);
+	scene_room(engine.client.world);
 
 	bool quit = false;
 	while (quit == false) {
@@ -273,10 +274,10 @@ int main(int argc, char* argv[])
 		snprintf(fps, 32, "Frame: %4.3fs (%2.0f fps)", delta_s, 1.0f / delta_s);
 		SDL_SetWindowTitle(engine.window, fps);
 
-		client_world_update(&engine.client, engine.world, delta_s);
+		client_world_update(&engine.client, delta_s);
 		client_input_reset(&engine.client);
 
-		client_frame_update(&engine.client, engine.world);
+		client_frame_update(&engine.client);
 		SDL_GL_SwapWindow(engine.window);
 	}
 

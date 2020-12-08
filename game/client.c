@@ -179,8 +179,10 @@ void client_teardown(struct client* client)
 	}
 }
 
-void client_world_update(struct client* client, struct world* world, float delta)
+void client_world_update(struct client* client, float delta)
 {
+	struct world* world = client->world;
+
 	// Input.
 	sys_control_keyboard(client, world);
 	sys_control_mouse(client, world);
@@ -201,8 +203,10 @@ void client_world_update(struct client* client, struct world* world, float delta
 	sys_transform(world);
 }
 
-void client_frame_update(struct client* client, struct world* world)
+void client_frame_update(struct client* client)
 {
+	struct world* world = client->world;
+
 	sys_camera(client, world);
 	sys_light(client, world);
 	sys_render(client, world);

@@ -34,6 +34,8 @@ struct client {
 	int32_t height;
 	bool resized;
 
+	struct world* world;
+
 	struct input_state input_state;
 	struct input_state input_delta;
 
@@ -54,8 +56,6 @@ void client_setup(struct client* client, int32_t width, int32_t height);
 void client_resize(struct client* client, int32_t width, int32_t height);
 void client_teardown(struct client* client);
 
-struct world;
-
-void client_world_update(struct client* client, struct world* world, float delta);
-void client_frame_update(struct client* client, struct world* world);
+void client_world_update(struct client* client, float delta);
+void client_frame_update(struct client* client);
 void client_input_reset(struct client* client);
