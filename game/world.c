@@ -8,6 +8,11 @@ struct world* create_world(void)
 	return world;
 }
 
+void destroy_world(struct world* world)
+{
+	free(world);
+}
+
 entity create_entity(struct world* world)
 {
 	for (entity i = 1; i < MAX_ENTITIES; i++) {

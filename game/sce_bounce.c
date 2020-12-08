@@ -1,8 +1,9 @@
-#include <stdlib.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <time.h>
 
 #include "../common/entity.h"
+#include "../common/matrix.h"
 #include "actions.h"
 #include "com_collide.h"
 #include "com_render.h"
@@ -22,6 +23,7 @@ void scene_bounce(struct world* world)
 		entity entity = blueprint_camera_player(world);
 		Transform* transform = world->transform[entity];
 		transform->translation = (vec3){0.0, 100.0, 0.0};
+		quat_from_euler(&transform->rotation, 45, 180, 0);
 
 		Collide* collide = mix_collide(world, entity);
 		collide->dynamic = true;
@@ -85,5 +87,6 @@ void scene_bounce(struct world* world)
 
 		Trigger* trigger = mix_trigger(world, entity);
 		trigger->action = ACTION_TRIGGER_BOUNCE;
+		trigger->mask = LAYER_PLAYER;
 	}
 }

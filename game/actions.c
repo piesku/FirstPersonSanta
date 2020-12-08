@@ -7,15 +7,20 @@
 #include "client.h"
 #include "world.h"
 
+void scene_bounce(struct world* world);
+void scene_monkey(struct world* world);
+void scene_room(struct world* world);
+
 void dispatch(struct client* client, struct world* world, enum action action, union action_data payload)
 {
-	// Unused parameter (for now).
-	(void)client;
-
 	switch (action) {
 		case ACTION_TRIGGER_BOUNCE: {
 			RigidBody* rigid_body = world->rigid_body[payload.trigger.other];
 			rigid_body->acceleration.y += 1000.0f;
+			break;
+		}
+		case ACTION_TRIGGER_PLAY: {
+			client->next_scene = &scene_bounce;
 			break;
 		}
 		default:

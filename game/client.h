@@ -35,6 +35,7 @@ struct client {
 	bool resized;
 
 	struct world* world;
+	void (*next_scene)(struct world*);
 
 	struct input_state input_state;
 	struct input_state input_delta;

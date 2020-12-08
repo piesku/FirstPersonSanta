@@ -32,7 +32,7 @@ entity blueprint_gift(struct world* world)
 		RenderTexturedUnlit* render = mix_render_textured_unlit(world, mesh);
 		render->material = MAT_TEXTURED_UNLIT;
 		render->mesh = MESH_GIFT;
-		render->color = (vec4){0.32f, 0.58f, 0.58f, 1.0f};
+		render->color = (vec4){0.88f, 0.88f, 0.32f, 1.0f};
 		render->texture = TEX_WRAPPING1;
 		render->texscale = (vec2){25.0f, 25.0f};
 	}

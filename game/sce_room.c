@@ -7,6 +7,7 @@
 #include "com_render.h"
 #include "com_rigid_body.h"
 #include "com_transform.h"
+#include "com_trigger.h"
 #include "index.h"
 #include "world.h"
 
@@ -86,17 +87,37 @@ void scene_room(struct world* world)
 
 	{
 		// Sofa.
-		entity entity = create_entity(world);
+		entity sofa = create_entity(world);
 
-		Transform* transform = mix_transform(world, entity);
-		transform->translation = (vec3){0.8f, 0.0f, 0.5f};
-		transform->scale = (vec3){s, s, s};
-		quat_from_euler(&transform->rotation, 0.0f, 120.0f, 0.0f);
+		Transform* transform = mix_transform(world, sofa);
+		transform->translation = (vec3){3.0f, 0.0f, 1.0f};
+		quat_from_euler(&transform->rotation, 0.0f, -60.0f, 0.0f);
 
-		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
-		render->material = MAT_COLORED_UNLIT;
-		render->mesh = MESH_SOFA;
-		render->color = (vec4){0.32f, 0.4f, 0.88f, 1.0f};
+		Collide* collide = mix_collide(world, sofa);
+		collide->dynamic = false;
+		collide->layers = LAYER_NONE;
+		collide->mask = LAYER_PLAYER;
+		collide->aabb.size = (vec3){1.0f, 3.0f, 1.0f};
+
+		Trigger* trigger = mix_trigger(world, sofa);
+		trigger->action = ACTION_TRIGGER_PLAY;
+		trigger->mask = LAYER_PLAYER;
+
+		{
+			entity mesh = create_entity(world);
+			transform->children[0] = mesh;
+
+			Transform* mesh_transform = mix_transform(world, mesh);
+			mesh_transform->translation = (vec3){-1.5f, -0.15f, 0.5f};
+			quat_from_euler(&mesh_transform->rotation, 0.0f, 180.0f, 0.0f);
+			mesh_transform->scale = (vec3){s, s, s};
+			mesh_transform->parent = sofa;
+
+			RenderColoredUnlit* mesh_render = mix_render_colored_unlit(world, mesh);
+			mesh_render->material = MAT_COLORED_UNLIT;
+			mesh_render->mesh = MESH_SOFA;
+			mesh_render->color = (vec4){0.32f, 0.4f, 0.88f, 1.0f};
+		}
 	}
 
 	{

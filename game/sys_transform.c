@@ -1,5 +1,6 @@
 #include <stdint.h>
 
+#include "../common/entity.h"
 #include "../common/matrix.h"
 #include "com_transform.h"
 #include "world.h"

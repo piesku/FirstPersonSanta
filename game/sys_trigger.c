@@ -1,3 +1,4 @@
+#include "../common/entity.h"
 #include "actions.h"
 #include "com_collide.h"
 #include "com_transform.h"
@@ -14,14 +15,18 @@ static inline void update(struct client* client, struct world* world, entity ent
 
 	for (int8_t i = 0; i < collide->count; i++) {
 		struct collision* collision = &collide->collisions[i];
-		dispatch(client, world,
-				trigger->action,
-				(union action_data){
-						.trigger = {
-								.collider = entity,
-								.other = collision->other,
-						},
-				});
+		Collide* other = world->collide[collision->other];
+
+		if (other->layers & trigger->mask) {
+			dispatch(client, world,
+					trigger->action,
+					(union action_data){
+							.trigger = {
+									.collider = entity,
+									.other = collision->other,
+							},
+					});
+		}
 	}
 }
 

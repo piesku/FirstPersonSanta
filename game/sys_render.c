@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#include "../common/entity.h"
 #include "../common/gl.h"
 #include "../common/material.h"
 

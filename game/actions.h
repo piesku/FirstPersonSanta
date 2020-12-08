@@ -4,6 +4,7 @@
 
 enum action {
 	ACTION_TRIGGER_BOUNCE,
+	ACTION_TRIGGER_PLAY,
 };
 
 union action_data {

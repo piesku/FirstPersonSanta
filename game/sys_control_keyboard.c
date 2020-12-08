@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "../common/entity.h"
 #include "../common/matrix.h"
 
 #include "client.h"

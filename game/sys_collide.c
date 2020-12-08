@@ -1,6 +1,7 @@
 #include <stdint.h>
 
 #include "../common/aabb.h"
+#include "../common/entity.h"
 #include "../common/matrix.h"
 
 #include "com_collide.h"

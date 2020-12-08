@@ -6,6 +6,7 @@
 
 #include "../common/matrix.h"
 #include "../common/texture.h"
+#include "world.h"
 
 struct material mat_colored_unlit(void);
 struct material mat_textured_unlit(void);
@@ -212,7 +213,15 @@ void client_frame_update(struct client* client)
 	sys_render(client, world);
 	sys_postprocess(client);
 
-	client->resized = false;
+	if (client->next_scene != NULL) {
+		destroy_world(client->world);
+		client->world = create_world();
+		(*client->next_scene)(client->world);
+		client->next_scene = NULL;
+		client->resized = true;
+	} else {
+		client->resized = false;
+	}
 }
 
 void client_input_reset(struct client* client)

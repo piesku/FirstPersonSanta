@@ -4,9 +4,11 @@
 #include "../common/entity.h"
 #include "../common/matrix.h"
 #include "actions.h"
+#include "com_collide.h"
 
 typedef struct trigger {
 	enum action action;
+	enum layer mask;
 } Trigger;
 
 struct world;
