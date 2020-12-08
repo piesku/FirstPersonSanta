@@ -18,10 +18,16 @@ struct material mat_postprocess(void)
 			"#version 330\n"
 			"precision mediump float;"
 
+			"const int MAX_LIGHTS = 8;"
+
 			"uniform vec2 dimensions;"
+			"uniform mat4 eye_world;"
+			"uniform mat4 eye_unprojection;"
 			"uniform sampler2D color_map;"
 			"uniform sampler2D normal_map;"
 			"uniform sampler2D depth_map;"
+			"uniform vec4 light_positions[MAX_LIGHTS];"
+			"uniform vec4 light_details[MAX_LIGHTS];"
 
 			"in vec2 vert_texcoord;"
 			"out vec4 frag_color;"
@@ -36,10 +42,37 @@ struct material mat_postprocess(void)
 			"	return texture(depth_map, uv).x;"
 			"}"
 
+			"vec3 world_position_at(vec2 uv, float z) {"
+			"	vec4 clip_position = vec4(uv * 2.0 - 1.0, z * 2.0 - 1.0, 1.0);"
+			"	vec4 view_position = eye_unprojection * clip_position;"
+			"	view_position /= view_position.w;"
+			"	vec4 world_position = eye_world * view_position;"
+			"	return world_position.xyz;"
+			"}"
+
 			"void main() {"
 			"	vec4 current_color = texture(color_map, vert_texcoord);"
 			"	vec3 current_normal = normal_at(vert_texcoord);"
 			"	float current_depth = depth_at(vert_texcoord);"
+			"	vec3 current_position = world_position_at(vert_texcoord, current_depth);"
+
+			"	for (int i = 0; i < MAX_LIGHTS; i++) {"
+			"		if (light_positions[i].w == 0.0) {"
+			"			break;"
+			"		}"
+
+			"		vec3 light_dir = light_positions[i].xyz - current_position;"
+			"		float light_dist = length(light_dir);"
+			"		float light_range = light_details[i].a;"
+			"		if (light_dist < light_range) {"
+			"			vec3 light_normal = light_dir / light_dist;"
+			"			float diffuse_factor = dot(current_normal, light_normal);"
+			"			if (diffuse_factor > 0.0) {"
+			"				vec3 light_color = light_details[i].rgb;"
+			"				current_color = vec4(light_color, 1.0);"
+			"			}"
+			"		}"
+			"	}"
 
 			"	vec2 offsets[4] = vec2[]("
 			"			vec2(-1, -1) / dimensions,"
@@ -73,9 +106,12 @@ struct material mat_postprocess(void)
 			.layout.postprocess =
 					(struct layout_postprocess){
 							.dimensions = glGetUniformLocation(program, "dimensions"),
-							.color_map = glGetUniformLocation(program, "color_map"),
+							.eye_world = glGetUniformLocation(program, "eye_world"),
+							.eye_unprojection = glGetUniformLocation(program, "eye_unprojection"),
 							.normal_map = glGetUniformLocation(program, "normal_map"),
 							.depth_map = glGetUniformLocation(program, "depth_map"),
+							.light_positions = glGetUniformLocation(program, "light_positions"),
+							.light_details = glGetUniformLocation(program, "light_details"),
 							.vertex_position = glGetAttribLocation(program, "position"),
 							.vertex_texcoord = glGetAttribLocation(program, "texcoord"),
 					},

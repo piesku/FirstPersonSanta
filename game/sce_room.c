@@ -3,6 +3,7 @@
 
 #include "../common/entity.h"
 #include "com_collide.h"
+#include "com_light.h"
 #include "com_mimic.h"
 #include "com_render.h"
 #include "com_rigid_body.h"
@@ -43,7 +44,7 @@ void scene_room(struct world* world)
 
 			Mimic* mimic = world->mimic[camera];
 			mimic->target = player_rig;
-			mimic->stiffness = 0.01f;
+			mimic->stiffness = 0.1f;
 		}
 	}
 
@@ -122,17 +123,31 @@ void scene_room(struct world* world)
 
 	{
 		// Lamp.
-		entity entity = create_entity(world);
+		entity lamp = create_entity(world);
 
-		Transform* transform = mix_transform(world, entity);
-		transform->translation = (vec3){-0.5f, 0.0f, 0.2f};
-		transform->scale = (vec3){s, s, s};
-		quat_from_euler(&transform->rotation, 0.0f, -130.0f, 0.0f);
+		Transform* lamp_transform = mix_transform(world, lamp);
+		lamp_transform->translation = (vec3){-0.5f, 0.0f, 0.2f};
+		lamp_transform->scale = (vec3){s, s, s};
+		quat_from_euler(&lamp_transform->rotation, 0.0f, -130.0f, 0.0f);
 
-		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
-		render->material = MAT_COLORED_UNLIT;
-		render->mesh = MESH_LAMP;
-		render->color = (vec4){0.88f, 0.32f, 0.4f, 1.0f};
+		RenderColoredUnlit* lamp_render = mix_render_colored_unlit(world, lamp);
+		lamp_render->material = MAT_COLORED_UNLIT;
+		lamp_render->mesh = MESH_LAMP;
+		lamp_render->color = (vec4){0.88f, 0.32f, 0.4f, 1.0f};
+
+		{
+			// Light.
+			entity light = create_entity(world);
+			lamp_transform->children[0] = light;
+
+			Transform* light_transform = mix_transform(world, light);
+			light_transform->translation = (vec3){0.0f, 0.12f, 0.0f};
+			light_transform->parent = lamp;
+
+			LightPoint* light_point = mix_light_point(world, light);
+			light_point->color = (vec3){0.9f, 0.9f, 0.3f};
+			light_point->range = 1.5f;
+		}
 	}
 
 	{

@@ -11,13 +11,13 @@ enum light_kind {
 typedef struct light_directional {
 	enum light_kind kind;
 	vec3 color;
-	float intensity;
+	float range;
 } LightDirectional;
 
 typedef struct light_point {
 	enum light_kind kind;
 	vec3 color;
-	float intensity;
+	float range;
 } LightPoint;
 
 typedef union light {

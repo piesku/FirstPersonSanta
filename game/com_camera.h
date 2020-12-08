@@ -13,28 +13,30 @@ enum camera_kind {
 };
 
 struct eye {
+	mat4 world;
 	mat4 view;
 	mat4 pv;
+	mat4 unprojection;
 };
 
 typedef struct camera_display {
 	enum camera_kind kind;
+	struct eye eye;
 	vec4 clear_color;
 	float fov_y;
 	float near;
 	float far;
 	mat4 projection;
-	struct eye eye;
 } CameraDisplay;
 
 typedef struct camera_framebuffer {
 	enum camera_kind kind;
+	struct eye eye;
 	vec4 clear_color;
 	float fov_y;
 	float near;
 	float far;
 	mat4 projection;
-	struct eye eye;
 	enum render_target_index target;
 } CameraFramebuffer;
 

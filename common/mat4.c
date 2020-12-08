@@ -35,6 +35,26 @@ void mat4_set(mat4* out,
 	out->m33 = m33;
 }
 
+void mat4_copy(mat4* out, const mat4* a)
+{
+	out->m00 = a->m00;
+	out->m01 = a->m01;
+	out->m02 = a->m02;
+	out->m03 = a->m03;
+	out->m10 = a->m10;
+	out->m11 = a->m11;
+	out->m12 = a->m12;
+	out->m13 = a->m13;
+	out->m20 = a->m20;
+	out->m21 = a->m21;
+	out->m22 = a->m22;
+	out->m23 = a->m23;
+	out->m30 = a->m30;
+	out->m31 = a->m31;
+	out->m32 = a->m32;
+	out->m33 = a->m33;
+}
+
 bool mat4_invert(mat4* out, const mat4* mat)
 {
 	float a00 = mat->m00, a01 = mat->m01, a02 = mat->m02, a03 = mat->m03;

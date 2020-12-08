@@ -25,6 +25,7 @@ static inline void update_display(struct client* client, struct world* world, en
 					aspect,
 					camera->near,
 					camera->far);
+			mat4_invert(&camera->eye.unprojection, &camera->projection);
 		} else {
 			// Portrait orientation.
 			mat4_perspective(&camera->projection,
@@ -32,10 +33,13 @@ static inline void update_display(struct client* client, struct world* world, en
 					aspect,
 					camera->near,
 					camera->far);
+			mat4_invert(&camera->eye.unprojection, &camera->projection);
 		}
 	}
 
-	mat4_multiply(&camera->eye.pv, &camera->projection, &transform->self);
+	mat4_copy(&camera->eye.world, &transform->world);
+	mat4_copy(&camera->eye.view, &transform->self);
+	mat4_multiply(&camera->eye.pv, &camera->projection, &camera->eye.view);
 }
 
 static inline void update_framebuffer(struct client* client, struct world* world, entity entity)
@@ -53,6 +57,7 @@ static inline void update_framebuffer(struct client* client, struct world* world
 					aspect,
 					camera->near,
 					camera->far);
+			mat4_invert(&camera->eye.unprojection, &camera->projection);
 		} else {
 			// Portrait orientation.
 			mat4_perspective(&camera->projection,
@@ -60,10 +65,13 @@ static inline void update_framebuffer(struct client* client, struct world* world
 					aspect,
 					camera->near,
 					camera->far);
+			mat4_invert(&camera->eye.unprojection, &camera->projection);
 		}
 	}
 
-	mat4_multiply(&camera->eye.pv, &camera->projection, &transform->self);
+	mat4_copy(&camera->eye.world, &transform->world);
+	mat4_copy(&camera->eye.view, &transform->self);
+	mat4_multiply(&camera->eye.pv, &camera->projection, &camera->eye.view);
 }
 
 void sys_camera(struct client* client, struct world* world)

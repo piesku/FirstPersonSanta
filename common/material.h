@@ -43,9 +43,13 @@ struct layout_textured_unlit {
 struct layout_postprocess {
 	// Uniforms
 	GLint dimensions;
+	GLint eye_world;
+	GLint eye_unprojection;
 	GLint color_map;
 	GLint normal_map;
 	GLint depth_map;
+	GLint light_positions;
+	GLint light_details;
 	// Attributes
 	GLint vertex_position;
 	GLint vertex_texcoord;

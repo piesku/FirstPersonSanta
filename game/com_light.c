@@ -11,7 +11,7 @@ LightDirectional* mix_light_directional(struct world* world, entity entity)
 			.directional = {
 					.kind = LIGHT_DIRECTIONAL,
 					.color = {1.0, 1.0, 1.0},
-					.intensity = 1.0,
+					.range = 1.0,
 			}};
 
 	world->signature[entity] |= HAS_LIGHT;
@@ -26,7 +26,7 @@ LightPoint* mix_light_point(struct world* world, entity entity)
 			.point = {
 					.kind = LIGHT_POINT,
 					.color = {1.0, 1.0, 1.0},
-					.intensity = 1.0,
+					.range = 1.0,
 			}};
 
 	world->signature[entity] |= HAS_LIGHT;

@@ -30,13 +30,13 @@ static inline void update(struct client* client, struct world* world, entity ent
 			client->lights.details[4 * idx + 0] = light->directional.color.x;
 			client->lights.details[4 * idx + 1] = light->directional.color.y;
 			client->lights.details[4 * idx + 2] = light->directional.color.z;
-			client->lights.details[4 * idx + 3] = light->directional.intensity;
+			client->lights.details[4 * idx + 3] = light->directional.range;
 			break;
 		case LIGHT_POINT:
 			client->lights.details[4 * idx + 0] = light->point.color.x;
 			client->lights.details[4 * idx + 1] = light->point.color.y;
 			client->lights.details[4 * idx + 2] = light->point.color.z;
-			client->lights.details[4 * idx + 3] = light->point.intensity;
+			client->lights.details[4 * idx + 3] = light->point.range;
 			break;
 		case LIGHT_OFF:
 			break;
