@@ -12,7 +12,7 @@ add_executable(FirstPerson
 	common/malloc.c
 	common/mat4.c
 	common/material.c
-	game/scene.c
+	common/mesh.c
 	common/number.c
 	common/quat.c
 	common/texture.c
@@ -45,6 +45,7 @@ add_executable(FirstPerson
 	game/mesh_monkey.c
 	game/mesh_quad.c
 	game/mesh_sofa.c
+	game/scene.c
 	game/sce_bounce.c
 	game/sce_collide.c
 	game/sce_cube.c
@@ -104,3 +105,4 @@ endif()
 # Copy assets
 file(COPY textures DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY scenes DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY models DESTINATION ${CMAKE_BINARY_DIR})

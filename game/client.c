@@ -5,8 +5,8 @@
 #include <string.h>
 
 #include "../common/matrix.h"
-#include "../common/texture.h"
 #include "../common/mesh.h"
+#include "../common/texture.h"
 
 #include "world.h"
 
@@ -140,7 +140,7 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	client->materials[MAT_COLORED_UNLIT] = mat_colored_unlit();
 	client->materials[MAT_TEXTURED_UNLIT] = mat_textured_unlit();
 	client->materials[MAT_POSTPROCESS] = mat_postprocess();
-	client->meshes[MESH_CUBE] = mesh_cube();
+	client->meshes[MESH_CUBE] = mesh_load("models/cube.glb");
 	client->meshes[MESH_QUAD] = mesh_quad();
 	client->meshes[MESH_GIFT] = mesh_gift();
 	client->meshes[MESH_MONKEY] = mesh_monkey();
