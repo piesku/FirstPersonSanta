@@ -42,7 +42,8 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 {
 
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
+	// TODO Re-enable once all models are loaded from gltf.
+	// glEnable(GL_CULL_FACE);
 	glFrontFace(GL_CW);
 
 	client_resize(client, width, height);
@@ -146,7 +147,7 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	client->meshes[MESH_MONKEY] = mesh_monkey();
 	client->meshes[MESH_CHAIR] = mesh_chair();
 	client->meshes[MESH_LAMP] = mesh_lamp();
-	client->meshes[MESH_SOFA] = mesh_sofa();
+	client->meshes[MESH_SOFA] = mesh_load("models/sofa.glb");
 
 	// OpenGL 3.3. (core profile, i.e. in strict mode) requires at least one VAO.
 	GLuint vao;

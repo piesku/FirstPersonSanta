@@ -36,8 +36,9 @@ struct mesh mesh_load(const char* path)
 
 	cgltf_mesh* first_mesh = &data->meshes[0];
 
-	if (first_mesh->primitives_count != 1) {
-		printf("Model %s contains more than one primitive", path);
+	if (first_mesh->primitives_count == 0) {
+		// TODO Handle multiple primitives.
+		printf("Model %s doesn't contain any primitives", path);
 		exit(1);
 	}
 
