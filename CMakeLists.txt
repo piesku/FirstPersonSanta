@@ -20,6 +20,8 @@ add_executable(FirstPerson
 	game/actions.c
 	game/blu_camera.c
 	game/blu_gift.c
+	game/blu_lamp.c
+	game/blu_sofa.c
 	game/client.c
 	game/com_camera.c
 	game/com_collide.c
@@ -50,6 +52,7 @@ add_executable(FirstPerson
 	game/sce_monkey.c
 	game/sce_physics.c
 	game/sce_room.c
+	game/sce_room_from_file.c
 	game/sys_camera.c
 	game/sys_collide.c
 	game/sys_control_keyboard.c
