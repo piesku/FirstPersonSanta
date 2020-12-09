@@ -29,7 +29,8 @@ void sys_postprocess(struct client* client)
 	glUniformMatrix4fv(layout->eye_world, 1, GL_FALSE, (const GLfloat*)&eye->world);
 	glUniformMatrix4fv(layout->eye_unprojection, 1, GL_FALSE, (const GLfloat*)&eye->unprojection);
 	glUniform4fv(layout->light_positions, 8, client->lights.positions);
-	glUniform4fv(layout->light_details, 8, client->lights.details);
+	glUniform4fv(layout->light_colors, 8, client->lights.colors);
+	glUniform4fv(layout->light_directions, 8, client->lights.directions);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, client->textures[TEX_RENDER_RGBA]);

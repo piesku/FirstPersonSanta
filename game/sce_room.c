@@ -127,26 +127,35 @@ void scene_room(struct world* world)
 
 		Transform* lamp_transform = mix_transform(world, lamp);
 		lamp_transform->translation = (vec3){-0.5f, 0.0f, 0.2f};
-		lamp_transform->scale = (vec3){s, s, s};
 		quat_from_euler(&lamp_transform->rotation, 0.0f, -130.0f, 0.0f);
 
-		RenderColoredUnlit* lamp_render = mix_render_colored_unlit(world, lamp);
-		lamp_render->material = MAT_COLORED_UNLIT;
-		lamp_render->mesh = MESH_LAMP;
-		lamp_render->color = (vec4){0.88f, 0.32f, 0.4f, 1.0f};
+		{
+			entity mesh = create_entity(world);
+			lamp_transform->children[0] = mesh;
+
+			Transform* mesh_transform = mix_transform(world, mesh);
+			mesh_transform->scale = (vec3){s, s, s};
+			mesh_transform->parent = lamp;
+
+			RenderColoredUnlit* mesh_render = mix_render_colored_unlit(world, mesh);
+			mesh_render->material = MAT_COLORED_UNLIT;
+			mesh_render->mesh = MESH_LAMP;
+			mesh_render->color = (vec4){0.88f, 0.32f, 0.4f, 1.0f};
+		}
 
 		{
-			// Light.
 			entity light = create_entity(world);
-			lamp_transform->children[0] = light;
+			lamp_transform->children[1] = light;
 
 			Transform* light_transform = mix_transform(world, light);
-			light_transform->translation = (vec3){0.0f, 0.12f, 0.0f};
+			light_transform->translation = (vec3){0.0f, 2.0f, 0.0f};
+			quat_from_euler(&light_transform->rotation, 90.0f, 0.0f, 0.0f);
 			light_transform->parent = lamp;
 
-			LightPoint* light_point = mix_light_point(world, light);
-			light_point->color = (vec3){0.9f, 0.9f, 0.3f};
-			light_point->range = 1.5f;
+			LightSpot* light_spot = mix_light_spot(world, light);
+			light_spot->color = (vec3){0.9f, 0.9f, 0.3f};
+			light_spot->range = 3.0f;
+			light_spot->angle = PI / 3.0f;
 		}
 	}
 

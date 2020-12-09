@@ -389,3 +389,30 @@ void mat4_get_rotation(quat* out, const mat4* mat)
 		out->z = 0.25f * S;
 	}
 }
+
+void mat4_get_forward(vec3* out, const mat4* mat)
+{
+	out->x = mat->m20;
+	out->y = mat->m21;
+	out->z = mat->m22;
+
+	vec3_normalize(out, out);
+}
+
+void mat4_get_up(vec3* out, const mat4* mat)
+{
+	out->x = mat->m10;
+	out->y = mat->m11;
+	out->z = mat->m12;
+
+	vec3_normalize(out, out);
+}
+
+void mat4_get_left(vec3* out, const mat4* mat)
+{
+	out->x = mat->m00;
+	out->y = mat->m01;
+	out->z = mat->m02;
+
+	vec3_normalize(out, out);
+}

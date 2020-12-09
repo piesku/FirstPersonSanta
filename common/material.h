@@ -49,7 +49,8 @@ struct layout_postprocess {
 	GLint normal_map;
 	GLint depth_map;
 	GLint light_positions;
-	GLint light_details;
+	GLint light_colors;
+	GLint light_directions;
 	// Attributes
 	GLint vertex_position;
 	GLint vertex_texcoord;

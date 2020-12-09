@@ -4,15 +4,9 @@
 
 enum light_kind {
 	LIGHT_OFF,
-	LIGHT_DIRECTIONAL,
 	LIGHT_POINT,
+	LIGHT_SPOT,
 };
-
-typedef struct light_directional {
-	enum light_kind kind;
-	vec3 color;
-	float range;
-} LightDirectional;
 
 typedef struct light_point {
 	enum light_kind kind;
@@ -20,12 +14,19 @@ typedef struct light_point {
 	float range;
 } LightPoint;
 
+typedef struct light_spot {
+	enum light_kind kind;
+	vec3 color;
+	float range;
+	float angle;
+} LightSpot;
+
 typedef union light {
 	enum light_kind kind;
-	LightDirectional directional;
 	LightPoint point;
+	LightSpot spot;
 } Light;
 
 struct world;
-LightDirectional* mix_light_directional(struct world* world, entity entity);
 LightPoint* mix_light_point(struct world* world, entity entity);
+LightSpot* mix_light_spot(struct world* world, entity entity);
