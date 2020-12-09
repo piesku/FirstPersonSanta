@@ -8,7 +8,9 @@
 
 #define MAX_COLLISIONS 5
 
-enum layer_mask {
+typedef int32_t layer_mask;
+
+enum layer_flag {
 	LAYER_NONE = 1 << 0,
 	LAYER_PLAYER = 1 << 1,
 	LAYER_TERRAIN = 1 << 2,
@@ -23,8 +25,8 @@ struct collision {
 typedef struct collide {
 	entity entity;
 	bool dynamic;
-	enum layer_mask layers;
-	enum layer_mask mask;
+	layer_mask layers;
+	layer_mask mask;
 	struct aabb aabb;
 	int8_t count;
 	struct collision collisions[MAX_COLLISIONS];
