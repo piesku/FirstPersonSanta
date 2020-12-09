@@ -1,5 +1,8 @@
 #include "mesh.h"
 
+#include <stdbool.h>
+#include <string.h>
+
 #include "entity.h"
 #include "matrix.h"
 
@@ -12,24 +15,18 @@
 entity blueprint_lamp(struct world* world, vec3 translation, quat rotation);
 entity blueprint_sofa(struct world* world, vec3 translation, quat rotation);
 
+static inline bool starts_with(const char* name, const char* prefix)
+{
+	return strncmp(prefix, name, strlen(prefix)) == 0;
+}
+
 void load_scene_from_gltf(struct world* world, const char* file_location)
 {
 	cgltf_options options = {0};
 	cgltf_data* data = NULL;
 	cgltf_result result = cgltf_parse_file(&options, file_location, &data);
 	if (result == cgltf_result_success) {
-		int nodes_count = data->nodes_count;
-		for (int i = 0; i < nodes_count; i++) {
-			char name[20] = {0};
-			char* dot = strchr(data->nodes[i].name, '.');
-			int name_length = strlen(data->nodes[i].name);
-
-			if (dot) {
-				strncpy(name, data->nodes[i].name, (int)(name_length - strlen(dot)));
-			} else {
-				strncpy(name, data->nodes[i].name, name_length);
-			}
-
+		for (cgltf_size i = 0; i < data->nodes_count; i++) {
 			vec3 translation = {
 					data->nodes[i].translation[0],
 					0, //data->nodes[i].translation[1],
@@ -42,9 +39,11 @@ void load_scene_from_gltf(struct world* world, const char* file_location)
 					data->nodes[i].rotation[3],
 			};
 
-			if (strncmp(name, "lamp", 20) == 0) {
+			char* name = data->nodes[i].name;
+
+			if (starts_with(name, "lamp")) {
 				blueprint_lamp(world, translation, rotation);
-			} else if (strncmp(name, "sofa", 20) == 0) {
+			} else if (starts_with(name, "sofa")) {
 				blueprint_sofa(world, translation, rotation);
 			}
 		}
