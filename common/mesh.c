@@ -1,11 +1,16 @@
 #include "mesh.h"
 
+#include "entity.h"
+#include "matrix.h"
+
 #define CGLTF_IMPLEMENTATION
 #include "cgltf.h"
 
-void load_scene_from_gltf(struct mesh* mesh, const char* file_location) {
-	(void)mesh;
+entity blueprint_lamp(struct world* world, vec3 translation, quat rotation);
+entity blueprint_sofa(struct world* world, vec3 translation, quat rotation);
 
+void load_scene_from_gltf(struct world* world, const char* file_location)
+{
 	cgltf_options options = {0};
 	cgltf_data* data = NULL;
 	cgltf_result result = cgltf_parse_file(&options, file_location, &data);
@@ -22,10 +27,24 @@ void load_scene_from_gltf(struct mesh* mesh, const char* file_location) {
 				strncpy(name, data->nodes[i].name, name_length);
 			}
 
-			printf("%s\n", name);
-		}
+			vec3 translation = {
+					data->nodes[i].translation[0],
+					0, //data->nodes[i].translation[1],
+					data->nodes[i].translation[2],
+			};
+			quat rotation = {
+					data->nodes[i].rotation[0],
+					data->nodes[i].rotation[1],
+					data->nodes[i].rotation[2],
+					data->nodes[i].rotation[3],
+			};
 
-		// XXX: Do stuff with `mesh` & `data` here
+			if (strncmp(name, "lamp", 20) == 0) {
+				blueprint_lamp(world, translation, rotation);
+			} else if (strncmp(name, "sofa", 20) == 0) {
+				blueprint_sofa(world, translation, rotation);
+			}
+		}
 		cgltf_free(data);
 	}
 }
