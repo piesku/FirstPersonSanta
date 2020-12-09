@@ -8,7 +8,7 @@
 
 typedef struct trigger {
 	enum action action;
-	enum layer mask;
+	enum layer_mask mask;
 } Trigger;
 
 struct world;

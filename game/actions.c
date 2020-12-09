@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "com_rigid_body.h"
 #include "client.h"
+#include "com_rigid_body.h"
 #include "world.h"
 
 void scene_bounce(struct world* world);
