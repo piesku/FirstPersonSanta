@@ -54,7 +54,7 @@ struct mesh mesh_load(const char* path)
 		mesh.index_count = (GLuint)indices->count;
 	}
 
-	for (int i = 0; i < first_primitive->attributes_count; i++) {
+	for (cgltf_size i = 0; i < first_primitive->attributes_count; i++) {
 		cgltf_attribute* attr = &first_primitive->attributes[i];
 		switch (attr->type) {
 			case cgltf_attribute_type_position: {
@@ -78,6 +78,8 @@ struct mesh mesh_load(const char* path)
 				glBufferData(GL_ARRAY_BUFFER, view->size, (GLbyte*)view->buffer->data + view->offset, GL_STATIC_DRAW);
 				break;
 			}
+			default:
+				break;
 		}
 	}
 
