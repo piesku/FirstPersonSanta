@@ -1,4 +1,5 @@
 #include "../common/entity.h"
+#include "../common/matrix.h"
 #include "com_collide.h"
 #include "com_light.h"
 #include "com_render.h"

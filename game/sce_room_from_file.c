@@ -14,7 +14,6 @@
 
 entity blueprint_camera_follow(struct world* world);
 entity blueprint_camera_player(struct world* world);
-entity blueprint_gift(struct world* world);
 
 void scene_room_from_file(struct world* world)
 {
@@ -69,4 +68,5 @@ void scene_room_from_file(struct world* world)
 		rigid_body->kind = RIGID_STATIC;
 	}
 
+	load_scene_from_gltf(world, "scenes/scene1.gltf");
 }
