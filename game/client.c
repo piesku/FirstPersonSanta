@@ -145,7 +145,7 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	client->meshes[MESH_QUAD] = mesh_quad();
 	client->meshes[MESH_GIFT] = mesh_gift();
 	client->meshes[MESH_MONKEY] = mesh_monkey();
-	client->meshes[MESH_CHAIR] = mesh_chair();
+	client->meshes[MESH_CHAIR] = mesh_load("models/chair.glb");
 	client->meshes[MESH_LAMP] = mesh_load("models/lamp.glb");
 	client->meshes[MESH_SOFA] = mesh_load("models/sofa.glb");
 

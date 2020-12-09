@@ -18,9 +18,6 @@ entity blueprint_gift(struct world* world);
 
 void scene_room(struct world* world)
 {
-	// Scale for all furniture.
-	float s = 3.0f;
-
 	{
 		entity player = blueprint_camera_player(world);
 		Transform* transform = world->transform[player];
@@ -76,9 +73,7 @@ void scene_room(struct world* world)
 		entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
-		transform->translation = (vec3){0.0f, 0.0f, 0.0f};
-		transform->rotation = (quat){0.0f, 1.0f, 0.0f, 0.0f};
-		transform->scale = (vec3){s, s, s};
+		transform->translation = (vec3){0.5f, 0.0f, 0.0f};
 
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;
@@ -91,7 +86,7 @@ void scene_room(struct world* world)
 		entity sofa = create_entity(world);
 
 		Transform* transform = mix_transform(world, sofa);
-		transform->translation = (vec3){3.0f, 0.0f, 1.0f};
+		transform->translation = (vec3){2.0f, 0.0f, 2.0f};
 		quat_from_euler(&transform->rotation, 0.0f, -60.0f, 0.0f);
 
 		Collide* collide = mix_collide(world, sofa);
