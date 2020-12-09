@@ -8,10 +8,11 @@ add_executable(FirstPerson
 	main.c
 
 	common/aabb.c
+	common/gltf.c
 	common/malloc.c
 	common/mat4.c
 	common/material.c
-	common/mesh.c
+	game/scene.c
 	common/number.c
 	common/quat.c
 	common/texture.c

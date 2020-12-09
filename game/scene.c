@@ -1,17 +1,11 @@
-#include "mesh.h"
-
+#include <cgltf.h>
 #include <stdbool.h>
 #include <string.h>
 
-#include "entity.h"
-#include "matrix.h"
+#include "../common/entity.h"
+#include "../common/matrix.h"
 
-#pragma warning(push)
-#pragma warning(disable : 4996 26451)
-#define CGLTF_IMPLEMENTATION
-#include "cgltf.h"
-#pragma warning(pop)
-
+struct world;
 entity blueprint_lamp(struct world* world, vec3 translation, quat rotation);
 entity blueprint_sofa(struct world* world, vec3 translation, quat rotation);
 

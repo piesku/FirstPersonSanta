@@ -12,6 +12,8 @@
 #include "index.h"
 #include "world.h"
 
+void load_scene_from_gltf(struct world* world, const char* file_location);
+
 entity blueprint_camera_follow(struct world* world);
 entity blueprint_camera_player(struct world* world);
 
