@@ -3,8 +3,11 @@
 #include "entity.h"
 #include "matrix.h"
 
+#pragma warning(push)
+#pragma warning(disable : 4996 26451)
 #define CGLTF_IMPLEMENTATION
 #include "cgltf.h"
+#pragma warning(pop)
 
 entity blueprint_lamp(struct world* world, vec3 translation, quat rotation);
 entity blueprint_sofa(struct world* world, vec3 translation, quat rotation);
