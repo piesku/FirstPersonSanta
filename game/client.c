@@ -6,6 +6,8 @@
 
 #include "../common/matrix.h"
 #include "../common/texture.h"
+#include "../common/mesh.h"
+
 #include "world.h"
 
 struct material mat_colored_unlit(void);
@@ -38,6 +40,11 @@ void sys_trigger(struct client* client, struct world* world);
 
 void client_setup(struct client* client, int32_t width, int32_t height)
 {
+
+	struct mesh scene_mesh = {0};
+
+	load_scene_from_gltf(&scene_mesh, "scenes/scene1.gltf");
+
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glFrontFace(GL_CW);

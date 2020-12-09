@@ -99,4 +99,4 @@ endif()
 
 # Copy assets
 file(COPY textures DESTINATION ${CMAKE_BINARY_DIR})
-file(COPY models DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY scenes DESTINATION ${CMAKE_BINARY_DIR})

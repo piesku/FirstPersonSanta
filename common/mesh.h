@@ -10,4 +10,4 @@ struct mesh {
 	GLuint index_count;
 };
 
-void load_gltf_from_file(struct mesh* mesh, const char* file_location);
+void load_scene_from_gltf(struct mesh* mesh, const char* file_location);
