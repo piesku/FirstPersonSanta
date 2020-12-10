@@ -13,14 +13,6 @@
 struct material mat_colored_unlit(void);
 struct material mat_textured_unlit(void);
 struct material mat_postprocess(void);
-struct mesh mesh_cube(void);
-struct mesh mesh_quad(void);
-struct mesh mesh_gift(void);
-struct mesh mesh_monkey(void);
-// Furniture.
-struct mesh mesh_chair(void);
-struct mesh mesh_lamp(void);
-struct mesh mesh_sofa(void);
 
 void sys_camera(struct client* client, struct world* world);
 void sys_collide(struct world* world);
