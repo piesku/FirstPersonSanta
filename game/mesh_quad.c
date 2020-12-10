@@ -35,8 +35,8 @@ struct mesh mesh_quad(void)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_texcoords), vertex_texcoords, GL_STATIC_DRAW);
 
 	GLushort indices[] = {
-			3, 2, 0,
-			2, 1, 0};
+			0, 1, 2,
+			0, 2, 3};
 
 	glGenBuffers(1, &mesh.index_buffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh.index_buffer);

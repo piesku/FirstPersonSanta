@@ -42,9 +42,7 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 {
 
 	glEnable(GL_DEPTH_TEST);
-	// TODO Re-enable once all models are loaded from gltf.
-	// glEnable(GL_CULL_FACE);
-	glFrontFace(GL_CW);
+	glEnable(GL_CULL_FACE);
 
 	client_resize(client, width, height);
 
