@@ -43,6 +43,7 @@ void scene_monkey(struct world* world)
 
 		Transform* transform = mix_transform(world, entity);
 		transform->translation = (vec3){0.0f, 2.0f, 0.0f};
+		transform->scale = (vec3){2.0f, 2.0f, 2.0f};
 
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;

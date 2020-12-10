@@ -132,7 +132,7 @@ int main(int argc, char* argv[])
 	};
 
 	engine_init_display(&engine);
-	scene_room(engine.client.world);
+	scene_monkey(engine.client.world);
 
 	bool quit = false;
 	while (quit == false) {
