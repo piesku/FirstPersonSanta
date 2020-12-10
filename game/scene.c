@@ -24,7 +24,7 @@ void load_scene_from_gltf(struct world* world, const char* file_location)
 		for (cgltf_size i = 0; i < data->nodes_count; i++) {
 			vec3 translation = {
 					data->nodes[i].translation[0],
-					0, //data->nodes[i].translation[1],
+					data->nodes[i].translation[1],
 					data->nodes[i].translation[2],
 			};
 			quat rotation = {

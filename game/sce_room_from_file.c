@@ -70,5 +70,5 @@ void scene_room_from_file(struct world* world)
 		rigid_body->kind = RIGID_STATIC;
 	}
 
-	load_scene_from_gltf(world, "scenes/scene1.gltf");
+	load_scene_from_gltf(world, "scenes/scene2.gltf");
 }
