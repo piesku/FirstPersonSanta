@@ -15,6 +15,8 @@
 entity blueprint_camera_follow(struct world* world);
 entity blueprint_camera_player(struct world* world);
 entity blueprint_gift(struct world* world);
+entity blueprint_sofa(struct world* world);
+entity blueprint_lamp(struct world* world);
 
 void scene_room(struct world* world)
 {
@@ -83,61 +85,20 @@ void scene_room(struct world* world)
 
 	{
 		// Sofa.
-		entity sofa = create_entity(world);
+		entity sofa = blueprint_sofa(world);
 
-		Transform* transform = mix_transform(world, sofa);
+		Transform* transform = world->transform[sofa];
 		transform->translation = (vec3){2.0f, 0.0f, 2.0f};
 		quat_from_euler(&transform->rotation, 0.0f, -60.0f, 0.0f);
-
-		Collide* collide = mix_collide(world, sofa);
-		collide->dynamic = false;
-		collide->layers = LAYER_NONE;
-		collide->mask = LAYER_PLAYER;
-		collide->aabb.size = (vec3){1.0f, 3.0f, 1.0f};
-
-		Trigger* trigger = mix_trigger(world, sofa);
-		trigger->action = ACTION_TRIGGER_PLAY;
-		trigger->mask = LAYER_PLAYER;
-
-		{
-			entity mesh = create_entity(world);
-			transform->children[0] = mesh;
-
-			Transform* mesh_transform = mix_transform(world, mesh);
-			mesh_transform->parent = sofa;
-
-			RenderColoredUnlit* mesh_render = mix_render_colored_unlit(world, mesh);
-			mesh_render->material = MAT_COLORED_UNLIT;
-			mesh_render->mesh = MESH_SOFA;
-			mesh_render->color = (vec4){0.32f, 0.4f, 0.88f, 1.0f};
-		}
 	}
 
 	{
 		// Lamp.
-		entity lamp = create_entity(world);
+		entity lamp = blueprint_lamp(world);
 
 		Transform* lamp_transform = mix_transform(world, lamp);
 		lamp_transform->translation = (vec3){-0.5f, 0.0f, 0.2f};
-
-		RenderColoredUnlit* lamp_render = mix_render_colored_unlit(world, lamp);
-		lamp_render->material = MAT_COLORED_UNLIT;
-		lamp_render->mesh = MESH_LAMP;
-		lamp_render->color = (vec4){0.88f, 0.32f, 0.4f, 1.0f};
-
-		{
-			// Light.
-			entity light = create_entity(world);
-			lamp_transform->children[0] = light;
-
-			Transform* light_transform = mix_transform(world, light);
-			light_transform->translation = (vec3){0.0f, 1.5f, 0.0f};
-			light_transform->parent = lamp;
-
-			LightPoint* light_point = mix_light_point(world, light);
-			light_point->color = (vec3){0.9f, 0.9f, 0.3f};
-			light_point->range = 2.0f;
-		}
+		quat_from_euler(&lamp_transform->rotation, 0.0f, -130.0f, 0.0f);
 	}
 
 	{

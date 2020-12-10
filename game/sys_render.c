@@ -45,7 +45,7 @@ static inline void use_colored_diffuse(struct client* client, struct material* m
 	glUseProgram(material->program);
 	glUniformMatrix4fv(material->layout.colored_diffuse.pv, 1, GL_FALSE, (const GLfloat*)&eye->pv);
 	glUniform4fv(material->layout.colored_diffuse.light_positions, 1, client->lights.positions);
-	glUniform4fv(material->layout.colored_diffuse.light_details, 1, client->lights.details);
+	glUniform4fv(material->layout.colored_diffuse.light_details, 1, client->lights.colors);
 }
 
 static inline void draw_colored_diffuse(struct client* client, Transform* transform, RenderColoredDiffuse* render)

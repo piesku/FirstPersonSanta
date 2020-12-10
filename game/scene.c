@@ -4,10 +4,11 @@
 
 #include "../common/entity.h"
 #include "../common/matrix.h"
+#include "com_transform.h"
+#include "world.h"
 
-struct world;
-entity blueprint_lamp(struct world* world, vec3 translation, quat rotation);
-entity blueprint_sofa(struct world* world, vec3 translation, quat rotation);
+entity blueprint_lamp(struct world* world);
+entity blueprint_sofa(struct world* world);
 
 static inline bool starts_with(const char* name, const char* prefix)
 {
@@ -36,9 +37,13 @@ void load_scene_from_gltf(struct world* world, const char* file_location)
 			char* name = data->nodes[i].name;
 
 			if (starts_with(name, "lamp")) {
-				blueprint_lamp(world, translation, rotation);
+				entity entity = blueprint_lamp(world);
+				world->transform[entity]->translation = translation;
+				world->transform[entity]->rotation = rotation;
 			} else if (starts_with(name, "sofa")) {
-				blueprint_sofa(world, translation, rotation);
+				entity entity = blueprint_sofa(world);
+				world->transform[entity]->translation = translation;
+				world->transform[entity]->rotation = rotation;
 			}
 		}
 		cgltf_free(data);

@@ -17,44 +17,39 @@ static inline void update(struct client* client, struct world* world, entity ent
 
 	vec3 world_position;
 	mat4_get_translation(&world_position, &transform->world);
-
-	if (light->kind == LIGHT_DIRECTIONAL) {
-		vec3_normalize(&world_position, &world_position);
-	}
-
-	switch (light->kind) {
-		case LIGHT_DIRECTIONAL:
-			// The normalized world position describes the light's normal.
-			vec3_normalize(&world_position, &world_position);
-
-			client->lights.details[4 * idx + 0] = light->directional.color.x;
-			client->lights.details[4 * idx + 1] = light->directional.color.y;
-			client->lights.details[4 * idx + 2] = light->directional.color.z;
-			client->lights.details[4 * idx + 3] = light->directional.range;
-			break;
-		case LIGHT_POINT:
-			client->lights.details[4 * idx + 0] = light->point.color.x;
-			client->lights.details[4 * idx + 1] = light->point.color.y;
-			client->lights.details[4 * idx + 2] = light->point.color.z;
-			client->lights.details[4 * idx + 3] = light->point.range;
-			break;
-		case LIGHT_OFF:
-			break;
-	}
-
 	client->lights.positions[4 * idx + 0] = world_position.x;
 	client->lights.positions[4 * idx + 1] = world_position.y;
 	client->lights.positions[4 * idx + 2] = world_position.z;
 	client->lights.positions[4 * idx + 3] = (float)light->kind;
+
+	switch (light->kind) {
+		case LIGHT_POINT:
+			client->lights.colors[4 * idx + 0] = light->point.color.x;
+			client->lights.colors[4 * idx + 1] = light->point.color.y;
+			client->lights.colors[4 * idx + 2] = light->point.color.z;
+			client->lights.colors[4 * idx + 3] = light->point.range;
+			break;
+		case LIGHT_SPOT:
+			client->lights.colors[4 * idx + 0] = light->spot.color.x;
+			client->lights.colors[4 * idx + 1] = light->spot.color.y;
+			client->lights.colors[4 * idx + 2] = light->spot.color.z;
+			client->lights.colors[4 * idx + 3] = light->spot.range;
+
+			vec3 world_forward;
+			mat4_get_forward(&world_forward, &transform->world);
+			client->lights.directions[4 * idx + 0] = world_forward.x;
+			client->lights.directions[4 * idx + 1] = world_forward.y;
+			client->lights.directions[4 * idx + 2] = world_forward.z;
+			client->lights.directions[4 * idx + 3] = light->spot.angle;
+			break;
+		case LIGHT_OFF:
+			break;
+	}
 }
 
 void sys_light(struct client* client, struct world* world)
 {
-	client->lights = (const struct lights){
-			.positions = {0},
-			.details = {0},
-	};
-
+	client->lights = (struct lights){0};
 	int32_t counter = 0;
 	for (entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {

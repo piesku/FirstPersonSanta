@@ -49,7 +49,8 @@ struct client {
 	struct camera_framebuffer* camera_minimap;
 	struct lights {
 		float positions[4 * 8];
-		float details[4 * 8];
+		float colors[4 * 8];
+		float directions[4 * 8];
 	} lights;
 };
 

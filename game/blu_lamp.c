@@ -7,19 +7,22 @@
 #include "com_transform.h"
 #include "world.h"
 
-entity blueprint_lamp(struct world* world, vec3 translation, quat rotation)
+entity blueprint_lamp(struct world* world)
 {
-	// Lamp.
-	entity lamp = create_entity(world);
+	entity root = create_entity(world);
 
-	Transform* lamp_transform = mix_transform(world, lamp);
-	lamp_transform->translation = translation;
-	lamp_transform->rotation = rotation;
+	Transform* lamp_transform = mix_transform(world, root);
 
-	RenderColoredUnlit* lamp_render = mix_render_colored_unlit(world, lamp);
+	Collide* collide = mix_collide(world, root);
+	collide->dynamic = false;
+	collide->layers = LAYER_TERRAIN;
+	collide->mask = LAYER_NONE;
+	collide->aabb.size = (vec3){1.0f, 3.0f, 1.0f};
+
+	RenderColoredUnlit* lamp_render = mix_render_colored_unlit(world, root);
 	lamp_render->material = MAT_COLORED_UNLIT;
 	lamp_render->mesh = MESH_LAMP;
-	lamp_render->color = (vec4){0.88f, 0.32f, 0.4f, 1.0f};
+	lamp_render->color = (vec4){0.9f, 0.3f, 0.4f, 1.0f};
 
 	{
 		// Light.
@@ -27,13 +30,15 @@ entity blueprint_lamp(struct world* world, vec3 translation, quat rotation)
 		lamp_transform->children[0] = light;
 
 		Transform* light_transform = mix_transform(world, light);
-		light_transform->translation = (vec3){0.0f, 1.5f, 0.0f};
-		light_transform->parent = lamp;
+		light_transform->translation = (vec3){0.0f, 2.0f, 0.0f};
+		quat_from_euler(&light_transform->rotation, 90.0f, 0.0f, 0.0f);
+		light_transform->parent = root;
 
-		LightPoint* light_point = mix_light_point(world, light);
-		light_point->color = (vec3){0.9f, 0.9f, 0.3f};
-		light_point->range = 2.0f;
+		LightSpot* light_spot = mix_light_spot(world, light);
+		light_spot->color = (vec3){0.9f, 0.9f, 0.3f};
+		light_spot->range = 3.0f;
+		light_spot->angle = PI / 3.0f;
 	}
 
-	return lamp;
+	return root;
 }

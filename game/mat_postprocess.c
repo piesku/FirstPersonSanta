@@ -27,7 +27,8 @@ struct material mat_postprocess(void)
 			"uniform sampler2D normal_map;"
 			"uniform sampler2D depth_map;"
 			"uniform vec4 light_positions[MAX_LIGHTS];"
-			"uniform vec4 light_details[MAX_LIGHTS];"
+			"uniform vec4 light_colors[MAX_LIGHTS];"
+			"uniform vec4 light_directions[MAX_LIGHTS];"
 
 			"in vec2 vert_texcoord;"
 			"out vec4 frag_color;"
@@ -57,21 +58,37 @@ struct material mat_postprocess(void)
 			"	vec3 current_position = world_position_at(vert_texcoord, current_depth);"
 
 			"	for (int i = 0; i < MAX_LIGHTS; i++) {"
-			"		if (light_positions[i].w == 0.0) {"
+			"		int light_kind = int(light_positions[i].w);"
+			"		if (light_kind == 0) {"
+			"			/* LIGHT_OFF */"
 			"			break;"
 			"		}"
 
-			"		vec3 light_dir = light_positions[i].xyz - current_position;"
-			"		float light_dist = length(light_dir);"
-			"		float light_range = light_details[i].a;"
-			"		if (light_dist < light_range) {"
-			"			vec3 light_normal = light_dir / light_dist;"
-			"			float diffuse_factor = dot(current_normal, light_normal);"
-			"			if (diffuse_factor > 0.0) {"
-			"				vec3 light_color = light_details[i].rgb;"
-			"				current_color = vec4(light_color, 1.0);"
+			"		vec3 light_diff = light_positions[i].xyz - current_position;"
+			"		float light_dist = length(light_diff);"
+			"		float light_range = light_colors[i].a;"
+			"		if (light_dist > light_range) {"
+			"			continue;"
+			"		}"
+
+			"		vec3 light_normal = light_diff / light_dist;"
+			"		float diffuse_factor = dot(current_normal, light_normal);"
+			"		if (diffuse_factor < 0.0) {"
+			"			continue;"
+			"		}"
+
+			"		if (light_kind == 2) {"
+			"			/* LIGHT_SPOT */"
+			"			vec3 light_forward = light_directions[i].xyz;"
+			"			float light_angle = light_directions[i].w;"
+			"			float current_cos = dot(light_forward, -light_normal);"
+			"			if (current_cos < cos(light_angle / 2.0)) {"
+			"				continue;"
 			"			}"
 			"		}"
+
+			"		vec3 light_color = light_colors[i].rgb;"
+			"		current_color = vec4(light_color, 1.0);"
 			"	}"
 
 			"	vec2 offsets[4] = vec2[]("
@@ -111,7 +128,8 @@ struct material mat_postprocess(void)
 							.normal_map = glGetUniformLocation(program, "normal_map"),
 							.depth_map = glGetUniformLocation(program, "depth_map"),
 							.light_positions = glGetUniformLocation(program, "light_positions"),
-							.light_details = glGetUniformLocation(program, "light_details"),
+							.light_colors = glGetUniformLocation(program, "light_colors"),
+							.light_directions = glGetUniformLocation(program, "light_directions"),
 							.vertex_position = glGetAttribLocation(program, "position"),
 							.vertex_texcoord = glGetAttribLocation(program, "texcoord"),
 					},
