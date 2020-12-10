@@ -29,8 +29,8 @@ struct mesh mesh_load(const char* path)
 		}
 	}
 
-	if (data->meshes_count != 1) {
-		printf("Model %s contains more than one mesh", path);
+	if (data->meshes_count == 0) {
+		printf("Model %s doesn't contain any meshes", path);
 		exit(1);
 	}
 
