@@ -40,6 +40,11 @@ void load_scene_from_gltf(struct world* world, const char* path)
 				data->nodes[i].rotation[2],
 				data->nodes[i].rotation[3],
 		};
+		vec3 scale = {
+				data->nodes[i].scale[0],
+				data->nodes[i].scale[1],
+				data->nodes[i].scale[2],
+		};
 
 		char* name = data->nodes[i].name;
 
@@ -47,10 +52,16 @@ void load_scene_from_gltf(struct world* world, const char* path)
 			entity entity = blueprint_lamp(world);
 			world->transform[entity]->translation = translation;
 			world->transform[entity]->rotation = rotation;
-		} else if (starts_with(name, "sofa")) {
+			world->transform[entity]->scale = scale;
+			continue;
+		}
+
+		if (starts_with(name, "sofa")) {
 			entity entity = blueprint_sofa(world);
 			world->transform[entity]->translation = translation;
 			world->transform[entity]->rotation = rotation;
+			world->transform[entity]->scale = scale;
+			continue;
 		}
 	}
 
