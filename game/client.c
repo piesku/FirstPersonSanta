@@ -140,7 +140,7 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	client->materials[MAT_TEXTURED_UNLIT] = mat_textured_unlit();
 	client->materials[MAT_POSTPROCESS] = mat_postprocess();
 	client->meshes[MESH_CUBE] = mesh_load("models/cube.glb");
-	client->meshes[MESH_QUAD] = mesh_quad();
+	client->meshes[MESH_QUAD] = mesh_load("models/quad.glb");
 	client->meshes[MESH_GIFT] = mesh_load("models/gift.glb");
 	client->meshes[MESH_MONKEY] = mesh_load("models/monkey.glb");
 	client->meshes[MESH_CHAIR] = mesh_load("models/chair.glb");

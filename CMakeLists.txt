@@ -38,7 +38,6 @@ add_executable(FirstPerson
 	game/mat_colored_unlit.c
 	game/mat_postprocess.c
 	game/mat_textured_unlit.c
-	game/mesh_quad.c
 	game/scene.c
 	game/sce_bounce.c
 	game/sce_collide.c
