@@ -15,25 +15,17 @@
 void load_scene_from_gltf(struct world* world, const char* file_location);
 
 entity blueprint_camera_follow(struct world* world);
-entity blueprint_camera_player(struct world* world);
+entity blueprint_player_target(struct world* world, entity* target);
 
 void scene_room_from_file(struct world* world)
 {
 
 	{
-		entity player = blueprint_camera_player(world);
+		// Player.
+		entity target;
+		entity player = blueprint_player_target(world, &target);
 		Transform* transform = world->transform[player];
 		transform->translation = (vec3){0.0f, 1.7f, 5.0f};
-
-		entity player_rig = transform->children[0];
-		Transform* rig_transform = world->transform[player_rig];
-		entity player_camera = rig_transform->children[0];
-		world->signature[player_camera] &= ~HAS_CAMERA;
-
-		Collide* collide = mix_collide(world, player);
-		collide->dynamic = true;
-		collide->layers = LAYER_PLAYER;
-		collide->mask = LAYER_TERRAIN;
 
 		{
 			entity camera = blueprint_camera_follow(world);
@@ -42,7 +34,7 @@ void scene_room_from_file(struct world* world)
 			quat_from_euler(&camera_transform->rotation, 30.0f, 180.0f, 0.0f);
 
 			Mimic* mimic = world->mimic[camera];
-			mimic->target = player_rig;
+			mimic->target = target;
 			mimic->stiffness = 0.1f;
 		}
 	}
