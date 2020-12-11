@@ -18,6 +18,7 @@ void scene_minimap(struct world* world);
 void scene_monkey(struct world* world);
 void scene_physics(struct world* world);
 void scene_room(struct world* world);
+void scene_room_from_file(struct world* world);
 
 struct engine {
 	uint64_t last_time;
@@ -131,7 +132,7 @@ int main(int argc, char* argv[])
 	};
 
 	engine_init_display(&engine);
-	scene_room(engine.client.world);
+	scene_room_from_file(engine.client.world);
 
 	bool quit = false;
 	while (quit == false) {

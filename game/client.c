@@ -5,20 +5,14 @@
 #include <string.h>
 
 #include "../common/matrix.h"
+#include "../common/mesh.h"
 #include "../common/texture.h"
+
 #include "world.h"
 
 struct material mat_colored_unlit(void);
 struct material mat_textured_unlit(void);
 struct material mat_postprocess(void);
-struct mesh mesh_cube(void);
-struct mesh mesh_quad(void);
-struct mesh mesh_gift(void);
-struct mesh mesh_monkey(void);
-// Furniture.
-struct mesh mesh_chair(void);
-struct mesh mesh_lamp(void);
-struct mesh mesh_sofa(void);
 
 void sys_camera(struct client* client, struct world* world);
 void sys_collide(struct world* world);
@@ -38,9 +32,9 @@ void sys_trigger(struct client* client, struct world* world);
 
 void client_setup(struct client* client, int32_t width, int32_t height)
 {
+
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
-	glFrontFace(GL_CW);
 
 	client_resize(client, width, height);
 
@@ -137,13 +131,13 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	client->materials[MAT_COLORED_UNLIT] = mat_colored_unlit();
 	client->materials[MAT_TEXTURED_UNLIT] = mat_textured_unlit();
 	client->materials[MAT_POSTPROCESS] = mat_postprocess();
-	client->meshes[MESH_CUBE] = mesh_cube();
-	client->meshes[MESH_QUAD] = mesh_quad();
-	client->meshes[MESH_GIFT] = mesh_gift();
-	client->meshes[MESH_MONKEY] = mesh_monkey();
-	client->meshes[MESH_CHAIR] = mesh_chair();
-	client->meshes[MESH_LAMP] = mesh_lamp();
-	client->meshes[MESH_SOFA] = mesh_sofa();
+	client->meshes[MESH_CUBE] = mesh_load("models/cube.glb");
+	client->meshes[MESH_QUAD] = mesh_load("models/quad.glb");
+	client->meshes[MESH_GIFT] = mesh_load("models/gift.glb");
+	client->meshes[MESH_MONKEY] = mesh_load("models/monkey.glb");
+	client->meshes[MESH_CHAIR] = mesh_load("models/chair.glb");
+	client->meshes[MESH_LAMP] = mesh_load("models/lamp.glb");
+	client->meshes[MESH_SOFA] = mesh_load("models/sofa.glb");
 
 	// OpenGL 3.3. (core profile, i.e. in strict mode) requires at least one VAO.
 	GLuint vao;

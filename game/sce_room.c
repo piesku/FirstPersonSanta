@@ -15,12 +15,11 @@
 entity blueprint_camera_follow(struct world* world);
 entity blueprint_camera_player(struct world* world);
 entity blueprint_gift(struct world* world);
+entity blueprint_sofa(struct world* world);
+entity blueprint_lamp(struct world* world);
 
 void scene_room(struct world* world)
 {
-	// Scale for all furniture.
-	float s = 3.0f;
-
 	{
 		entity player = blueprint_camera_player(world);
 		Transform* transform = world->transform[player];
@@ -76,9 +75,7 @@ void scene_room(struct world* world)
 		entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
-		transform->translation = (vec3){0.0f, 0.0f, 0.0f};
-		transform->rotation = (quat){0.0f, 1.0f, 0.0f, 0.0f};
-		transform->scale = (vec3){s, s, s};
+		transform->translation = (vec3){0.5f, 0.0f, 0.0f};
 
 		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
 		render->material = MAT_COLORED_UNLIT;
@@ -88,75 +85,20 @@ void scene_room(struct world* world)
 
 	{
 		// Sofa.
-		entity sofa = create_entity(world);
+		entity sofa = blueprint_sofa(world);
 
-		Transform* transform = mix_transform(world, sofa);
-		transform->translation = (vec3){3.0f, 0.0f, 1.0f};
+		Transform* transform = world->transform[sofa];
+		transform->translation = (vec3){2.0f, 0.0f, 2.0f};
 		quat_from_euler(&transform->rotation, 0.0f, -60.0f, 0.0f);
-
-		Collide* collide = mix_collide(world, sofa);
-		collide->dynamic = false;
-		collide->layers = LAYER_NONE;
-		collide->mask = LAYER_PLAYER;
-		collide->aabb.size = (vec3){1.0f, 3.0f, 1.0f};
-
-		Trigger* trigger = mix_trigger(world, sofa);
-		trigger->action = ACTION_TRIGGER_PLAY;
-		trigger->mask = LAYER_PLAYER;
-
-		{
-			entity mesh = create_entity(world);
-			transform->children[0] = mesh;
-
-			Transform* mesh_transform = mix_transform(world, mesh);
-			mesh_transform->translation = (vec3){-1.5f, -0.15f, 0.5f};
-			quat_from_euler(&mesh_transform->rotation, 0.0f, 180.0f, 0.0f);
-			mesh_transform->scale = (vec3){s, s, s};
-			mesh_transform->parent = sofa;
-
-			RenderColoredUnlit* mesh_render = mix_render_colored_unlit(world, mesh);
-			mesh_render->material = MAT_COLORED_UNLIT;
-			mesh_render->mesh = MESH_SOFA;
-			mesh_render->color = (vec4){0.32f, 0.4f, 0.88f, 1.0f};
-		}
 	}
 
 	{
 		// Lamp.
-		entity lamp = create_entity(world);
+		entity lamp = blueprint_lamp(world);
 
 		Transform* lamp_transform = mix_transform(world, lamp);
 		lamp_transform->translation = (vec3){-0.5f, 0.0f, 0.2f};
 		quat_from_euler(&lamp_transform->rotation, 0.0f, -130.0f, 0.0f);
-
-		{
-			entity mesh = create_entity(world);
-			lamp_transform->children[0] = mesh;
-
-			Transform* mesh_transform = mix_transform(world, mesh);
-			mesh_transform->scale = (vec3){s, s, s};
-			mesh_transform->parent = lamp;
-
-			RenderColoredUnlit* mesh_render = mix_render_colored_unlit(world, mesh);
-			mesh_render->material = MAT_COLORED_UNLIT;
-			mesh_render->mesh = MESH_LAMP;
-			mesh_render->color = (vec4){0.88f, 0.32f, 0.4f, 1.0f};
-		}
-
-		{
-			entity light = create_entity(world);
-			lamp_transform->children[1] = light;
-
-			Transform* light_transform = mix_transform(world, light);
-			light_transform->translation = (vec3){0.0f, 2.0f, 0.0f};
-			quat_from_euler(&light_transform->rotation, 90.0f, 0.0f, 0.0f);
-			light_transform->parent = lamp;
-
-			LightSpot* light_spot = mix_light_spot(world, light);
-			light_spot->color = (vec3){0.9f, 0.9f, 0.3f};
-			light_spot->range = 3.0f;
-			light_spot->angle = PI / 3.0f;
-		}
 	}
 
 	{

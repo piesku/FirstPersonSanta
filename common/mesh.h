@@ -9,3 +9,5 @@ struct mesh {
 	GLuint index_buffer;
 	GLuint index_count;
 };
+
+struct mesh mesh_load(const char* path);

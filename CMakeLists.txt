@@ -8,9 +8,11 @@ add_executable(FirstPerson
 	main.c
 
 	common/aabb.c
+	common/gltf.c
 	common/malloc.c
 	common/mat4.c
 	common/material.c
+	common/mesh.c
 	common/number.c
 	common/quat.c
 	common/texture.c
@@ -19,6 +21,8 @@ add_executable(FirstPerson
 	game/actions.c
 	game/blu_camera.c
 	game/blu_gift.c
+	game/blu_lamp.c
+	game/blu_sofa.c
 	game/client.c
 	game/com_camera.c
 	game/com_collide.c
@@ -34,13 +38,7 @@ add_executable(FirstPerson
 	game/mat_colored_unlit.c
 	game/mat_postprocess.c
 	game/mat_textured_unlit.c
-	game/mesh_chair.c
-	game/mesh_cube.c
-	game/mesh_gift.c
-	game/mesh_lamp.c
-	game/mesh_monkey.c
-	game/mesh_quad.c
-	game/mesh_sofa.c
+	game/scene.c
 	game/sce_bounce.c
 	game/sce_collide.c
 	game/sce_cube.c
@@ -49,6 +47,7 @@ add_executable(FirstPerson
 	game/sce_monkey.c
 	game/sce_physics.c
 	game/sce_room.c
+	game/sce_room_from_file.c
 	game/sys_camera.c
 	game/sys_collide.c
 	game/sys_control_keyboard.c
@@ -67,6 +66,7 @@ add_executable(FirstPerson
 	game/world.c
 )
 
+find_path(CGLTF_INCLUDE_DIRS "cgltf.h")
 find_package(OpenGL REQUIRED)
 find_package(SDL2 CONFIG REQUIRED)
 find_package(SDL2-image CONFIG REQUIRED)
@@ -97,3 +97,5 @@ endif()
 
 # Copy assets
 file(COPY textures DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY scenes DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY models DESTINATION ${CMAKE_BINARY_DIR})
