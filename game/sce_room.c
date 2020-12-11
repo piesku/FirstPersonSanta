@@ -13,7 +13,8 @@
 #include "world.h"
 
 entity blueprint_camera_follow(struct world* world);
-entity blueprint_camera_player(struct world* world);
+entity blueprint_player_target(struct world* world, entity* target);
+entity blueprint_ground(struct world* world);
 entity blueprint_gift(struct world* world);
 entity blueprint_sofa(struct world* world);
 entity blueprint_lamp(struct world* world);
@@ -21,53 +22,24 @@ entity blueprint_lamp(struct world* world);
 void scene_room(struct world* world)
 {
 	{
-		entity player = blueprint_camera_player(world);
-		Transform* transform = world->transform[player];
-		transform->translation = (vec3){0.0f, 1.7f, 5.0f};
+		// Player.
+		entity target;
+		entity player = blueprint_player_target(world, &target);
+		Transform* player_transform = world->transform[player];
+		player_transform->translation = (vec3){0, 1, 5};
 
-		entity player_rig = transform->children[0];
-		Transform* rig_transform = world->transform[player_rig];
-		entity player_camera = rig_transform->children[0];
-		world->signature[player_camera] &= ~HAS_CAMERA;
+		entity camera = blueprint_camera_follow(world);
+		Transform* camera_transform = world->transform[camera];
+		camera_transform->translation = (vec3){0.0f, 50.0f, 1000.0f};
+		quat_from_euler(&camera_transform->rotation, 30.0f, 180.0f, 0.0f);
 
-		Collide* collide = mix_collide(world, player);
-		collide->dynamic = true;
-		collide->layers = LAYER_PLAYER;
-		collide->mask = LAYER_TERRAIN;
-
-		{
-			entity camera = blueprint_camera_follow(world);
-			Transform* camera_transform = world->transform[camera];
-			camera_transform->translation = (vec3){0.0f, 50.0f, 1000.0f};
-			quat_from_euler(&camera_transform->rotation, 30.0f, 180.0f, 0.0f);
-
-			Mimic* mimic = world->mimic[camera];
-			mimic->target = player_rig;
-			mimic->stiffness = 0.1f;
-		}
+		Mimic* camera_mimic = world->mimic[camera];
+		camera_mimic->target = target;
+		camera_mimic->stiffness = 0.1f;
 	}
 
 	{
-		// Ground
-		entity entity = create_entity(world);
-
-		Transform* transform = mix_transform(world, entity);
-		transform->translation.y = -50.0f;
-		transform->scale = (vec3){100.0f, 100.0f, 100.0f};
-
-		RenderColoredUnlit* render = mix_render_colored_unlit(world, entity);
-		render->material = MAT_COLORED_UNLIT;
-		render->mesh = MESH_CUBE;
-		render->color = (vec4){0.32f, 0.4f, 0.88f, 1.0f};
-
-		Collide* collide = mix_collide(world, entity);
-		collide->dynamic = false;
-		collide->layers = LAYER_TERRAIN;
-		collide->mask = LAYER_NONE;
-		collide->aabb.size = (vec3){100.0f, 100.0f, 100.0f};
-
-		RigidBody* rigid_body = mix_rigid_body(world, entity);
-		rigid_body->kind = RIGID_STATIC;
+		blueprint_ground(world);
 	}
 
 	{

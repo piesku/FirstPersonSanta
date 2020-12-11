@@ -21,7 +21,9 @@ add_executable(FirstPerson
 	game/actions.c
 	game/blu_camera.c
 	game/blu_gift.c
+	game/blu_ground.c
 	game/blu_lamp.c
+	game/blu_player.c
 	game/blu_sofa.c
 	game/client.c
 	game/com_camera.c
