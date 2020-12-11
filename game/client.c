@@ -136,8 +136,8 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	client->meshes[MESH_GIFT] = mesh_load("models/gift.glb");
 	client->meshes[MESH_MONKEY] = mesh_load("models/monkey.glb");
 	client->meshes[MESH_CHAIR] = mesh_load("models/chair.glb");
-	client->meshes[MESH_LAMP] = mesh_load("models/lamp.glb");
-	client->meshes[MESH_SOFA] = mesh_load("models/sofa.glb");
+	client->meshes[MESH_LAMP] = mesh_load("models/lamp_round_floor.glb");
+	client->meshes[MESH_SOFA] = mesh_load("models/lounge_sofa.glb");
 
 	// OpenGL 3.3. (core profile, i.e. in strict mode) requires at least one VAO.
 	GLuint vao;
