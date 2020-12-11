@@ -60,7 +60,7 @@ void load_scene_from_gltf(struct world* world, const char* path)
 
 		if (starts_with(name, "sofa")) {
 			entity entity = blueprint_generic(world);
-			world->render[entity]->colored_unlit.mesh = MESH_SOFA;
+			world->render[entity]->colored_unlit.mesh = MESH_LOUNGE_SOFA;
 
 			world->transform[entity]->translation = translation;
 			world->transform[entity]->rotation = rotation;
