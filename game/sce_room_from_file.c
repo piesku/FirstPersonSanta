@@ -20,13 +20,12 @@ entity blueprint_ground(struct world* world);
 
 void scene_room_from_file(struct world* world)
 {
-
 	{
 		// Player.
 		entity target;
 		entity player = blueprint_player_target(world, &target);
 		Transform* player_transform = world->transform[player];
-		player_transform->translation = (vec3){0.0f, 1.7f, 5.0f};
+		player_transform->translation = (vec3){0, 0, 5};
 
 		entity camera = blueprint_camera_follow(world);
 		Transform* camera_transform = world->transform[camera];
