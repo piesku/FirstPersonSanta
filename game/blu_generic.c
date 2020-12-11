@@ -5,7 +5,7 @@
 #include "com_transform.h"
 #include "world.h"
 
-entity blueprint_sofa(struct world* world)
+entity blueprint_generic(struct world* world)
 {
 	entity root = create_entity(world);
 
@@ -18,9 +18,8 @@ entity blueprint_sofa(struct world* world)
 	collide->aabb.size = (vec3){1.0f, 3.0f, 1.0f};
 
 	RenderColoredUnlit* render = mix_render_colored_unlit(world, root);
-	render->material = MAT_COLORED_UNLIT;
-	render->mesh = MESH_SOFA;
 	render->color = (vec4){0.3f, 0.4f, 0.9f, 1.0f};
+	render->material = MAT_COLORED_UNLIT;
 
 	return root;
 }

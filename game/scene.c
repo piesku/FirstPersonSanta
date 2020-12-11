@@ -6,11 +6,13 @@
 
 #include "../common/entity.h"
 #include "../common/matrix.h"
+#include "com_render.h"
 #include "com_transform.h"
+#include "index.h"
 #include "world.h"
 
 entity blueprint_lamp(struct world* world);
-entity blueprint_sofa(struct world* world);
+entity blueprint_generic(struct world* world);
 
 static inline bool starts_with(const char* name, const char* prefix)
 {
@@ -57,7 +59,9 @@ void load_scene_from_gltf(struct world* world, const char* path)
 		}
 
 		if (starts_with(name, "sofa")) {
-			entity entity = blueprint_sofa(world);
+			entity entity = blueprint_generic(world);
+			world->render[entity]->colored_unlit.mesh = MESH_SOFA;
+
 			world->transform[entity]->translation = translation;
 			world->transform[entity]->rotation = rotation;
 			world->transform[entity]->scale = scale;

@@ -16,7 +16,6 @@ entity blueprint_camera_follow(struct world* world);
 entity blueprint_player_target(struct world* world, entity* target);
 entity blueprint_ground(struct world* world);
 entity blueprint_gift(struct world* world);
-entity blueprint_sofa(struct world* world);
 entity blueprint_lamp(struct world* world);
 
 void scene_room(struct world* world)
@@ -53,15 +52,6 @@ void scene_room(struct world* world)
 		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_CHAIR;
 		render->color = (vec4){0.32f, 0.4f, 0.88f, 1.0f};
-	}
-
-	{
-		// Sofa.
-		entity sofa = blueprint_sofa(world);
-
-		Transform* transform = world->transform[sofa];
-		transform->translation = (vec3){2.0f, 0.0f, 2.0f};
-		quat_from_euler(&transform->rotation, 0.0f, -60.0f, 0.0f);
 	}
 
 	{
