@@ -1,14 +1,14 @@
 SHAPES_BLEND := $(wildcard 	*.blend)
-SHAPES_GLB := $(SHAPES_BLEND:%.blend=%.glb)
+SHAPES_GLB := $(SHAPES_BLEND:%.blend=../models/%.glb)
 
 all: $(SHAPES_GLB)
 
-%.glb: %.blend
-	@echo "$< → ../models/$@"
+../models/%.glb: %.blend
+	@echo "$< → $@"
 	@/Applications/Blender.app/Contents/MacOS/Blender \
 		$< \
 		--background \
 		--python blend2glb.py \
 		-- \
-		"../models/$@" \
+		"$@" \
 		1 > /dev/null
