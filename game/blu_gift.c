@@ -23,7 +23,7 @@ entity blueprint_gift(struct world* world)
 
 	{
 		entity mesh = create_entity(world);
-		transform->children[0] = mesh;
+		entity_list_push(&transform->children, mesh);
 
 		Transform* mesh_transform = mix_transform(world, mesh);
 		mesh_transform->scale = (vec3){0.5f, 0.5f, 0.5f};

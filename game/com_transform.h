@@ -4,8 +4,6 @@
 #include "../common/entity.h"
 #include "../common/matrix.h"
 
-#define MAX_CHILDREN 2
-
 typedef struct transform {
 	mat4 world;
 	mat4 self;
@@ -13,7 +11,7 @@ typedef struct transform {
 	quat rotation;
 	vec3 scale;
 	entity parent;
-	entity children[MAX_CHILDREN];
+	struct entity_list children;
 	bool dirty;
 } Transform;
 

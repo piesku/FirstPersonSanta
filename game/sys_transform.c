@@ -24,8 +24,8 @@ static inline void update_transform(struct world* world, Transform* transform)
 
 	mat4_invert(&transform->self, &transform->world);
 
-	for (int i = 0; i < MAX_CHILDREN; i++) {
-		entity child = transform->children[i];
+	for (size_t i = 0; i < transform->children.size; i++) {
+		entity child = transform->children.entities[i];
 		if (child) {
 			update_transform(world, world->transform[child]);
 		}

@@ -27,7 +27,7 @@ entity blueprint_lamp(struct world* world)
 	{
 		// Light.
 		entity light = create_entity(world);
-		lamp_transform->children[0] = light;
+		entity_list_push(&lamp_transform->children, light);
 
 		Transform* light_transform = mix_transform(world, light);
 		light_transform->translation = (vec3){0.0f, 2.0f, 0.0f};

@@ -39,7 +39,7 @@ entity blueprint_player_target(struct world* world, entity* target)
 	{
 		// Secondary rig which can pitch up and down.
 		entity rig = create_entity(world);
-		root_transform->children[0] = rig;
+		entity_list_push(&root_transform->children, rig);
 
 		// The secondary rig is the target of the follow camera.
 		*target = rig;

@@ -4,7 +4,6 @@
 #include "../common/matrix.h"
 #include "world.h"
 
-
 Transform* mix_transform(struct world* world, entity entity)
 {
 	Transform* transform = xmalloc(sizeof(*transform));
@@ -14,6 +13,7 @@ Transform* mix_transform(struct world* world, entity entity)
 			.translation = {0, 0, 0},
 			.rotation = {0, 0, 0, 1},
 			.scale = {1, 1, 1},
+			.children = entity_list_create(2),
 			.dirty = true,
 	};
 

@@ -8,6 +8,7 @@ add_executable(FirstPerson
 	main.c
 
 	common/aabb.c
+	common/entity.c
 	common/gltf.c
 	common/malloc.c
 	common/mat4.c
