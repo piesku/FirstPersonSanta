@@ -48,9 +48,9 @@ void sys_collide(struct world* world)
 			if (collide->entity == 0) {
 				// It's a new collider.
 				collide->entity = i;
-				compute_aabb_without_scale(&transform->world, &collide->aabb);
+				compute_aabb_with_scale(&transform->world, &collide->aabb);
 			} else if (collide->dynamic) {
-				compute_aabb_without_scale(&transform->world, &collide->aabb);
+				compute_aabb_with_scale(&transform->world, &collide->aabb);
 			}
 
 			// Reset the collision count in this frame.

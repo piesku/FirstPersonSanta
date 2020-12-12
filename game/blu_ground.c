@@ -26,7 +26,6 @@ Entity blueprint_ground(struct world* world)
 	collide->dynamic = false;
 	collide->layers = LAYER_TERRAIN;
 	collide->mask = LAYER_NONE;
-	collide->aabb.size = (vec3){100.0f, 100.0f, 100.0f};
 
 	RigidBody* rigid_body = mix_rigid_body(world, root);
 	rigid_body->kind = RIGID_STATIC;

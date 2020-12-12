@@ -80,11 +80,6 @@ void load_scene_from_gltf(struct world* world, const char* path)
 						child->scale[1] * 20,
 						child->scale[2],
 				};
-				world->collide[collider]->aabb.size = (vec3){
-						child->scale[0],
-						child->scale[1],
-						child->scale[2],
-				};
 			} else {
 				// Turn off the collider child.
 				Entity collider = transform->children.entities[0];
@@ -111,11 +106,6 @@ void load_scene_from_gltf(struct world* world, const char* path)
 					child->translation[2],
 			};
 			world->transform[collider]->scale = (vec3){
-					child->scale[0],
-					child->scale[1],
-					child->scale[2],
-			};
-			world->collide[collider]->aabb.size = (vec3){
 					child->scale[0],
 					child->scale[1],
 					child->scale[2],
