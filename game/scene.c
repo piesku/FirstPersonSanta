@@ -13,7 +13,8 @@
 #include "world.h"
 
 Entity blueprint_lamp(struct world* world);
-Entity blueprint_generic(struct world* world);
+Entity blueprint_furniture(struct world* world);
+Entity blueprint_decoration(struct world* world);
 
 static inline bool starts_with(const char* name, const char* prefix)
 {
@@ -93,7 +94,40 @@ void load_scene_from_gltf(struct world* world, const char* path)
 			continue;
 		}
 
-		Entity entity = blueprint_generic(world);
+		Entity entity;
+		Transform* transform;
+
+		if (data->nodes[i].children_count > 0) {
+			entity = blueprint_furniture(world);
+			transform = world->transform[entity];
+
+			// The node has a child collider.
+			cgltf_node* child = data->nodes[i].children[0];
+
+			Entity collider = transform->children.entities[0];
+			world->transform[collider]->translation = (vec3){
+					child->translation[0],
+					child->translation[1],
+					child->translation[2],
+			};
+			world->transform[collider]->scale = (vec3){
+					child->scale[0],
+					child->scale[1],
+					child->scale[2],
+			};
+			world->collide[collider]->aabb.size = (vec3){
+					child->scale[0],
+					child->scale[1],
+					child->scale[2],
+			};
+		} else {
+			entity = blueprint_decoration(world);
+			transform = world->transform[entity];
+		}
+
+		transform->translation = translation;
+		transform->rotation = rotation;
+		transform->scale = scale;
 
 		if (starts_with(name, "bear")) {
 			world->render[entity]->colored_unlit.mesh = MESH_BEAR;
@@ -194,37 +228,6 @@ void load_scene_from_gltf(struct world* world, const char* path)
 			world->render[entity]->colored_unlit.mesh = MESH_WALL_WINDOW;
 		} else if (starts_with(name, "wall")) {
 			world->render[entity]->colored_unlit.mesh = MESH_WALL;
-		}
-
-		Transform* transform = world->transform[entity];
-		transform->translation = translation;
-		transform->rotation = rotation;
-		transform->scale = scale;
-
-		if (data->nodes[i].children_count > 0) {
-			// The node has a child collider.
-			cgltf_node* child = data->nodes[i].children[0];
-
-			Entity collider = transform->children.entities[0];
-			world->transform[collider]->translation = (vec3){
-					child->translation[0],
-					child->translation[1],
-					child->translation[2],
-			};
-			world->transform[collider]->scale = (vec3){
-					child->scale[0],
-					child->scale[1] * 20,
-					child->scale[2],
-			};
-			world->collide[collider]->aabb.size = (vec3){
-					child->scale[0],
-					child->scale[1],
-					child->scale[2],
-			};
-		} else {
-			// Turn off the collider child.
-			Entity collider = transform->children.entities[0];
-			world->signature[collider] &= ~HAS_TRANSFORM;
 		}
 	}
 
