@@ -7,17 +7,17 @@
 
 Entity blueprint_gift(struct world* world)
 {
-	Entity container = create_entity(world);
+	Entity root = create_entity(world);
 
-	Transform* transform = mix_transform(world, container);
+	Transform* transform = mix_transform(world, root);
 
-	Collide* collide = mix_collide(world, container);
+	Collide* collide = mix_collide(world, root);
 	collide->dynamic = true;
 	collide->layers = LAYER_MOVABLE;
 	collide->mask = LAYER_TERRAIN | LAYER_MOVABLE;
-	collide->aabb.size = (vec3){0.5f, 0.5f, 0.5f};
+	collide->aabb.size = (vec3){0.2f, 0.3f, 0.2f};
 
-	RigidBody* rigid_body = mix_rigid_body(world, container);
+	RigidBody* rigid_body = mix_rigid_body(world, root);
 	rigid_body->kind = RIGID_DYNAMIC;
 	rigid_body->bounciness = 0.8f;
 
@@ -27,7 +27,7 @@ Entity blueprint_gift(struct world* world)
 
 		Transform* mesh_transform = mix_transform(world, mesh);
 		mesh_transform->scale = (vec3){0.5f, 0.5f, 0.5f};
-		mesh_transform->parent = container;
+		mesh_transform->parent = root;
 
 		RenderTexturedUnlit* render = mix_render_textured_unlit(world, mesh);
 		render->material = MAT_TEXTURED_UNLIT;
@@ -37,5 +37,5 @@ Entity blueprint_gift(struct world* world)
 		render->texscale = (vec2){25.0f, 25.0f};
 	}
 
-	return container;
+	return root;
 }
