@@ -9,7 +9,7 @@
 
 static int32_t QUERY = HAS_TRANSFORM | HAS_MIMIC;
 
-static inline void update(struct world* world, entity entity)
+static inline void update(struct world* world, Entity entity)
 {
 	Mimic* mimic = world->mimic[entity];
 
@@ -32,7 +32,7 @@ static inline void update(struct world* world, entity entity)
 
 void sys_mimic(struct world* world)
 {
-	for (entity i = 1; i < MAX_ENTITIES; i++) {
+	for (Entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
 			update(world, i);
 		}

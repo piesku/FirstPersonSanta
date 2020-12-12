@@ -25,7 +25,7 @@ static inline void update_transform(struct world* world, Transform* transform)
 	mat4_invert(&transform->self, &transform->world);
 
 	for (size_t i = 0; i < transform->children.size; i++) {
-		entity child = transform->children.entities[i];
+		Entity child = transform->children.entities[i];
 		if (child) {
 			update_transform(world, world->transform[child]);
 		}
@@ -34,7 +34,7 @@ static inline void update_transform(struct world* world, Transform* transform)
 
 void sys_transform(struct world* world)
 {
-	for (entity i = 1; i < MAX_ENTITIES; i++) {
+	for (Entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
 			Transform* transform = world->transform[i];
 			if (transform->dirty) {

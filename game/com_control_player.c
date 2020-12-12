@@ -4,7 +4,7 @@
 #include "../common/matrix.h"
 #include "world.h"
 
-ControlPlayer* mix_control_player(struct world* world, entity entity)
+ControlPlayer* mix_control_player(struct world* world, Entity entity)
 {
 	ControlPlayer* control = xmalloc(sizeof(*control));
 	*control = (ControlPlayer){0};

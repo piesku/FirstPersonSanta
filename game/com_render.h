@@ -44,6 +44,6 @@ typedef union render {
 } Render;
 
 struct world;
-RenderColoredUnlit* mix_render_colored_unlit(struct world* world, entity entity);
-RenderColoredDiffuse* mix_render_colored_diffuse(struct world* world, entity entity);
-RenderTexturedUnlit* mix_render_textured_unlit(struct world* world, entity entity);
+RenderColoredUnlit* mix_render_colored_unlit(struct world* world, Entity entity);
+RenderColoredDiffuse* mix_render_colored_diffuse(struct world* world, Entity entity);
+RenderTexturedUnlit* mix_render_textured_unlit(struct world* world, Entity entity);

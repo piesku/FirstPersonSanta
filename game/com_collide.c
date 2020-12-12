@@ -4,7 +4,7 @@
 #include "../common/matrix.h"
 #include "world.h"
 
-Collide* mix_collide(struct world* world, entity entity)
+Collide* mix_collide(struct world* world, Entity entity)
 {
 	Collide* collide = xmalloc(sizeof(*collide));
 	*collide = (Collide){

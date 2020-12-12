@@ -9,7 +9,7 @@
 static int32_t QUERY = HAS_TRANSFORM | HAS_RIGID_BODY;
 static const float GRAVITY = -9.81f;
 
-static inline void update(struct world* world, entity entity, float delta)
+static inline void update(struct world* world, Entity entity, float delta)
 {
 	Transform* transform = world->transform[entity];
 	RigidBody* rigid_body = world->rigid_body[entity];
@@ -38,7 +38,7 @@ static inline void update(struct world* world, entity entity, float delta)
 
 void sys_physics_integrate(struct world* world, float delta)
 {
-	for (entity i = 1; i < MAX_ENTITIES; i++) {
+	for (Entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
 			update(world, i, delta);
 		}

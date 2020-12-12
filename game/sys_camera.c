@@ -11,7 +11,7 @@
 
 static int32_t QUERY = HAS_TRANSFORM | HAS_CAMERA;
 
-static inline void update_display(struct client* client, struct world* world, entity entity)
+static inline void update_display(struct client* client, struct world* world, Entity entity)
 {
 	Transform* transform = world->transform[entity];
 	CameraDisplay* camera = &world->camera[entity]->display;
@@ -42,7 +42,7 @@ static inline void update_display(struct client* client, struct world* world, en
 	mat4_multiply(&camera->eye.pv, &camera->projection, &camera->eye.view);
 }
 
-static inline void update_framebuffer(struct client* client, struct world* world, entity entity)
+static inline void update_framebuffer(struct client* client, struct world* world, Entity entity)
 {
 	Transform* transform = world->transform[entity];
 	CameraFramebuffer* camera = &world->camera[entity]->framebuffer;
@@ -79,7 +79,7 @@ void sys_camera(struct client* client, struct world* world)
 	client->camera_default = NULL;
 	client->camera_minimap = NULL;
 
-	for (entity i = 1; i < MAX_ENTITIES; i++) {
+	for (Entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
 			Camera* camera = world->camera[i];
 			switch (camera->kind) {

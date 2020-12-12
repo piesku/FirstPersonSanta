@@ -4,7 +4,7 @@
 #include "../common/matrix.h"
 #include "world.h"
 
-CameraDisplay* mix_camera_display(struct world* world, entity entity)
+CameraDisplay* mix_camera_display(struct world* world, Entity entity)
 {
 	Camera* camera = xmalloc(sizeof(*camera));
 	*camera = (Camera){
@@ -21,7 +21,7 @@ CameraDisplay* mix_camera_display(struct world* world, entity entity)
 	return &camera->display;
 }
 
-CameraFramebuffer* mix_camera_framebuffer(struct world* world, entity entity)
+CameraFramebuffer* mix_camera_framebuffer(struct world* world, Entity entity)
 {
 	Camera* camera = xmalloc(sizeof(*camera));
 	*camera = (Camera){

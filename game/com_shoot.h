@@ -11,4 +11,4 @@ typedef struct shoot {
 } Shoot;
 
 struct world;
-Shoot* mix_shoot(struct world* world, entity entity);
+Shoot* mix_shoot(struct world* world, Entity entity);

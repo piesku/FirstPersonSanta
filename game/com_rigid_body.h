@@ -28,4 +28,4 @@ typedef struct rigid_body {
 } RigidBody;
 
 struct world;
-RigidBody* mix_rigid_body(struct world* world, entity entity);
+RigidBody* mix_rigid_body(struct world* world, Entity entity);

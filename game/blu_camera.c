@@ -10,10 +10,10 @@
 #include "index.h"
 #include "world.h"
 
-entity blueprint_camera_display(struct world* world)
+Entity blueprint_camera_display(struct world* world)
 {
 	// Primary camera rig controllable by the player in the XZ plane.
-	entity root = create_entity(world);
+	Entity root = create_entity(world);
 
 	Transform* root_transform = mix_transform(world, root);
 	root_transform->rotation = (quat){0.0f, 1.0f, 0.0f, 0.0f};
@@ -29,7 +29,7 @@ entity blueprint_camera_display(struct world* world)
 
 	{
 		// Secondary camera rig which can pitch up and down.
-		entity rig = create_entity(world);
+		Entity rig = create_entity(world);
 		entity_list_push(&root_transform->children, rig);
 
 		Transform* rig_transform = mix_transform(world, rig);
@@ -46,7 +46,7 @@ entity blueprint_camera_display(struct world* world)
 
 		{
 			// Actual camera entity, rotated 180y to align with the rig's forward.
-			entity camera = create_entity(world);
+			Entity camera = create_entity(world);
 			entity_list_push(&rig_transform->children, camera);
 
 			Transform* camera_transform = mix_transform(world, camera);
@@ -64,10 +64,10 @@ entity blueprint_camera_display(struct world* world)
 	return root;
 }
 
-entity blueprint_camera_player(struct world* world)
+Entity blueprint_camera_player(struct world* world)
 {
 	// Primary camera rig controllable by the player in the XZ plane.
-	entity root = create_entity(world);
+	Entity root = create_entity(world);
 
 	Transform* root_transform = mix_transform(world, root);
 	root_transform->rotation = (quat){0.0f, 1.0f, 0.0f, 0.0f};
@@ -83,7 +83,7 @@ entity blueprint_camera_player(struct world* world)
 
 	{
 		// Secondary camera rig which can pitch up and down.
-		entity rig = create_entity(world);
+		Entity rig = create_entity(world);
 		entity_list_push(&root_transform->children, rig);
 
 		Transform* rig_transform = mix_transform(world, rig);
@@ -105,7 +105,7 @@ entity blueprint_camera_player(struct world* world)
 
 		{
 			// Actual camera entity, rotated 180y to align with the rig's forward.
-			entity camera = create_entity(world);
+			Entity camera = create_entity(world);
 			entity_list_push(&rig_transform->children, camera);
 
 			Transform* camera_transform = mix_transform(world, camera);
@@ -124,9 +124,9 @@ entity blueprint_camera_player(struct world* world)
 	return root;
 }
 
-entity blueprint_camera_follow(struct world* world)
+Entity blueprint_camera_follow(struct world* world)
 {
-	entity root = create_entity(world);
+	Entity root = create_entity(world);
 
 	Transform* root_transform = mix_transform(world, root);
 	root_transform->rotation = (quat){0.0f, 1.0f, 0.0f, 0.0f};
@@ -135,7 +135,7 @@ entity blueprint_camera_follow(struct world* world)
 
 	{
 		// Actual camera entity, rotated 180y to align with the rig's forward.
-		entity camera = create_entity(world);
+		Entity camera = create_entity(world);
 		entity_list_push(&root_transform->children, camera);
 
 		Transform* camera_transform = mix_transform(world, camera);
@@ -153,17 +153,17 @@ entity blueprint_camera_follow(struct world* world)
 	return root;
 }
 
-entity blueprint_camera_minimap(struct world* world)
+Entity blueprint_camera_minimap(struct world* world)
 {
 	// Camera rig.
-	entity root = create_entity(world);
+	Entity root = create_entity(world);
 
 	Transform* root_transform = mix_transform(world, root);
 	quat_from_euler(&root_transform->rotation, 90, 180, 0);
 
 	{
 		// Actual camera entity, rotated 180y to align with the rig's forward.
-		entity camera = create_entity(world);
+		Entity camera = create_entity(world);
 		entity_list_push(&root_transform->children, camera);
 
 		Transform* camera_transform = mix_transform(world, camera);

@@ -28,5 +28,5 @@ typedef union light {
 } Light;
 
 struct world;
-LightPoint* mix_light_point(struct world* world, entity entity);
-LightSpot* mix_light_spot(struct world* world, entity entity);
+LightPoint* mix_light_point(struct world* world, Entity entity);
+LightSpot* mix_light_spot(struct world* world, Entity entity);

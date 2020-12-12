@@ -11,4 +11,4 @@ typedef struct control_player {
 } ControlPlayer;
 
 struct world;
-ControlPlayer* mix_control_player(struct world* world, entity entity);
+ControlPlayer* mix_control_player(struct world* world, Entity entity);

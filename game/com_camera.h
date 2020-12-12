@@ -47,5 +47,5 @@ typedef union camera {
 } Camera;
 
 struct world;
-CameraDisplay* mix_camera_display(struct world* world, entity entity);
-CameraFramebuffer* mix_camera_framebuffer(struct world* world, entity entity);
+CameraDisplay* mix_camera_display(struct world* world, Entity entity);
+CameraFramebuffer* mix_camera_framebuffer(struct world* world, Entity entity);

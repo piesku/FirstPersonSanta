@@ -3,9 +3,9 @@
 #include "../common/entity.h"
 
 typedef struct mimic {
-	entity target;
+	Entity target;
 	float stiffness;
 } Mimic;
 
 struct world;
-Mimic* mix_mimic(struct world* world, entity entity);
+Mimic* mix_mimic(struct world* world, Entity entity);

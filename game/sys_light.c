@@ -10,7 +10,7 @@
 
 static int32_t QUERY = HAS_TRANSFORM | HAS_LIGHT;
 
-static inline void update(struct client* client, struct world* world, entity entity, int32_t idx)
+static inline void update(struct client* client, struct world* world, Entity entity, int32_t idx)
 {
 	Transform* transform = world->transform[entity];
 	Light* light = world->light[entity];
@@ -50,12 +50,12 @@ static inline void update(struct client* client, struct world* world, entity ent
 void sys_light(struct client* client, struct world* world)
 {
 	client->lights = (struct lights){
-		.positions = {0},
-		.colors = {0},
-		.directions = {0},
+			.positions = {0},
+			.colors = {0},
+			.directions = {0},
 	};
 	int32_t counter = 0;
-	for (entity i = 1; i < MAX_ENTITIES; i++) {
+	for (Entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
 			update(client, world, i, counter);
 			counter++;

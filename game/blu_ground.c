@@ -8,10 +8,10 @@
 #include "index.h"
 #include "world.h"
 
-entity blueprint_ground(struct world* world)
+Entity blueprint_ground(struct world* world)
 {
 	// Ground
-	entity root = create_entity(world);
+	Entity root = create_entity(world);
 
 	Transform* transform = mix_transform(world, root);
 	transform->translation.y = -50.0f;

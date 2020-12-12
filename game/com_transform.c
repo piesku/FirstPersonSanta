@@ -4,7 +4,7 @@
 #include "../common/matrix.h"
 #include "world.h"
 
-Transform* mix_transform(struct world* world, entity entity)
+Transform* mix_transform(struct world* world, Entity entity)
 {
 	Transform* transform = xmalloc(sizeof(*transform));
 	*transform = (Transform){

@@ -13,7 +13,7 @@
 
 static int QUERY = HAS_MOVE | HAS_CONTROL_PLAYER;
 
-static inline void update(struct client* client, struct world* world, entity entity)
+static inline void update(struct client* client, struct world* world, Entity entity)
 {
 	ControlPlayer* control = world->control_player[entity];
 	Move* move = world->move[entity];
@@ -76,7 +76,7 @@ static inline void update(struct client* client, struct world* world, entity ent
 
 void sys_control_keyboard(struct client* client, struct world* world)
 {
-	for (entity i = 1; i < MAX_ENTITIES; i++) {
+	for (Entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
 			update(client, world, i);
 		}

@@ -4,7 +4,7 @@
 #include "../common/matrix.h"
 #include "world.h"
 
-Move* mix_move(struct world* world, entity entity)
+Move* mix_move(struct world* world, Entity entity)
 {
 	Move* move = xmalloc(sizeof(*move));
 	*move = (Move){

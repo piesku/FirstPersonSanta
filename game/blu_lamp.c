@@ -7,9 +7,9 @@
 #include "com_transform.h"
 #include "world.h"
 
-entity blueprint_lamp(struct world* world)
+Entity blueprint_lamp(struct world* world)
 {
-	entity root = create_entity(world);
+	Entity root = create_entity(world);
 
 	Transform* lamp_transform = mix_transform(world, root);
 
@@ -26,7 +26,7 @@ entity blueprint_lamp(struct world* world)
 
 	{
 		// Light.
-		entity light = create_entity(world);
+		Entity light = create_entity(world);
 		entity_list_push(&lamp_transform->children, light);
 
 		Transform* light_transform = mix_transform(world, light);

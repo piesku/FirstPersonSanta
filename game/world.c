@@ -12,7 +12,7 @@ struct world* create_world(void)
 
 void destroy_world(struct world* world)
 {
-	for (entity i = 1; i < MAX_ENTITIES; i++) {
+	for (Entity i = 1; i < MAX_ENTITIES; i++) {
 		if (world->signature[i] & HAS_TRANSFORM) {
 			Transform* transform = world->transform[i];
 			entity_list_destroy(&transform->children);
@@ -22,9 +22,9 @@ void destroy_world(struct world* world)
 	free(world);
 }
 
-entity create_entity(struct world* world)
+Entity create_entity(struct world* world)
 {
-	for (entity i = 1; i < MAX_ENTITIES; i++) {
+	for (Entity i = 1; i < MAX_ENTITIES; i++) {
 		if (world->signature[i] == 0) {
 			return i;
 		}
@@ -33,7 +33,7 @@ entity create_entity(struct world* world)
 	return 0;
 }
 
-void destroy_entity(struct world* world, entity entity)
+void destroy_entity(struct world* world, Entity entity)
 {
 	if (entity < MAX_ENTITIES) {
 		world->signature[entity] = 0;

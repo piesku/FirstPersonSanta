@@ -40,7 +40,7 @@ static inline void check_for_collision(Collide* collider, Collide* other)
 void sys_collide(struct world* world)
 {
 	// Set up colliders.
-	for (entity i = 1; i < MAX_ENTITIES; i++) {
+	for (Entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
 			Transform* transform = world->transform[i];
 			Collide* collide = world->collide[i];
@@ -59,12 +59,12 @@ void sys_collide(struct world* world)
 	}
 
 	// Check each collider for collisions with other colliders.
-	for (entity i = 1; i < MAX_ENTITIES; i++) {
+	for (Entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
 			Collide* collide = world->collide[i];
 
 			// Start with i + 1 so that each pair of colliders is checked only once.
-			for (entity j = i + 1; j < MAX_ENTITIES; j++) {
+			for (Entity j = i + 1; j < MAX_ENTITIES; j++) {
 				if ((world->signature[j] & QUERY) == QUERY) {
 					Collide* other = world->collide[j];
 

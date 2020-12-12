@@ -21,4 +21,4 @@ typedef struct move {
 } Move;
 
 struct world;
-Move* mix_move(struct world* world, entity entity);
+Move* mix_move(struct world* world, Entity entity);

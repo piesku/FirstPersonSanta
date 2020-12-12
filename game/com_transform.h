@@ -10,10 +10,10 @@ typedef struct transform {
 	vec3 translation;
 	quat rotation;
 	vec3 scale;
-	entity parent;
+	Entity parent;
 	struct entity_list children;
 	bool dirty;
 } Transform;
 
 struct world;
-Transform* mix_transform(struct world* world, entity entity);
+Transform* mix_transform(struct world* world, Entity entity);

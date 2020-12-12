@@ -4,7 +4,7 @@
 #include "../common/matrix.h"
 #include "world.h"
 
-RenderColoredUnlit* mix_render_colored_unlit(struct world* world, entity entity)
+RenderColoredUnlit* mix_render_colored_unlit(struct world* world, Entity entity)
 {
 	Render* render = xmalloc(sizeof(*render));
 	*render = (Render){
@@ -19,7 +19,7 @@ RenderColoredUnlit* mix_render_colored_unlit(struct world* world, entity entity)
 	return &render->colored_unlit;
 }
 
-RenderColoredDiffuse* mix_render_colored_diffuse(struct world* world, entity entity)
+RenderColoredDiffuse* mix_render_colored_diffuse(struct world* world, Entity entity)
 {
 	Render* render = xmalloc(sizeof(*render));
 	*render = (Render){
@@ -34,7 +34,7 @@ RenderColoredDiffuse* mix_render_colored_diffuse(struct world* world, entity ent
 	return &render->colored_diffuse;
 }
 
-RenderTexturedUnlit* mix_render_textured_unlit(struct world* world, entity entity)
+RenderTexturedUnlit* mix_render_textured_unlit(struct world* world, Entity entity)
 {
 	Render* render = xmalloc(sizeof(*render));
 	*render = (Render){

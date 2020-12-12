@@ -5,9 +5,9 @@
 #include "com_transform.h"
 #include "world.h"
 
-entity blueprint_gift(struct world* world)
+Entity blueprint_gift(struct world* world)
 {
-	entity container = create_entity(world);
+	Entity container = create_entity(world);
 
 	Transform* transform = mix_transform(world, container);
 
@@ -22,7 +22,7 @@ entity blueprint_gift(struct world* world)
 	rigid_body->bounciness = 0.8f;
 
 	{
-		entity mesh = create_entity(world);
+		Entity mesh = create_entity(world);
 		entity_list_push(&transform->children, mesh);
 
 		Transform* mesh_transform = mix_transform(world, mesh);

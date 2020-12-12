@@ -50,5 +50,5 @@ struct world {
 
 struct world* create_world(void);
 void destroy_world(struct world* world);
-entity create_entity(struct world* world);
-void destroy_entity(struct world* world, entity entity);
+Entity create_entity(struct world* world);
+void destroy_entity(struct world* world, Entity entity);

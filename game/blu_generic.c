@@ -5,9 +5,9 @@
 #include "com_transform.h"
 #include "world.h"
 
-entity blueprint_generic(struct world* world)
+Entity blueprint_generic(struct world* world)
 {
-	entity root = create_entity(world);
+	Entity root = create_entity(world);
 
 	mix_transform(world, root);
 

@@ -10,7 +10,7 @@
 
 static int32_t QUERY = HAS_TRANSFORM | HAS_RIGID_BODY;
 
-static inline void update(struct world* world, entity entity)
+static inline void update(struct world* world, Entity entity)
 {
 	Transform* transform = world->transform[entity];
 	RigidBody* rigid_body = world->rigid_body[entity];
@@ -76,7 +76,7 @@ static inline void update(struct world* world, entity entity)
 
 void sys_physics_resolve(struct world* world)
 {
-	for (entity i = 1; i < MAX_ENTITIES; i++) {
+	for (Entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
 			update(world, i);
 		}

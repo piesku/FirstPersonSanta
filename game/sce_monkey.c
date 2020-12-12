@@ -8,12 +8,12 @@
 #include "index.h"
 #include "world.h"
 
-entity blueprint_camera_player(struct world* world);
+Entity blueprint_camera_player(struct world* world);
 
 void scene_monkey(struct world* world)
 {
 	{
-		entity camera = blueprint_camera_player(world);
+		Entity camera = blueprint_camera_player(world);
 		Transform* transform = world->transform[camera];
 		transform->translation = (vec3){0.0, 2.0, 2.0};
 
@@ -25,7 +25,7 @@ void scene_monkey(struct world* world)
 
 	{
 		// Ground
-		entity entity = create_entity(world);
+		Entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
 		transform->translation.y = -50.0f;
@@ -39,7 +39,7 @@ void scene_monkey(struct world* world)
 
 	{
 		// Monkey
-		entity entity = create_entity(world);
+		Entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
 		transform->translation = (vec3){0.0f, 2.0f, 0.0f};
@@ -53,7 +53,7 @@ void scene_monkey(struct world* world)
 
 	{
 		// Building 1.
-		entity entity = create_entity(world);
+		Entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
 		transform->translation = (vec3){-5.0f, 0.0f, -10.0f};
@@ -67,7 +67,7 @@ void scene_monkey(struct world* world)
 
 	{
 		// Building 2.
-		entity entity = create_entity(world);
+		Entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
 		transform->translation = (vec3){10.0f, 0.0f, -30.0f};

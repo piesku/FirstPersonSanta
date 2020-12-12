@@ -12,22 +12,22 @@
 #include "index.h"
 #include "world.h"
 
-entity blueprint_camera_follow(struct world* world);
-entity blueprint_player_target(struct world* world, entity* target);
-entity blueprint_ground(struct world* world);
-entity blueprint_gift(struct world* world);
-entity blueprint_lamp(struct world* world);
+Entity blueprint_camera_follow(struct world* world);
+Entity blueprint_player_target(struct world* world, Entity* target);
+Entity blueprint_ground(struct world* world);
+Entity blueprint_gift(struct world* world);
+Entity blueprint_lamp(struct world* world);
 
 void scene_room(struct world* world)
 {
 	{
 		// Player.
-		entity target;
-		entity player = blueprint_player_target(world, &target);
+		Entity target;
+		Entity player = blueprint_player_target(world, &target);
 		Transform* player_transform = world->transform[player];
 		player_transform->translation = (vec3){0, 1, 5};
 
-		entity camera = blueprint_camera_follow(world);
+		Entity camera = blueprint_camera_follow(world);
 		Transform* camera_transform = world->transform[camera];
 		camera_transform->translation = (vec3){0.0f, 50.0f, 1000.0f};
 		quat_from_euler(&camera_transform->rotation, 30.0f, 180.0f, 0.0f);
@@ -43,7 +43,7 @@ void scene_room(struct world* world)
 
 	{
 		// Chair.
-		entity entity = create_entity(world);
+		Entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
 		transform->translation = (vec3){0.5f, 0.0f, 0.0f};
@@ -56,7 +56,7 @@ void scene_room(struct world* world)
 
 	{
 		// Lamp.
-		entity lamp = blueprint_lamp(world);
+		Entity lamp = blueprint_lamp(world);
 
 		Transform* lamp_transform = mix_transform(world, lamp);
 		lamp_transform->translation = (vec3){-0.5f, 0.0f, 0.2f};
@@ -65,7 +65,7 @@ void scene_room(struct world* world)
 
 	{
 		// Gift.
-		entity entity = blueprint_gift(world);
+		Entity entity = blueprint_gift(world);
 
 		Transform* transform = world->transform[entity];
 		transform->translation = (vec3){0.5f, 0.25f, 1.5f};
@@ -74,7 +74,7 @@ void scene_room(struct world* world)
 
 	{
 		// Building 1.
-		entity entity = create_entity(world);
+		Entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
 		transform->translation = (vec3){-5.0f, 0.0f, -8.0f};
@@ -88,7 +88,7 @@ void scene_room(struct world* world)
 
 	{
 		// Building 2.
-		entity entity = create_entity(world);
+		Entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
 		transform->translation = (vec3){10.0f, 0.0f, -15.0f};

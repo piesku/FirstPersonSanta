@@ -4,7 +4,7 @@
 #include "../common/matrix.h"
 #include "world.h"
 
-Trigger* mix_trigger(struct world* world, entity entity)
+Trigger* mix_trigger(struct world* world, Entity entity)
 {
 	Trigger* trigger = xmalloc(sizeof(*trigger));
 	*trigger = (Trigger){0};

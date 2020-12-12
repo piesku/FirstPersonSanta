@@ -4,7 +4,7 @@
 #include "../common/matrix.h"
 #include "world.h"
 
-RigidBody* mix_rigid_body(struct world* world, entity entity)
+RigidBody* mix_rigid_body(struct world* world, Entity entity)
 {
 	RigidBody* rigid_body = xmalloc(sizeof(*rigid_body));
 	*rigid_body = (RigidBody){

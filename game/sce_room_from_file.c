@@ -14,20 +14,20 @@
 
 void load_scene_from_gltf(struct world* world, const char* file_location);
 
-entity blueprint_camera_follow(struct world* world);
-entity blueprint_player_target(struct world* world, entity* target);
-entity blueprint_ground(struct world* world);
+Entity blueprint_camera_follow(struct world* world);
+Entity blueprint_player_target(struct world* world, Entity* target);
+Entity blueprint_ground(struct world* world);
 
 void scene_room_from_file(struct world* world)
 {
 	{
 		// Player.
-		entity target;
-		entity player = blueprint_player_target(world, &target);
+		Entity target;
+		Entity player = blueprint_player_target(world, &target);
 		Transform* player_transform = world->transform[player];
 		player_transform->translation = (vec3){0, 1, 5};
 
-		entity camera = blueprint_camera_follow(world);
+		Entity camera = blueprint_camera_follow(world);
 		Transform* camera_transform = world->transform[camera];
 		camera_transform->translation = (vec3){0.0f, 50.0f, 1000.0f};
 		quat_from_euler(&camera_transform->rotation, 30.0f, 180.0f, 0.0f);

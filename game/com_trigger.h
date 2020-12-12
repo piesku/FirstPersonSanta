@@ -12,4 +12,4 @@ typedef struct trigger {
 } Trigger;
 
 struct world;
-Trigger* mix_trigger(struct world* world, entity entity);
+Trigger* mix_trigger(struct world* world, Entity entity);

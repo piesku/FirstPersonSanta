@@ -108,7 +108,7 @@ static inline void draw_textured_unlit(struct client* client, Transform* transfo
 
 static void render_world(struct client* client, struct world* world, struct eye* eye)
 {
-	for (entity i = 1; i < MAX_ENTITIES; i++) {
+	for (Entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
 			Transform* transform = world->transform[i];
 			Render* render = world->render[i];

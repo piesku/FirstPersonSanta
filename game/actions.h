@@ -9,8 +9,8 @@ enum action {
 
 union action_data {
 	struct action_trigger_data {
-		entity collider;
-		entity other;
+		Entity collider;
+		Entity other;
 	} trigger;
 };
 

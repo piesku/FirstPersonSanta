@@ -10,8 +10,8 @@
 #include "index.h"
 #include "world.h"
 
-entity blueprint_camera_player(struct world* world);
-entity blueprint_camera_minimap(struct world* world);
+Entity blueprint_camera_player(struct world* world);
+Entity blueprint_camera_minimap(struct world* world);
 
 void scene_minimap(struct world* world)
 {
@@ -19,7 +19,7 @@ void scene_minimap(struct world* world)
 
 	{
 		// Main camera.
-		entity entity = blueprint_camera_player(world);
+		Entity entity = blueprint_camera_player(world);
 
 		Transform* transform = world->transform[entity];
 		transform->translation = (vec3){0.0, 0.0, 5.0};
@@ -27,7 +27,7 @@ void scene_minimap(struct world* world)
 
 	{
 		// Checker cube.
-		entity entity = create_entity(world);
+		Entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
 		vec3_set(&transform->translation, 0, 0, 0);
@@ -41,7 +41,7 @@ void scene_minimap(struct world* world)
 
 	{
 		// Minimap camera.
-		entity entity = blueprint_camera_minimap(world);
+		Entity entity = blueprint_camera_minimap(world);
 
 		Transform* transform = world->transform[entity];
 		vec3_set(&transform->translation, 0, 5, 0);
@@ -50,7 +50,7 @@ void scene_minimap(struct world* world)
 
 	{
 		// Minimap quad.
-		entity entity = create_entity(world);
+		Entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
 		vec3_set(&transform->translation, 2, 0, 0);

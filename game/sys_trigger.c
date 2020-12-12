@@ -7,7 +7,7 @@
 
 static int32_t QUERY = HAS_TRANSFORM | HAS_COLLIDE | HAS_TRIGGER;
 
-static inline void update(struct client* client, struct world* world, entity entity)
+static inline void update(struct client* client, struct world* world, Entity entity)
 {
 
 	Collide* collide = world->collide[entity];
@@ -34,7 +34,7 @@ void sys_trigger(struct client* client, struct world* world)
 {
 
 	// Check each collider for collisions with other colliders.
-	for (entity i = 1; i < MAX_ENTITIES; i++) {
+	for (Entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
 			update(client, world, i);
 		}

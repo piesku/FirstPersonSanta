@@ -11,8 +11,8 @@
 #include "index.h"
 #include "world.h"
 
-entity blueprint_lamp(struct world* world);
-entity blueprint_generic(struct world* world);
+Entity blueprint_lamp(struct world* world);
+Entity blueprint_generic(struct world* world);
 
 static inline bool starts_with(const char* name, const char* prefix)
 {
@@ -51,14 +51,14 @@ void load_scene_from_gltf(struct world* world, const char* path)
 		char* name = data->nodes[i].name;
 
 		if (starts_with(name, "lamp")) {
-			entity entity = blueprint_lamp(world);
+			Entity entity = blueprint_lamp(world);
 			world->transform[entity]->translation = translation;
 			world->transform[entity]->rotation = rotation;
 			world->transform[entity]->scale = scale;
 			continue;
 		}
 
-		entity entity = blueprint_generic(world);
+		Entity entity = blueprint_generic(world);
 
 		if (starts_with(name, "bear")) {
 			world->render[entity]->colored_unlit.mesh = MESH_BEAR;
@@ -141,7 +141,7 @@ void load_scene_from_gltf(struct world* world, const char* path)
 			world->render[entity]->colored_unlit.mesh = MESH_SIDE_TABLE_DRAWERS;
 		} else if (starts_with(name, "stool_bar_square")) {
 			world->render[entity]->colored_unlit.mesh = MESH_STOOL_BAR_SQUARE;
-		}  else if (starts_with(name, "table_coffee")) {
+		} else if (starts_with(name, "table_coffee")) {
 			world->render[entity]->colored_unlit.mesh = MESH_TABLE_COFFEE;
 		} else if (starts_with(name, "table_coffee_square")) {
 			world->render[entity]->colored_unlit.mesh = MESH_TABLE_COFFEE_SQUARE;

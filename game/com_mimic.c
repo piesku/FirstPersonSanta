@@ -3,7 +3,7 @@
 #include "../common/malloc.h"
 #include "world.h"
 
-Mimic* mix_mimic(struct world* world, entity entity)
+Mimic* mix_mimic(struct world* world, Entity entity)
 {
 	Mimic* mimic = xmalloc(sizeof(*mimic));
 	*mimic = (Mimic){

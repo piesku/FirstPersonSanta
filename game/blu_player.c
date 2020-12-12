@@ -10,10 +10,10 @@
 #include "index.h"
 #include "world.h"
 
-entity blueprint_player_target(struct world* world, entity* target)
+Entity blueprint_player_target(struct world* world, Entity* target)
 {
 	// Primary rig controllable in the XZ plane.
-	entity root = create_entity(world);
+	Entity root = create_entity(world);
 
 	Transform* root_transform = mix_transform(world, root);
 	root_transform->rotation = (quat){0.0f, 1.0f, 0.0f, 0.0f};
@@ -38,7 +38,7 @@ entity blueprint_player_target(struct world* world, entity* target)
 
 	{
 		// Secondary rig which can pitch up and down.
-		entity rig = create_entity(world);
+		Entity rig = create_entity(world);
 		entity_list_push(&root_transform->children, rig);
 
 		// The secondary rig is the target of the follow camera.

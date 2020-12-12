@@ -8,7 +8,7 @@
 #include "index.h"
 #include "world.h"
 
-entity blueprint_camera_display(struct world* world);
+Entity blueprint_camera_display(struct world* world);
 
 void scene_cube(struct world* world)
 {
@@ -21,7 +21,7 @@ void scene_cube(struct world* world)
 
 	{
 		// Cube
-		entity entity = create_entity(world);
+		Entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
 		transform->translation.z = -5.0;

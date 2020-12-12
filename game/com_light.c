@@ -4,7 +4,7 @@
 #include "../common/matrix.h"
 #include "world.h"
 
-LightPoint* mix_light_point(struct world* world, entity entity)
+LightPoint* mix_light_point(struct world* world, Entity entity)
 {
 	Light* light = xmalloc(sizeof(*light));
 	*light = (Light){
@@ -19,7 +19,7 @@ LightPoint* mix_light_point(struct world* world, entity entity)
 	return &light->point;
 }
 
-LightSpot* mix_light_spot(struct world* world, entity entity)
+LightSpot* mix_light_spot(struct world* world, Entity entity)
 {
 	Light* light = xmalloc(sizeof(*light));
 	*light = (Light){

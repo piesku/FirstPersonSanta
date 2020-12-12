@@ -4,7 +4,7 @@
 #include "../common/matrix.h"
 #include "world.h"
 
-Shoot* mix_shoot(struct world* world, entity entity)
+Shoot* mix_shoot(struct world* world, Entity entity)
 {
 	Shoot* shoot = xmalloc(sizeof(*shoot));
 	*shoot = (Shoot){0};

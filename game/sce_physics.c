@@ -10,14 +10,14 @@
 #include "index.h"
 #include "world.h"
 
-entity blueprint_camera_display(struct world* world);
+Entity blueprint_camera_display(struct world* world);
 
 void scene_physics(struct world* world)
 {
 	srand((uint32_t)time(NULL));
 
 	{
-		entity entity = blueprint_camera_display(world);
+		Entity entity = blueprint_camera_display(world);
 		world->transform[entity]->translation = (vec3){0.0, 2.0, 50.0};
 
 		Collide* collide = mix_collide(world, entity);
@@ -33,7 +33,7 @@ void scene_physics(struct world* world)
 
 	{
 		// Ground
-		entity entity = create_entity(world);
+		Entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
 		transform->scale = (vec3){20.0f, 1.0f, 20.0f};
@@ -54,7 +54,7 @@ void scene_physics(struct world* world)
 	}
 
 	for (int i = 0; i < 200; i++) {
-		entity entity = create_entity(world);
+		Entity entity = create_entity(world);
 
 		Transform* transform = mix_transform(world, entity);
 		transform->translation = (vec3){

@@ -18,12 +18,12 @@ enum layer_flag {
 };
 
 struct collision {
-	entity other;
+	Entity other;
 	vec3 hit;
 };
 
 typedef struct collide {
-	entity entity;
+	Entity entity;
 	bool dynamic;
 	layer_mask layers;
 	layer_mask mask;
@@ -33,4 +33,4 @@ typedef struct collide {
 } Collide;
 
 struct world;
-Collide* mix_collide(struct world* world, entity entity);
+Collide* mix_collide(struct world* world, Entity entity);
