@@ -33,11 +33,6 @@ Entity blueprint_lamp(struct world* world)
 
 		RigidBody* collider_rigid_body = mix_rigid_body(world, collider);
 		collider_rigid_body->kind = RIGID_STATIC;
-
-		RenderColoredUnlit* collider_render = mix_render_colored_unlit(world, collider);
-		collider_render->color = (vec4){0, 1, 0, 1};
-		collider_render->material = MAT_COLORED_UNLIT;
-		collider_render->mesh = MESH_CUBE;
 	}
 
 	{
