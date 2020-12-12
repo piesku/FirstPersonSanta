@@ -149,6 +149,9 @@ int main(int argc, char* argv[])
 						case SDL_SCANCODE_ESCAPE:
 							quit = true;
 							break;
+						case SDL_SCANCODE_R:
+							engine.client.next_scene = &scene_room_from_file;
+							break;
 						case SDL_SCANCODE_UP:
 							engine.client.input_state.arrow_up = 1;
 							engine.client.input_delta.arrow_up = 1;
