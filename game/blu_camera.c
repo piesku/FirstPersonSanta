@@ -30,7 +30,7 @@ entity blueprint_camera_display(struct world* world)
 	{
 		// Secondary camera rig which can pitch up and down.
 		entity rig = create_entity(world);
-		root_transform->children[0] = rig;
+		entity_list_push(&root_transform->children, rig);
 
 		Transform* rig_transform = mix_transform(world, rig);
 		rig_transform->parent = root;
@@ -47,7 +47,7 @@ entity blueprint_camera_display(struct world* world)
 		{
 			// Actual camera entity, rotated 180y to align with the rig's forward.
 			entity camera = create_entity(world);
-			rig_transform->children[0] = camera;
+			entity_list_push(&rig_transform->children, camera);
 
 			Transform* camera_transform = mix_transform(world, camera);
 			camera_transform->rotation = (quat){0.0f, 1.0f, 0.0f, 0.0f};
@@ -84,7 +84,7 @@ entity blueprint_camera_player(struct world* world)
 	{
 		// Secondary camera rig which can pitch up and down.
 		entity rig = create_entity(world);
-		root_transform->children[0] = rig;
+		entity_list_push(&root_transform->children, rig);
 
 		Transform* rig_transform = mix_transform(world, rig);
 		rig_transform->parent = root;
@@ -106,7 +106,7 @@ entity blueprint_camera_player(struct world* world)
 		{
 			// Actual camera entity, rotated 180y to align with the rig's forward.
 			entity camera = create_entity(world);
-			rig_transform->children[0] = camera;
+			entity_list_push(&rig_transform->children, camera);
 
 			Transform* camera_transform = mix_transform(world, camera);
 			camera_transform->rotation = (quat){0.0f, 1.0f, 0.0f, 0.0f};
@@ -135,19 +135,19 @@ entity blueprint_camera_follow(struct world* world)
 
 	{
 		// Actual camera entity, rotated 180y to align with the rig's forward.
-		entity child = create_entity(world);
-		root_transform->children[0] = child;
+		entity camera = create_entity(world);
+		entity_list_push(&root_transform->children, camera);
 
-		Transform* child_transform = mix_transform(world, child);
-		child_transform->rotation = (quat){0.0f, 1.0f, 0.0f, 0.0f};
-		child_transform->parent = root;
+		Transform* camera_transform = mix_transform(world, camera);
+		camera_transform->rotation = (quat){0.0f, 1.0f, 0.0f, 0.0f};
+		camera_transform->parent = root;
 
-		CameraFramebuffer* camera = mix_camera_framebuffer(world, child);
-		camera->fov_y = 1.0f;
-		camera->near = 0.5f;
-		camera->far = 1000.0f;
-		camera->clear_color = (vec4){0.9f, 0.9f, 0.9f, 1.0f};
-		camera->target = RENDER_TARGET_DEFAULT;
+		CameraFramebuffer* camera_framebuffer = mix_camera_framebuffer(world, camera);
+		camera_framebuffer->fov_y = 1.0f;
+		camera_framebuffer->near = 0.5f;
+		camera_framebuffer->far = 1000.0f;
+		camera_framebuffer->clear_color = (vec4){0.9f, 0.9f, 0.9f, 1.0f};
+		camera_framebuffer->target = RENDER_TARGET_DEFAULT;
 	}
 
 	return root;
@@ -164,7 +164,7 @@ entity blueprint_camera_minimap(struct world* world)
 	{
 		// Actual camera entity, rotated 180y to align with the rig's forward.
 		entity camera = create_entity(world);
-		root_transform->children[0] = camera;
+		entity_list_push(&root_transform->children, camera);
 
 		Transform* camera_transform = mix_transform(world, camera);
 		camera_transform->rotation = (quat){0.0, 1.0, 0.0, 0.0};
