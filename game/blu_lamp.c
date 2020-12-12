@@ -11,23 +11,39 @@ Entity blueprint_lamp(struct world* world)
 {
 	Entity root = create_entity(world);
 
-	Transform* lamp_transform = mix_transform(world, root);
+	Transform* root_transform = mix_transform(world, root);
 
-	Collide* collide = mix_collide(world, root);
-	collide->dynamic = false;
-	collide->layers = LAYER_TERRAIN;
-	collide->mask = LAYER_NONE;
-	collide->aabb.size = (vec3){1.0f, 3.0f, 1.0f};
+	RenderColoredUnlit* root_render = mix_render_colored_unlit(world, root);
+	root_render->material = MAT_COLORED_UNLIT;
+	root_render->mesh = MESH_LAMP_ROUND_FLOOR;
+	root_render->color = (vec4){0.9f, 0.3f, 0.4f, 1.0f};
 
-	RenderColoredUnlit* lamp_render = mix_render_colored_unlit(world, root);
-	lamp_render->material = MAT_COLORED_UNLIT;
-	lamp_render->mesh = MESH_LAMP_ROUND_FLOOR;
-	lamp_render->color = (vec4){0.9f, 0.3f, 0.4f, 1.0f};
+	{
+		// Collider must be the first child.
+		Entity collider = create_entity(world);
+		entity_list_push(&root_transform->children, collider);
+
+		Transform* collider_transform = mix_transform(world, collider);
+		collider_transform->parent = root;
+
+		Collide* collider_collide = mix_collide(world, collider);
+		collider_collide->dynamic = false;
+		collider_collide->layers = LAYER_TERRAIN;
+		collider_collide->mask = LAYER_NONE;
+
+		RigidBody* collider_rigid_body = mix_rigid_body(world, collider);
+		collider_rigid_body->kind = RIGID_STATIC;
+
+		RenderColoredUnlit* collider_render = mix_render_colored_unlit(world, collider);
+		collider_render->color = (vec4){0, 1, 0, 1};
+		collider_render->material = MAT_COLORED_UNLIT;
+		collider_render->mesh = MESH_CUBE;
+	}
 
 	{
 		// Light.
 		Entity light = create_entity(world);
-		entity_list_push(&lamp_transform->children, light);
+		entity_list_push(&root_transform->children, light);
 
 		Transform* light_transform = mix_transform(world, light);
 		light_transform->translation = (vec3){0.0f, 2.0f, 0.0f};

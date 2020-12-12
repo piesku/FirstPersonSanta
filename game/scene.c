@@ -6,6 +6,7 @@
 
 #include "../common/entity.h"
 #include "../common/matrix.h"
+#include "com_collide.h"
 #include "com_render.h"
 #include "com_transform.h"
 #include "index.h"
@@ -31,6 +32,11 @@ void load_scene_from_gltf(struct world* world, const char* path)
 	}
 
 	for (cgltf_size i = 0; i < data->nodes_count; i++) {
+		if (data->nodes[i].mesh == NULL) {
+			// It's a collider object without a mesh.
+			continue;
+		}
+
 		vec3 translation = {
 				data->nodes[i].translation[0],
 				data->nodes[i].translation[1],
@@ -52,9 +58,38 @@ void load_scene_from_gltf(struct world* world, const char* path)
 
 		if (starts_with(name, "lamp")) {
 			Entity entity = blueprint_lamp(world);
-			world->transform[entity]->translation = translation;
-			world->transform[entity]->rotation = rotation;
-			world->transform[entity]->scale = scale;
+
+			Transform* transform = world->transform[entity];
+			transform->translation = translation;
+			transform->rotation = rotation;
+			transform->scale = scale;
+
+			if (data->nodes[i].children_count > 0) {
+				// The node has a child collider.
+				cgltf_node* child = data->nodes[i].children[0];
+
+				Entity collider = transform->children.entities[0];
+				world->transform[collider]->translation = (vec3){
+						child->translation[0],
+						child->translation[1],
+						child->translation[2],
+				};
+				world->transform[collider]->scale = (vec3){
+						child->scale[0],
+						child->scale[1] * 20,
+						child->scale[2],
+				};
+				world->collide[collider]->aabb.size = (vec3){
+						child->scale[0],
+						child->scale[1],
+						child->scale[2],
+				};
+			} else {
+				// Turn off the collider child.
+				Entity collider = transform->children.entities[0];
+				world->signature[collider] &= ~HAS_TRANSFORM;
+			}
+
 			continue;
 		}
 
@@ -161,9 +196,36 @@ void load_scene_from_gltf(struct world* world, const char* path)
 			world->render[entity]->colored_unlit.mesh = MESH_WALL;
 		}
 
-		world->transform[entity]->translation = translation;
-		world->transform[entity]->rotation = rotation;
-		world->transform[entity]->scale = scale;
+		Transform* transform = world->transform[entity];
+		transform->translation = translation;
+		transform->rotation = rotation;
+		transform->scale = scale;
+
+		if (data->nodes[i].children_count > 0) {
+			// The node has a child collider.
+			cgltf_node* child = data->nodes[i].children[0];
+
+			Entity collider = transform->children.entities[0];
+			world->transform[collider]->translation = (vec3){
+					child->translation[0],
+					child->translation[1],
+					child->translation[2],
+			};
+			world->transform[collider]->scale = (vec3){
+					child->scale[0],
+					child->scale[1] * 20,
+					child->scale[2],
+			};
+			world->collide[collider]->aabb.size = (vec3){
+					child->scale[0],
+					child->scale[1],
+					child->scale[2],
+			};
+		} else {
+			// Turn off the collider child.
+			Entity collider = transform->children.entities[0];
+			world->signature[collider] &= ~HAS_TRANSFORM;
+		}
 	}
 
 	cgltf_free(data);
