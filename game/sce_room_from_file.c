@@ -25,12 +25,12 @@ void scene_room_from_file(struct world* world)
 		Entity target;
 		Entity player = blueprint_player_target(world, &target);
 		Transform* player_transform = world->transform[player];
-		player_transform->translation = (vec3){0, 1, 5};
+		player_transform->translation = (vec3){3, 1, 5};
 
 		Entity camera = blueprint_camera_follow(world);
 		Transform* camera_transform = world->transform[camera];
-		camera_transform->translation = (vec3){0.0f, 50.0f, 1000.0f};
-		quat_from_euler(&camera_transform->rotation, 30.0f, 180.0f, 0.0f);
+		camera_transform->translation = (vec3){3, 50, 1000};
+		quat_from_euler(&camera_transform->rotation, 30, 180, 0);
 
 		Mimic* camera_mimic = world->mimic[camera];
 		camera_mimic->target = target;
