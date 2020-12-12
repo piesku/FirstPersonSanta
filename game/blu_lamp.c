@@ -21,7 +21,7 @@ entity blueprint_lamp(struct world* world)
 
 	RenderColoredUnlit* lamp_render = mix_render_colored_unlit(world, root);
 	lamp_render->material = MAT_COLORED_UNLIT;
-	lamp_render->mesh = MESH_LAMP;
+	lamp_render->mesh = MESH_LAMP_ROUND_FLOOR;
 	lamp_render->color = (vec4){0.9f, 0.3f, 0.4f, 1.0f};
 
 	{

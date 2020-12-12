@@ -49,7 +49,11 @@ static inline void update(struct client* client, struct world* world, entity ent
 
 void sys_light(struct client* client, struct world* world)
 {
-	client->lights = (struct lights){0};
+	client->lights = (struct lights){
+		.positions = {0},
+		.colors = {0},
+		.directions = {0},
+	};
 	int32_t counter = 0;
 	for (entity i = 1; i < MAX_ENTITIES; i++) {
 		if ((world->signature[i] & QUERY) == QUERY) {
