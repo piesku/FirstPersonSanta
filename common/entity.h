@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 typedef size_t Entity;
-typedef int32_t signature;
+typedef int32_t Signature;
 
 // A specialized vector for storing entities.
 struct entity_list {

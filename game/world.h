@@ -33,7 +33,7 @@ enum has_component {
 };
 
 struct world {
-	signature signature[MAX_ENTITIES];
+	Signature signature[MAX_ENTITIES];
 
 	union camera* camera[MAX_ENTITIES];
 	struct collide* collide[MAX_ENTITIES];
