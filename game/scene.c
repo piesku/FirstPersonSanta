@@ -32,6 +32,9 @@ void load_scene_from_gltf(struct world* world, const char* path)
 		exit(1);
 	}
 
+	Entity root = create_entity(world);
+	Transform* root_transform = mix_transform(world, root);
+
 	for (cgltf_size i = 0; i < data->nodes_count; i++) {
 		if (data->nodes[i].mesh == NULL) {
 			// It's a collider object without a mesh.
@@ -86,6 +89,8 @@ void load_scene_from_gltf(struct world* world, const char* path)
 				world->signature[collider] &= ~HAS_TRANSFORM;
 			}
 
+			entity_list_push(&root_transform->children, entity);
+			world->transform[entity]->parent = root;
 			continue;
 		}
 
@@ -114,6 +119,9 @@ void load_scene_from_gltf(struct world* world, const char* path)
 			entity = blueprint_decoration(world);
 			transform = world->transform[entity];
 		}
+
+		entity_list_push(&root_transform->children, entity);
+		world->transform[entity]->parent = root;
 
 		transform->translation = translation;
 		transform->rotation = rotation;
