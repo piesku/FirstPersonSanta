@@ -41,5 +41,5 @@ void scene_room_from_file(struct world* world)
 		blueprint_ground(world);
 	}
 
-	load_scene_from_gltf(world, "scenes/scene0.gltf");
+	load_scene_from_gltf(world, "scenes/scene3.gltf");
 }

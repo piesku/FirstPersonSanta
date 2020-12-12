@@ -5,7 +5,7 @@ all: $(SHAPES_GLB)
 
 ../models/%.glb: %.blend
 	@echo "$< → $@"
-	@"C:\Program Files\Blender Foundation\Blender 2.91\blender.exe" \
+	@/Applications/Blender.app/Contents/MacOS/Blender \
 		$< \
 		--background \
 		--python blend2glb.py \
