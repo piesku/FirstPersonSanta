@@ -12,6 +12,7 @@
 #include "index.h"
 #include "world.h"
 
+Entity blueprint_portal(struct world* world);
 Entity blueprint_lamp_floor(struct world* world);
 Entity blueprint_lamp_table(struct world* world);
 Entity blueprint_furniture(struct world* world);
@@ -60,6 +61,19 @@ Entity load_scene_from_gltf(struct world* world, const char* path)
 		};
 
 		char* name = data->nodes[i].name;
+
+		if (starts_with(name, "fireplace")) {
+			Entity entity = blueprint_portal(world);
+
+			Transform* transform = world->transform[entity];
+			transform->translation = translation;
+			transform->rotation = rotation;
+			transform->scale = scale;
+
+			entity_list_push(&root_transform->children, entity);
+			world->transform[entity]->parent = root;
+			continue;
+		}
 
 		if (starts_with(name, "lamp_round_floor")) {
 			Entity entity = blueprint_lamp_floor(world);

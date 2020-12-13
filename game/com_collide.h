@@ -13,8 +13,9 @@ typedef int32_t layer_mask;
 enum layer_flag {
 	LAYER_NONE = 1 << 0,
 	LAYER_PLAYER = 1 << 1,
-	LAYER_TERRAIN = 1 << 2,
-	LAYER_MOVABLE = 1 << 3,
+	LAYER_CAMERA = 1 << 2,
+	LAYER_TERRAIN = 1 << 3,
+	LAYER_MOVABLE = 1 << 4,
 };
 
 struct collision {

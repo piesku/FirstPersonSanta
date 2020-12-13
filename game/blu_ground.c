@@ -14,8 +14,8 @@ Entity blueprint_ground(struct world* world)
 	Entity root = create_entity(world);
 
 	Transform* transform = mix_transform(world, root);
-	transform->translation.y = -50.0f;
-	transform->scale = (vec3){100.0f, 100.0f, 100.0f};
+	transform->translation.y = -50;
+	transform->scale = (vec3){1000, 100, 1000};
 
 	RenderColoredUnlit* render = mix_render_colored_unlit(world, root);
 	render->material = MAT_COLORED_UNLIT;

@@ -155,6 +155,7 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	client->meshes[MESH_COMPUTER_SCREEN] = mesh_load("models/computer_screen.glb");
 	client->meshes[MESH_CUBE] = mesh_load("models/cube.glb");
 	client->meshes[MESH_DESK] = mesh_load("models/desk.glb");
+	client->meshes[MESH_FIREPLACE] = mesh_load("models/fireplace.glb");
 	client->meshes[MESH_GIFT] = mesh_load("models/gift.glb");
 	client->meshes[MESH_LAMP_ROUND_FLOOR] = mesh_load("models/lamp_round_floor.glb");
 	client->meshes[MESH_LAMP_ROUND_TABLE] = mesh_load("models/lamp_round_table.glb");
