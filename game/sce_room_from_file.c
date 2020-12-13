@@ -19,6 +19,8 @@ Entity blueprint_player_target(struct world* world, Entity* target);
 Entity blueprint_ground(struct world* world);
 Entity blueprint_portal(struct world* world);
 
+void sys_transform(struct world* world);
+
 void scene_room_from_file(struct world* world)
 {
 	{
@@ -30,8 +32,8 @@ void scene_room_from_file(struct world* world)
 
 		Entity camera = blueprint_camera_follow(world);
 		Transform* camera_transform = world->transform[camera];
-		camera_transform->translation = (vec3){3, 50, 1000};
-		quat_from_euler(&camera_transform->rotation, 30, 180, 0);
+		camera_transform->translation = (vec3){3, 1.5f, 500};
+		quat_from_euler(&camera_transform->rotation, 0, 180, 0);
 
 		Mimic* camera_mimic = world->mimic[camera];
 		camera_mimic->target = target;
@@ -53,4 +55,7 @@ void scene_room_from_file(struct world* world)
 
 	Entity fourth = load_scene_from_gltf(world, "scenes/room04.gltf");
 	quat_from_euler(&world->transform[fourth]->rotation, 0, 270, 0);
+
+	// Commit all transforms before the first frame runs.
+	sys_transform(world);
 }

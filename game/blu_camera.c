@@ -2,6 +2,7 @@
 #include "../common/matrix.h"
 
 #include "com_camera.h"
+#include "com_collide.h"
 #include "com_control_player.h"
 #include "com_mimic.h"
 #include "com_move.h"
@@ -131,6 +132,11 @@ Entity blueprint_camera_follow(struct world* world)
 	Transform* root_transform = mix_transform(world, root);
 	root_transform->rotation = (quat){0.0f, 1.0f, 0.0f, 0.0f};
 
+	Collide* root_collide = mix_collide(world, root);
+	root_collide->dynamic = true;
+	root_collide->layers = LAYER_CAMERA;
+	root_collide->mask = LAYER_NONE;
+
 	mix_mimic(world, root);
 
 	{
@@ -146,7 +152,7 @@ Entity blueprint_camera_follow(struct world* world)
 		camera_framebuffer->fov_y = 1.0f;
 		camera_framebuffer->near = 0.5f;
 		camera_framebuffer->far = 1000.0f;
-		camera_framebuffer->clear_color = (vec4){0.9f, 0.9f, 0.9f, 1.0f};
+		camera_framebuffer->clear_color = (vec4){0.1f, 0.1f, 0.2f, 1.0f};
 		camera_framebuffer->target = RENDER_TARGET_DEFAULT;
 	}
 

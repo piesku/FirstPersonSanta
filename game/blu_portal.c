@@ -34,7 +34,7 @@ Entity blueprint_portal(struct world* world)
 		entry_collide->mask = LAYER_PLAYER;
 
 		Trigger* entry_trigger = mix_trigger(world, entry);
-		entry_trigger->action = ACTION_TRIGGER_BOUNCE;
+		entry_trigger->action = ACTION_TRIGGER_PORTAL;
 		entry_trigger->mask = LAYER_PLAYER;
 	}
 
@@ -43,22 +43,24 @@ Entity blueprint_portal(struct world* world)
 		entity_list_push(&root_transform->children, exit);
 
 		Transform* exit_transform = mix_transform(world, exit);
-		exit_transform->translation = (vec3){0, 10, 0};
+		exit_transform->translation = (vec3){0, 0, -250};
+		exit_transform->rotation = (quat){0, 1, 0, 0};
+		exit_transform->scale = (vec3){10, 10, 10};
 		exit_transform->parent = root;
 
-		RenderColoredUnlit* exit_render = mix_render_colored_unlit(world, exit);
-		exit_render->material = MAT_COLORED_UNLIT;
-		exit_render->mesh = MESH_CUBE;
-		exit_render->color = (vec4){1, 0, 1, 1};
+		//RenderColoredUnlit* exit_render = mix_render_colored_unlit(world, exit);
+		//exit_render->material = MAT_COLORED_UNLIT;
+		//exit_render->mesh = MESH_CUBE;
+		//exit_render->color = (vec4){1, 0, 1, 1};
 
 		Collide* exit_collide = mix_collide(world, exit);
 		exit_collide->dynamic = false;
 		exit_collide->layers = LAYER_NONE;
-		exit_collide->mask = LAYER_PLAYER;
+		exit_collide->mask = LAYER_CAMERA;
 
 		Trigger* exit_trigger = mix_trigger(world, exit);
-		exit_trigger->action = ACTION_TRIGGER_PLAY;
-		exit_trigger->mask = LAYER_PLAYER;
+		exit_trigger->action = ACTION_TRIGGER_EXIT;
+		exit_trigger->mask = LAYER_CAMERA;
 	}
 
 	return root;
