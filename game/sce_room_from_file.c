@@ -27,16 +27,16 @@ void scene_room_from_file(struct world* world)
 {
 	srand((uint32_t)time(0));
 	const char* available_rooms[] = {
-		"scenes/room01.gltf",
-		"scenes/room02.gltf",
-		"scenes/room03.gltf",
-		"scenes/room04.gltf",
-		"scenes/room05.gltf",
-		"scenes/room06.gltf",
-		"scenes/room07.gltf",
-		"scenes/room08.gltf",
-		"scenes/room09.gltf",
-		"scenes/room10.gltf",
+			"scenes/room01.gltf",
+			"scenes/room02.gltf",
+			"scenes/room03.gltf",
+			"scenes/room04.gltf",
+			"scenes/room05.gltf",
+			"scenes/room06.gltf",
+			"scenes/room07.gltf",
+			"scenes/room08.gltf",
+			"scenes/room09.gltf",
+			"scenes/room10.gltf",
 	};
 
 	{
@@ -44,7 +44,7 @@ void scene_room_from_file(struct world* world)
 		Entity target;
 		Entity player = blueprint_player_target(world, &target);
 		Transform* player_transform = world->transform[player];
-		player_transform->translation = (vec3){3, 1, 5};
+		player_transform->translation = (vec3){3, 1, 3};
 
 		Entity camera = blueprint_camera_follow(world);
 		Transform* camera_transform = world->transform[camera];
