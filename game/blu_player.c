@@ -31,6 +31,7 @@ Entity blueprint_player_target(struct world* world, Entity* target)
 	root_collide->dynamic = true;
 	root_collide->layers = LAYER_PLAYER;
 	root_collide->mask = LAYER_TERRAIN;
+	root_collide->aabb.size = (vec3){0.5f, 1, 1};
 
 	RigidBody* root_rigid_body = mix_rigid_body(world, root);
 	root_rigid_body->kind = RIGID_DYNAMIC;
