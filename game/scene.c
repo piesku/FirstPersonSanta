@@ -134,35 +134,35 @@ Entity load_scene_from_gltf(struct world* world, const char* path)
 			world->render[entity]->colored_unlit.mesh = MESH_BED_SINGLE;
 		} else if (starts_with(name, "bench")) {
 			world->render[entity]->colored_unlit.mesh = MESH_BENCH;
-		} else if (starts_with(name, "bookcase_closed")) {
-			world->render[entity]->colored_unlit.mesh = MESH_BOOKCASE_CLOSED;
 		} else if (starts_with(name, "bookcase_closed_doors")) {
 			world->render[entity]->colored_unlit.mesh = MESH_BOOKCASE_CLOSED_DOORS;
 		} else if (starts_with(name, "bookcase_closed_wide")) {
 			world->render[entity]->colored_unlit.mesh = MESH_BOOKCASE_CLOSED_WIDE;
+		} else if (starts_with(name, "bookcase_closed")) {
+			world->render[entity]->colored_unlit.mesh = MESH_BOOKCASE_CLOSED;
 		} else if (starts_with(name, "bookcase_open")) {
 			world->render[entity]->colored_unlit.mesh = MESH_BOOKCASE_OPEN;
 		} else if (starts_with(name, "books")) {
 			world->render[entity]->colored_unlit.mesh = MESH_BOOKS;
 			world->render[entity]->colored_unlit.color = (vec4){0.9f, 0.3f, 0.4f, 1.0f};
-		} else if (starts_with(name, "cabinet_bed")) {
-			world->render[entity]->colored_unlit.mesh = MESH_CABINET_BED;
-		} else if (starts_with(name, "cabinet_bed_drawer")) {
-			world->render[entity]->colored_unlit.mesh = MESH_CABINET_BED_DRAWER;
 		} else if (starts_with(name, "cabinet_bed_drawer_table")) {
 			world->render[entity]->colored_unlit.mesh = MESH_CABINET_BED_DRAWER_TABLE;
-		} else if (starts_with(name, "cabinet_television")) {
-			world->render[entity]->colored_unlit.mesh = MESH_CABINET_TELEVISION;
+		} else if (starts_with(name, "cabinet_bed_drawer")) {
+			world->render[entity]->colored_unlit.mesh = MESH_CABINET_BED_DRAWER;
+		} else if (starts_with(name, "cabinet_bed")) {
+			world->render[entity]->colored_unlit.mesh = MESH_CABINET_BED;
 		} else if (starts_with(name, "cabinet_television_doors")) {
 			world->render[entity]->colored_unlit.mesh = MESH_CABINET_TELEVISION_DOORS;
+		} else if (starts_with(name, "cabinet_television")) {
+			world->render[entity]->colored_unlit.mesh = MESH_CABINET_TELEVISION;
 		} else if (starts_with(name, "cardboard_box_closed")) {
 			world->render[entity]->colored_unlit.mesh = MESH_CARDBOARD_BOX_CLOSED;
 		} else if (starts_with(name, "cardboard_box_open")) {
 			world->render[entity]->colored_unlit.mesh = MESH_CARDBOARD_BOX_OPEN;
-		} else if (starts_with(name, "chair")) {
-			world->render[entity]->colored_unlit.mesh = MESH_CHAIR;
 		} else if (starts_with(name, "chair_rounded")) {
 			world->render[entity]->colored_unlit.mesh = MESH_CHAIR_ROUNDED;
+		} else if (starts_with(name, "chair")) {
+			world->render[entity]->colored_unlit.mesh = MESH_CHAIR;
 		} else if (starts_with(name, "coat_rack_standing")) {
 			world->render[entity]->colored_unlit.mesh = MESH_COAT_RACK_STANDING;
 		} else if (starts_with(name, "coat_rack")) {
@@ -198,16 +198,16 @@ Entity load_scene_from_gltf(struct world* world, const char* path)
 		} else if (starts_with(name, "radio")) {
 			world->render[entity]->colored_unlit.mesh = MESH_RADIO;
 			world->render[entity]->colored_unlit.color = (vec4){0.9f, 0.3f, 0.4f, 1.0f};
-		} else if (starts_with(name, "side_table")) {
-			world->render[entity]->colored_unlit.mesh = MESH_SIDE_TABLE;
 		} else if (starts_with(name, "side_table_drawers")) {
 			world->render[entity]->colored_unlit.mesh = MESH_SIDE_TABLE_DRAWERS;
+		} else if (starts_with(name, "side_table")) {
+			world->render[entity]->colored_unlit.mesh = MESH_SIDE_TABLE;
 		} else if (starts_with(name, "stool_bar_square")) {
 			world->render[entity]->colored_unlit.mesh = MESH_STOOL_BAR_SQUARE;
-		} else if (starts_with(name, "table_coffee")) {
-			world->render[entity]->colored_unlit.mesh = MESH_TABLE_COFFEE;
 		} else if (starts_with(name, "table_coffee_square")) {
 			world->render[entity]->colored_unlit.mesh = MESH_TABLE_COFFEE_SQUARE;
+		} else if (starts_with(name, "table_coffee")) {
+			world->render[entity]->colored_unlit.mesh = MESH_TABLE_COFFEE;
 		} else if (starts_with(name, "table_round")) {
 			world->render[entity]->colored_unlit.mesh = MESH_TABLE_ROUND;
 		} else if (starts_with(name, "table")) {
