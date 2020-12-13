@@ -16,7 +16,7 @@ Entity blueprint_camera_follow(struct world* world);
 Entity blueprint_player_target(struct world* world, Entity* target);
 Entity blueprint_ground(struct world* world);
 Entity blueprint_gift(struct world* world);
-Entity blueprint_lamp(struct world* world);
+Entity blueprint_lamp_floor(struct world* world);
 
 void scene_room(struct world* world)
 {
@@ -56,7 +56,7 @@ void scene_room(struct world* world)
 
 	{
 		// Lamp.
-		Entity lamp = blueprint_lamp(world);
+		Entity lamp = blueprint_lamp_floor(world);
 
 		Transform* lamp_transform = mix_transform(world, lamp);
 		lamp_transform->translation = (vec3){-0.5f, 0.0f, 0.2f};
