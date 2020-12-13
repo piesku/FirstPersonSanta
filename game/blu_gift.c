@@ -7,17 +7,12 @@
 #include "com_transform.h"
 #include "world.h"
 
-const vec4 gift_colors[7] = {
-		{0.9f, 0.3f, 0.4f, 1.0f},
-		{0.92f, 0.62f, 0.48f, 1.0f},
-		{0.94f, 0.51f, 0.0f, 1.0f},
-		{0.96f, 0.63f, 0.68f, 1.0f},
+const vec4 gift_colors[4] = {
 		{0.39f, 0.72f, 0.95f, 1.0f},
 		{0.1f, 0.5f, 0.55f, 1.0f},
-		{0.31f, 0.2f, 0.24f, 1.0f},
+		{0.84f, 0.08f, 0.07f, 1.0f},
+		{0.9f, 0.9f, 0.3f},
 };
-
-
 
 Entity blueprint_gift(struct world* world)
 {
@@ -46,7 +41,7 @@ Entity blueprint_gift(struct world* world)
 		RenderTexturedUnlit* render = mix_render_textured_unlit(world, mesh);
 		render->material = MAT_TEXTURED_UNLIT;
 		render->mesh = MESH_GIFT;
-		render->color = gift_colors[rand() % 7];
+		render->color = gift_colors[rand() % 4];
 		render->texture = TEX_WRAPPING1;
 		render->texscale = (vec2){25.0f, 25.0f};
 	}
