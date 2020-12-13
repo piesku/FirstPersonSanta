@@ -23,22 +23,22 @@ void destroy_world(struct world* world)
 	for (Entity i = 1; i < MAX_ENTITIES; i++) {
 		world->signature[i] = 0;
 
-		destroy_component_data(&world->camera[i]);
-		destroy_component_data(&world->collide[i]);
-		destroy_component_data(&world->control_camera[i]);
-		destroy_component_data(&world->control_player[i]);
-		destroy_component_data(&world->mimic[i]);
-		destroy_component_data(&world->move[i]);
-		destroy_component_data(&world->light[i]);
-		destroy_component_data(&world->render[i]);
-		destroy_component_data(&world->rigid_body[i]);
-		destroy_component_data(&world->shoot[i]);
-		destroy_component_data(&world->trigger[i]);
+		destroy_component_data((void**)&world->camera[i]);
+		destroy_component_data((void**)&world->collide[i]);
+		destroy_component_data((void**)&world->control_camera[i]);
+		destroy_component_data((void**)&world->control_player[i]);
+		destroy_component_data((void**)&world->mimic[i]);
+		destroy_component_data((void**)&world->move[i]);
+		destroy_component_data((void**)&world->light[i]);
+		destroy_component_data((void**)&world->render[i]);
+		destroy_component_data((void**)&world->rigid_body[i]);
+		destroy_component_data((void**)&world->shoot[i]);
+		destroy_component_data((void**)&world->trigger[i]);
 
 		Transform* transform = world->transform[i];
 		if (transform != NULL) {
 			entity_list_destroy(&transform->children);
-			destroy_component_data(&world->transform[i]);
+			destroy_component_data((void**)&world->transform[i]);
 		}
 	}
 
