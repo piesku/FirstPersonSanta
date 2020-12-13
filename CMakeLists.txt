@@ -26,6 +26,7 @@ add_executable(FirstPerson
 	game/blu_ground.c
 	game/blu_lamp.c
 	game/blu_player.c
+	game/blu_portal.c
 	game/client.c
 	game/com_camera.c
 	game/com_collide.c

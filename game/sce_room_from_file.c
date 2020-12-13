@@ -17,6 +17,7 @@ Entity load_scene_from_gltf(struct world* world, const char* file_location);
 Entity blueprint_camera_follow(struct world* world);
 Entity blueprint_player_target(struct world* world, Entity* target);
 Entity blueprint_ground(struct world* world);
+Entity blueprint_portal(struct world* world);
 
 void scene_room_from_file(struct world* world)
 {

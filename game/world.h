@@ -4,6 +4,9 @@
 
 #define MAX_ENTITIES 10001
 
+// When adding new components, make sure to clean up their data in
+// destroy_entity.
+
 enum component_index {
 	INDEX_CAMERA,
 	INDEX_COLLIDE,

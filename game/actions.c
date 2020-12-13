@@ -10,6 +10,7 @@
 void scene_bounce(struct world* world);
 void scene_monkey(struct world* world);
 void scene_room(struct world* world);
+void scene_room_from_file(struct world* world);
 
 void dispatch(struct client* client, struct world* world, enum action action, union action_data payload)
 {
@@ -20,7 +21,7 @@ void dispatch(struct client* client, struct world* world, enum action action, un
 			break;
 		}
 		case ACTION_TRIGGER_PLAY: {
-			client->next_scene = &scene_bounce;
+			client->next_scene = &scene_room_from_file;
 			break;
 		}
 		default:
