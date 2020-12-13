@@ -19,6 +19,8 @@ Entity blueprint_choinka(struct world* world)
 	root_render->material = MAT_COLORED_UNLIT;
 	root_render->mesh = MESH_CHOINKA;
 	root_render->color = (vec4){0.45f, 0.45f, 0.45f, 1.0f};
+	root_render->color = (vec4){0.3f, 0.4f, 0.9f, 1.0f};
+
 	{
 		// Collider must be the first child.
 		Entity collider = create_entity(world);
