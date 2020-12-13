@@ -12,7 +12,7 @@
 #include "index.h"
 #include "world.h"
 
-void load_scene_from_gltf(struct world* world, const char* file_location);
+Entity load_scene_from_gltf(struct world* world, const char* file_location);
 
 Entity blueprint_camera_follow(struct world* world);
 Entity blueprint_player_target(struct world* world, Entity* target);
@@ -41,5 +41,15 @@ void scene_room_from_file(struct world* world)
 		blueprint_ground(world);
 	}
 
-	load_scene_from_gltf(world, "scenes/scene3.gltf");
+	Entity first = load_scene_from_gltf(world, "scenes/scene3.gltf");
+	(void)first;
+
+	Entity second = load_scene_from_gltf(world, "scenes/scene3.gltf");
+	quat_from_euler(&world->transform[second]->rotation, 0, 90, 0);
+
+	Entity third = load_scene_from_gltf(world, "scenes/scene3.gltf");
+	quat_from_euler(&world->transform[third]->rotation, 0, 180, 0);
+
+	Entity fourth = load_scene_from_gltf(world, "scenes/scene3.gltf");
+	quat_from_euler(&world->transform[fourth]->rotation, 0, 270, 0);
 }
