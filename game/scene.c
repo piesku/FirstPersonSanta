@@ -107,6 +107,8 @@ Entity load_scene_from_gltf(struct world* world, const char* path, vec4* scene_c
 		if (starts_with(name, "lamp_round_floor")) {
 			Entity entity = blueprint_lamp_floor(world);
 
+			world->render[entity]->colored_unlit.color = *scene_color;
+
 			Transform* transform = world->transform[entity];
 			transform->translation = translation;
 			transform->rotation = rotation;
@@ -136,6 +138,8 @@ Entity load_scene_from_gltf(struct world* world, const char* path, vec4* scene_c
 
 		if (starts_with(name, "lamp_round_table")) {
 			Entity entity = blueprint_lamp_table(world);
+
+			world->render[entity]->colored_unlit.color = *scene_color;
 
 			Transform* transform = world->transform[entity];
 			transform->translation = translation;
@@ -172,6 +176,8 @@ Entity load_scene_from_gltf(struct world* world, const char* path, vec4* scene_c
 			entity = blueprint_decoration(world);
 			transform = world->transform[entity];
 		}
+
+		world->render[entity]->colored_unlit.color = *scene_color;
 
 		entity_list_push(&root_transform->children, entity);
 		world->transform[entity]->parent = root;
