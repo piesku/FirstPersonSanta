@@ -13,6 +13,7 @@
 #include "world.h"
 
 Entity blueprint_portal(struct world* world);
+Entity blueprint_choinka(struct world* world);
 Entity blueprint_lamp_floor(struct world* world);
 Entity blueprint_lamp_table(struct world* world);
 Entity blueprint_furniture(struct world* world);
@@ -73,6 +74,39 @@ Entity load_scene_from_gltf(struct world* world, const char* path, bool has_fire
 			transform->translation = translation;
 			transform->rotation = rotation;
 			transform->scale = scale;
+
+			entity_list_push(&root_transform->children, entity);
+			world->transform[entity]->parent = root;
+			continue;
+		}
+
+		if (starts_with(name, "choinka")) {
+			Entity entity = blueprint_choinka(world);
+
+			Transform* transform = world->transform[entity];
+			transform->translation = translation;
+			transform->rotation = rotation;
+			transform->scale = scale;
+
+			transform->translation.y = -1.5;
+
+			if (data->nodes[i].children_count > 0)
+			{
+				// The node has a child collider.
+				cgltf_node* child = data->nodes[i].children[0];
+
+				Entity collider = transform->children.entities[0];
+				world->transform[collider]->translation = (vec3){
+						child->translation[0],
+						child->translation[1],
+						child->translation[2],
+				};
+				world->transform[collider]->scale = (vec3){
+						child->scale[0],
+						child->scale[1] * 20,
+						child->scale[2],
+				};
+			}
 
 			entity_list_push(&root_transform->children, entity);
 			world->transform[entity]->parent = root;
@@ -195,8 +229,6 @@ Entity load_scene_from_gltf(struct world* world, const char* path, bool has_fire
 			world->render[entity]->colored_unlit.mesh = MESH_CHAIR_ROUNDED;
 		} else if (starts_with(name, "chair")) {
 			world->render[entity]->colored_unlit.mesh = MESH_CHAIR;
-		} else if (starts_with(name, "choinka")) {
-			world->render[entity]->colored_unlit.mesh = MESH_CHOINKA;
 		} else if (starts_with(name, "coat_rack_standing")) {
 			world->render[entity]->colored_unlit.mesh = MESH_COAT_RACK_STANDING;
 		} else if (starts_with(name, "coat_rack")) {
