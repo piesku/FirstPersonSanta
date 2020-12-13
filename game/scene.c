@@ -81,6 +81,8 @@ Entity load_scene_from_gltf(struct world* world, const char* path, bool has_fire
 		}
 
 		if (starts_with(name, "choinka")) {
+			// float starting_y = 1.0f;
+
 			Entity entity = blueprint_choinka(world);
 
 			Transform* transform = world->transform[entity];
@@ -88,28 +90,16 @@ Entity load_scene_from_gltf(struct world* world, const char* path, bool has_fire
 			transform->rotation = rotation;
 			transform->scale = scale;
 
-			transform->translation.y = -1.5;
-
-			if (data->nodes[i].children_count > 0)
-			{
-				// The node has a child collider.
-				cgltf_node* child = data->nodes[i].children[0];
-
-				Entity collider = transform->children.entities[0];
-				world->transform[collider]->translation = (vec3){
-						child->translation[0],
-						child->translation[1],
-						child->translation[2],
-				};
-				world->transform[collider]->scale = (vec3){
-						child->scale[0],
-						child->scale[1] * 20,
-						child->scale[2],
-				};
-			}
+			transform->translation.y = -1.5f;
+			// transform->translation.y = 2.5f - starting_y;
 
 			entity_list_push(&root_transform->children, entity);
 			world->transform[entity]->parent = root;
+
+			Entity choinka_mimic_target = transform->children.entities[1];
+			world->transform[choinka_mimic_target]->translation = translation;
+			world->transform[choinka_mimic_target]->translation.y = -1.5f;
+
 			continue;
 		}
 
@@ -133,7 +123,7 @@ Entity load_scene_from_gltf(struct world* world, const char* path, bool has_fire
 				};
 				world->transform[collider]->scale = (vec3){
 						child->scale[0],
-						child->scale[1] * 20,
+						child->scale[1],
 						child->scale[2],
 				};
 			}

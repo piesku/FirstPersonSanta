@@ -42,12 +42,23 @@ void dispatch(struct client* client, struct world* world, enum action action, un
 
 		case ACTION_TRIGGER_CHOINKA: {
 			Entity gift = payload.trigger.other;
+			Entity choinka_collider = payload.trigger.collider;
 			int children_count = world->transform[gift]->children.size;
 			for (int i = 0; i < children_count; i++) {
 				destroy_entity(world, world->transform[gift]->children.entities[i]);
 			}
-
 			destroy_entity(world, gift);
+
+			Entity choinka = world->transform[choinka_collider]->parent;
+			Transform* choinka_transform = world->transform[choinka];
+			Entity choinka_target = choinka_transform->children.entities[1];
+
+			if (world->transform[choinka_target]->translation.y > 0.0f) {
+				world->transform[choinka_target]->translation.y = 0.0f;
+				world->signature[choinka_collider] &= HAS_COLLIDE;
+			} else {
+				world->transform[choinka_target]->translation.y += 0.2;
+			}
 			break;
 		}
 

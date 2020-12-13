@@ -2,6 +2,7 @@
 #include "../common/matrix.h"
 #include "com_collide.h"
 #include "com_light.h"
+#include "com_mimic.h"
 #include "com_render.h"
 #include "com_rigid_body.h"
 #include "com_transform.h"
@@ -33,17 +34,24 @@ Entity blueprint_choinka(struct world* world)
 		collider_collide->mask = LAYER_MOVABLE;
 		collider_collide->aabb.size = (vec3){1.31f, 2.5f, 1.52f};
 
-		RenderColoredUnlit* entry_render = mix_render_colored_unlit(world, collider);
-		entry_render->material = MAT_COLORED_UNLIT;
-		entry_render->mesh = MESH_CUBE;
-		entry_render->color = (vec4){1, 0, 1, 1};
-
 		RigidBody* collider_rigid_body = mix_rigid_body(world, collider);
 		collider_rigid_body->kind = RIGID_STATIC;
 
 		Trigger* choinka_trigger = mix_trigger(world, collider);
 		choinka_trigger->action = ACTION_TRIGGER_CHOINKA;
 		choinka_trigger->mask = LAYER_MOVABLE;
+	}
+
+	{
+		// Target must me second child
+		Entity target = create_entity(world);
+		Transform* target_transform = mix_transform(world, target);
+		entity_list_push(&root_transform->children, target);
+		target_transform->translation = (vec3){0};
+
+		Mimic* mimic = mix_mimic(world, root);
+		mimic->target = target;
+		mimic->stiffness = 0.01f;
 	}
 
 	{
