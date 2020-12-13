@@ -38,12 +38,10 @@ Entity blueprint_gift(struct world* world)
 		mesh_transform->scale = (vec3){0.5f, 0.5f, 0.5f};
 		mesh_transform->parent = root;
 
-		RenderTexturedUnlit* render = mix_render_textured_unlit(world, mesh);
-		render->material = MAT_TEXTURED_UNLIT;
+		RenderColoredUnlit* render = mix_render_colored_unlit(world, mesh);
+		render->material = MAT_COLORED_UNLIT;
 		render->mesh = MESH_GIFT;
 		render->color = gift_colors[rand() % 4];
-		render->texture = TEX_WRAPPING1;
-		render->texscale = (vec2){25.0f, 25.0f};
 	}
 
 	return root;
