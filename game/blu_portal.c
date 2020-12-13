@@ -12,21 +12,54 @@ Entity blueprint_portal(struct world* world)
 {
 	Entity root = create_entity(world);
 
-	mix_transform(world, root);
+	Transform* root_transform = mix_transform(world, root);
 
-	RenderColoredUnlit* render = mix_render_colored_unlit(world, root);
-	render->material = MAT_COLORED_UNLIT;
-	render->mesh = MESH_CUBE;
-	render->color = (vec4){1, 0, 1, 1};
+	RenderColoredUnlit* root_render = mix_render_colored_unlit(world, root);
+	root_render->material = MAT_COLORED_UNLIT;
+	root_render->mesh = MESH_FIREPLACE;
+	root_render->color = (vec4){0.3f, 0.4f, 0.9f, 1.0f};
 
-	Collide* collide = mix_collide(world, root);
-	collide->dynamic = false;
-	collide->layers = LAYER_TERRAIN;
-	collide->mask = LAYER_PLAYER;
+	{
+		Entity entry = create_entity(world);
+		entity_list_push(&root_transform->children, entry);
 
-	Trigger* trigger = mix_trigger(world, root);
-	trigger->action = ACTION_TRIGGER_PLAY;
-	trigger->mask = LAYER_PLAYER;
+		Transform* entry_transform = mix_transform(world, entry);
+		entry_transform->translation = (vec3){0, 0.5f, 0};
+		entry_transform->scale = (vec3){1, 1, 0.2f};
+		entry_transform->parent = root;
+
+		Collide* entry_collide = mix_collide(world, entry);
+		entry_collide->dynamic = false;
+		entry_collide->layers = LAYER_NONE;
+		entry_collide->mask = LAYER_PLAYER;
+
+		Trigger* entry_trigger = mix_trigger(world, entry);
+		entry_trigger->action = ACTION_TRIGGER_BOUNCE;
+		entry_trigger->mask = LAYER_PLAYER;
+	}
+
+	{
+		Entity exit = create_entity(world);
+		entity_list_push(&root_transform->children, exit);
+
+		Transform* exit_transform = mix_transform(world, exit);
+		exit_transform->translation = (vec3){0, 10, 0};
+		exit_transform->parent = root;
+
+		RenderColoredUnlit* exit_render = mix_render_colored_unlit(world, exit);
+		exit_render->material = MAT_COLORED_UNLIT;
+		exit_render->mesh = MESH_CUBE;
+		exit_render->color = (vec4){1, 0, 1, 1};
+
+		Collide* exit_collide = mix_collide(world, exit);
+		exit_collide->dynamic = false;
+		exit_collide->layers = LAYER_NONE;
+		exit_collide->mask = LAYER_PLAYER;
+
+		Trigger* exit_trigger = mix_trigger(world, exit);
+		exit_trigger->action = ACTION_TRIGGER_PLAY;
+		exit_trigger->mask = LAYER_PLAYER;
+	}
 
 	return root;
 }
