@@ -26,6 +26,18 @@ void sys_transform(struct world* world);
 void scene_room_from_file(struct world* world)
 {
 	srand((uint32_t)time(0));
+	const char* available_rooms[] = {
+		"scenes/room01.gltf",
+		"scenes/room02.gltf",
+		"scenes/room03.gltf",
+		"scenes/room04.gltf",
+		"scenes/room05.gltf",
+		"scenes/room06.gltf",
+		"scenes/room07.gltf",
+		"scenes/room08.gltf",
+		"scenes/room09.gltf",
+		"scenes/room10.gltf",
+	};
 
 	{
 		// Player.
@@ -50,16 +62,16 @@ void scene_room_from_file(struct world* world)
 
 	int fireplace_location = rand() % 4;
 
-	Entity first = load_scene_from_gltf(world, "scenes/room02.gltf", fireplace_location == 0);
+	Entity first = load_scene_from_gltf(world, available_rooms[(rand() % 10)], fireplace_location == 0);
 	(void)first;
 
-	Entity second = load_scene_from_gltf(world, "scenes/room06.gltf", fireplace_location == 1);
+	Entity second = load_scene_from_gltf(world, available_rooms[(rand() % 10)], fireplace_location == 1);
 	quat_from_euler(&world->transform[second]->rotation, 0, 90, 0);
 
-	Entity third = load_scene_from_gltf(world, "scenes/room03.gltf", fireplace_location == 2);
+	Entity third = load_scene_from_gltf(world, available_rooms[(rand() % 10)], fireplace_location == 2);
 	quat_from_euler(&world->transform[third]->rotation, 0, 180, 0);
 
-	Entity fourth = load_scene_from_gltf(world, "scenes/room05.gltf", fireplace_location == 3);
+	Entity fourth = load_scene_from_gltf(world, available_rooms[(rand() % 10)], fireplace_location == 3);
 	quat_from_euler(&world->transform[fourth]->rotation, 0, 270, 0);
 
 	// Commit all transforms before the first frame runs.
