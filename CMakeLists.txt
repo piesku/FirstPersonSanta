@@ -91,7 +91,10 @@ if(MSVC)
 		GLEW::GLEW
 	)
 elseif(UNIX)
-    target_compile_options(FirstPerson PRIVATE -Wall -Wextra -pedantic -Werror -Wno-unknown-pragmas)
+    target_compile_options(FirstPerson PRIVATE -Wall -Wextra -pedantic -Werror
+		-Wno-unknown-pragmas
+		-Wno-missing-field-initializers
+	)
 	find_package(GLEW REQUIRED)
 	target_link_libraries(FirstPerson
 		m
@@ -99,7 +102,10 @@ elseif(UNIX)
 		SDL2::SDL2-static
 	)
 elseif(APPLE)
-    target_compile_options(FirstPerson PRIVATE -Wall -Wextra -pedantic -Werror -Wno-unknown-pragmas)
+    target_compile_options(FirstPerson PRIVATE -Wall -Wextra -pedantic -Werror
+		-Wno-unknown-pragmas
+		-Wno-missing-field-initializers
+	)
 endif()
 
 # Copy assets
