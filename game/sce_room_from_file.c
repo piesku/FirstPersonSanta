@@ -45,12 +45,12 @@ void scene_room_from_file(struct world* world)
 	Entity first = load_scene_from_gltf(world, "scenes/room01.gltf");
 	(void)first;
 
-	Entity second = load_scene_from_gltf(world, "scenes/room02.gltf");
+	Entity second = load_scene_from_gltf(world, "scenes/room06.gltf");
 	quat_from_euler(&world->transform[second]->rotation, 0, 90, 0);
 
 	Entity third = load_scene_from_gltf(world, "scenes/room03.gltf");
 	quat_from_euler(&world->transform[third]->rotation, 0, 180, 0);
 
-	Entity fourth = load_scene_from_gltf(world, "scenes/room04.gltf");
+	Entity fourth = load_scene_from_gltf(world, "scenes/room05.gltf");
 	quat_from_euler(&world->transform[fourth]->rotation, 0, 270, 0);
 }
