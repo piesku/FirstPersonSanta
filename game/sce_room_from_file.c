@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -12,7 +13,7 @@
 #include "index.h"
 #include "world.h"
 
-Entity load_scene_from_gltf(struct world* world, const char* file_location);
+Entity load_scene_from_gltf(struct world* world, const char* file_location, bool has_fireplace);
 
 Entity blueprint_camera_follow(struct world* world);
 Entity blueprint_player_target(struct world* world, Entity* target);
@@ -23,6 +24,8 @@ void sys_transform(struct world* world);
 
 void scene_room_from_file(struct world* world)
 {
+	srand(time(0));
+
 	{
 		// Player.
 		Entity target;
@@ -44,16 +47,18 @@ void scene_room_from_file(struct world* world)
 		blueprint_ground(world);
 	}
 
-	Entity first = load_scene_from_gltf(world, "scenes/room01.gltf");
+	int fireplace_location = rand() % 4;
+
+	Entity first = load_scene_from_gltf(world, "scenes/room02.gltf", fireplace_location == 0);
 	(void)first;
 
-	Entity second = load_scene_from_gltf(world, "scenes/room06.gltf");
+	Entity second = load_scene_from_gltf(world, "scenes/room06.gltf", fireplace_location == 1);
 	quat_from_euler(&world->transform[second]->rotation, 0, 90, 0);
 
-	Entity third = load_scene_from_gltf(world, "scenes/room03.gltf");
+	Entity third = load_scene_from_gltf(world, "scenes/room03.gltf", fireplace_location == 2);
 	quat_from_euler(&world->transform[third]->rotation, 0, 180, 0);
 
-	Entity fourth = load_scene_from_gltf(world, "scenes/room05.gltf");
+	Entity fourth = load_scene_from_gltf(world, "scenes/room05.gltf", fireplace_location == 3);
 	quat_from_euler(&world->transform[fourth]->rotation, 0, 270, 0);
 
 	// Commit all transforms before the first frame runs.

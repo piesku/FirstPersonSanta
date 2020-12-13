@@ -23,7 +23,7 @@ static inline bool starts_with(const char* name, const char* prefix)
 	return strncmp(prefix, name, strlen(prefix)) == 0;
 }
 
-Entity load_scene_from_gltf(struct world* world, const char* path)
+Entity load_scene_from_gltf(struct world* world, const char* path, bool has_fireplace)
 {
 	cgltf_options options = {0};
 	cgltf_data* data = NULL;
@@ -63,6 +63,10 @@ Entity load_scene_from_gltf(struct world* world, const char* path)
 		char* name = data->nodes[i].name;
 
 		if (starts_with(name, "fireplace")) {
+			if (!has_fireplace) {
+				continue;
+			}
+
 			Entity entity = blueprint_portal(world);
 
 			Transform* transform = world->transform[entity];
