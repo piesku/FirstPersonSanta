@@ -24,7 +24,7 @@ static inline bool starts_with(const char* name, const char* prefix)
 	return strncmp(prefix, name, strlen(prefix)) == 0;
 }
 
-Entity load_scene_from_gltf(struct world* world, const char* path, bool has_fireplace)
+Entity load_scene_from_gltf(struct world* world, const char* path, vec4* scene_color, bool has_fireplace)
 {
 	cgltf_options options = {0};
 	cgltf_data* data = NULL;
@@ -69,6 +69,7 @@ Entity load_scene_from_gltf(struct world* world, const char* path, bool has_fire
 			}
 
 			Entity entity = blueprint_portal(world);
+			world->render[entity]->colored_unlit.color = *scene_color;
 
 			Transform* transform = world->transform[entity];
 			transform->translation = translation;
@@ -181,7 +182,6 @@ Entity load_scene_from_gltf(struct world* world, const char* path, bool has_fire
 
 		if (starts_with(name, "bear")) {
 			world->render[entity]->colored_unlit.mesh = MESH_BEAR;
-			world->render[entity]->colored_unlit.color = (vec4){0.9f, 0.3f, 0.4f, 1.0f};
 		} else if (starts_with(name, "bed_bunk")) {
 			world->render[entity]->colored_unlit.mesh = MESH_BED_BUNK;
 		} else if (starts_with(name, "bed_double")) {
@@ -200,7 +200,6 @@ Entity load_scene_from_gltf(struct world* world, const char* path, bool has_fire
 			world->render[entity]->colored_unlit.mesh = MESH_BOOKCASE_OPEN;
 		} else if (starts_with(name, "books")) {
 			world->render[entity]->colored_unlit.mesh = MESH_BOOKS;
-			world->render[entity]->colored_unlit.color = (vec4){0.9f, 0.3f, 0.4f, 1.0f};
 		} else if (starts_with(name, "cabinet_bed_drawer_table")) {
 			world->render[entity]->colored_unlit.mesh = MESH_CABINET_BED_DRAWER_TABLE;
 		} else if (starts_with(name, "cabinet_bed_drawer")) {
@@ -253,7 +252,6 @@ Entity load_scene_from_gltf(struct world* world, const char* path, bool has_fire
 			world->render[entity]->colored_unlit.mesh = MESH_QUAD;
 		} else if (starts_with(name, "radio")) {
 			world->render[entity]->colored_unlit.mesh = MESH_RADIO;
-			world->render[entity]->colored_unlit.color = (vec4){0.9f, 0.3f, 0.4f, 1.0f};
 		} else if (starts_with(name, "side_table_drawers")) {
 			world->render[entity]->colored_unlit.mesh = MESH_SIDE_TABLE_DRAWERS;
 		} else if (starts_with(name, "side_table")) {

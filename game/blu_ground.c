@@ -20,7 +20,6 @@ Entity blueprint_ground(struct world* world)
 	RenderColoredUnlit* render = mix_render_colored_unlit(world, root);
 	render->material = MAT_COLORED_UNLIT;
 	render->mesh = MESH_CUBE;
-	render->color = (vec4){0.3f, 0.4f, 0.9f, 1.0f};
 
 	Collide* collide = mix_collide(world, root);
 	collide->dynamic = false;
