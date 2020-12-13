@@ -69,7 +69,6 @@ Entity load_scene_from_gltf(struct world* world, const char* path, vec4* scene_c
 			}
 
 			Entity entity = blueprint_portal(world);
-			world->render[entity]->colored_unlit.color = *scene_color;
 
 			Transform* transform = world->transform[entity];
 			transform->translation = translation;

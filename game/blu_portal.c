@@ -28,10 +28,10 @@ Entity blueprint_portal(struct world* world)
 		entry_transform->scale = (vec3){0.2f, 0.2f, 0.01f};
 		entry_transform->parent = root;
 
-		RenderColoredUnlit* entry_render = mix_render_colored_unlit(world, entry);
-		entry_render->material = MAT_COLORED_UNLIT;
-		entry_render->mesh = MESH_CUBE;
-		entry_render->color = (vec4){1, 0, 1, 1};
+		//RenderColoredUnlit* entry_render = mix_render_colored_unlit(world, entry);
+		//entry_render->material = MAT_COLORED_UNLIT;
+		//entry_render->mesh = MESH_CUBE;
+		//entry_render->color = (vec4){1, 0, 1, 1};
 
 		Collide* entry_collide = mix_collide(world, entry);
 		entry_collide->dynamic = false;
