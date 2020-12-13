@@ -197,6 +197,7 @@ Entity load_scene_from_gltf(struct world* world, const char* path, bool has_fire
 			world->render[entity]->colored_unlit.mesh = MESH_CHAIR;
 		} else if (starts_with(name, "choinka")) {
 			world->render[entity]->colored_unlit.mesh = MESH_CHOINKA;
+			world->render[entity]->colored_unlit.color = (vec4){0.25f, 0.45f, 0.2f, 1.0f};
 		} else if (starts_with(name, "coat_rack_standing")) {
 			world->render[entity]->colored_unlit.mesh = MESH_COAT_RACK_STANDING;
 		} else if (starts_with(name, "coat_rack")) {
