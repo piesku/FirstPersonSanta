@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -24,7 +25,7 @@ void sys_transform(struct world* world);
 
 void scene_room_from_file(struct world* world)
 {
-	srand(time(0));
+	srand((uint32_t)time(0));
 
 	{
 		// Player.
