@@ -10,6 +10,7 @@
 enum component_index {
 	INDEX_CAMERA,
 	INDEX_COLLIDE,
+	INDEX_CONTROL_CAMERA,
 	INDEX_CONTROL_PLAYER,
 	INDEX_MIMIC,
 	INDEX_MOVE,
@@ -24,6 +25,7 @@ enum component_index {
 enum has_component {
 	HAS_CAMERA = 1 << INDEX_CAMERA,
 	HAS_COLLIDE = 1 << INDEX_COLLIDE,
+	HAS_CONTROL_CAMERA = 1 << INDEX_CONTROL_CAMERA,
 	HAS_CONTROL_PLAYER = 1 << INDEX_CONTROL_PLAYER,
 	HAS_MIMIC = 1 << INDEX_MIMIC,
 	HAS_MOVE = 1 << INDEX_MOVE,
@@ -40,6 +42,7 @@ struct world {
 
 	union camera* camera[MAX_ENTITIES];
 	struct collide* collide[MAX_ENTITIES];
+	struct control_camera* control_camera[MAX_ENTITIES];
 	struct control_player* control_player[MAX_ENTITIES];
 	struct mimic* mimic[MAX_ENTITIES];
 	struct move* move[MAX_ENTITIES];

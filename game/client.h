@@ -52,6 +52,10 @@ struct client {
 		float colors[4 * 8];
 		float directions[4 * 8];
 	} lights;
+
+	// TODO Game state should be external to client.
+	float time_total;
+	float time_left;
 };
 
 void client_setup(struct client* client, int32_t width, int32_t height);

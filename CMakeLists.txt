@@ -18,6 +18,7 @@ add_executable(FirstPerson
 	common/quat.c
 	common/texture.c
 	common/vec3.c
+	common/vec4.c
 
 	game/actions.c
 	game/blu_camera.c
@@ -30,6 +31,7 @@ add_executable(FirstPerson
 	game/client.c
 	game/com_camera.c
 	game/com_collide.c
+	game/com_control_camera.c
 	game/com_control_player.c
 	game/com_light.c
 	game/com_mimic.c
@@ -55,6 +57,7 @@ add_executable(FirstPerson
 	game/sys_camera.c
 	game/sys_collide.c
 	game/sys_control_keyboard.c
+	game/sys_control_camera.c
 	game/sys_control_mouse.c
 	game/sys_light.c
 	game/sys_mimic.c

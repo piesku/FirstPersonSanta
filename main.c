@@ -128,6 +128,8 @@ int main(int argc, char* argv[])
 			.last_time = SDL_GetPerformanceCounter(),
 			.client = {
 					.world = create_world(),
+					.time_total = 60,
+					.time_left = 60,
 			},
 	};
 
