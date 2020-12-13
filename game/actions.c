@@ -39,6 +39,18 @@ void dispatch(struct client* client, struct world* world, enum action action, un
 			client->next_scene = &scene_room_from_file;
 			break;
 		}
+
+		case ACTION_TRIGGER_CHOINKA: {
+			Entity gift = payload.trigger.other;
+			int children_count = world->transform[gift]->children.size;
+			for (int i = 0; i < children_count; i++) {
+				destroy_entity(world, world->transform[gift]->children.entities[i]);
+			}
+
+			destroy_entity(world, gift);
+			break;
+		}
+
 		default:
 			printf("Unknown action: %d", action);
 			exit(1);
