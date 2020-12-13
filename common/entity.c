@@ -25,7 +25,7 @@ void entity_list_push(struct entity_list* list, Entity element)
 {
 	if (list->size == list->capacity) {
 		size_t new_capacity = list->capacity * 2;
-		Entity* new_entities = realloc(list->entities, new_capacity);
+		Entity* new_entities = realloc(list->entities, new_capacity * sizeof(Entity));
 		if (new_entities == NULL) {
 			printf("Out of memory, realloc failed.");
 			abort();
