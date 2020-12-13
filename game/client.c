@@ -150,6 +150,7 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	client->meshes[MESH_CARDBOARD_BOX_OPEN] = mesh_load("models/cardboard_box_open.glb");
 	client->meshes[MESH_CHAIR] = mesh_load("models/chair.glb");
 	client->meshes[MESH_CHAIR_ROUNDED] = mesh_load("models/chair_rounded.glb");
+	client->meshes[MESH_CHOINKA] = mesh_load("models/choinka.glb");
 	client->meshes[MESH_COAT_RACK] = mesh_load("models/coat_rack.glb");
 	client->meshes[MESH_COAT_RACK_STANDING] = mesh_load("models/coat_rack_standing.glb");
 	client->meshes[MESH_COMPUTER_SCREEN] = mesh_load("models/computer_screen.glb");

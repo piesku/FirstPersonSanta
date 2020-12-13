@@ -25,7 +25,7 @@ Entity blueprint_portal(struct world* world)
 
 		Transform* entry_transform = mix_transform(world, entry);
 		entry_transform->translation = (vec3){0, 0.5f, 0};
-		entry_transform->scale = (vec3){1, 1, 0.2f};
+		entry_transform->scale = (vec3){0.2f, 1, 0.2f};
 		entry_transform->parent = root;
 
 		Collide* entry_collide = mix_collide(world, entry);

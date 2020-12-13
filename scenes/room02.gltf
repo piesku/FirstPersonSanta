@@ -35,7 +35,8 @@
                 40,
                 42,
                 44,
-                45
+                45,
+                46
             ]
         }
     ],
@@ -686,6 +687,21 @@
                 0,
                 4.805481910705566
             ]
+        },
+        {
+            "mesh" : 15,
+            "name" : "choinka",
+            "rotation" : [
+                0,
+                0.1736481785774231,
+                0,
+                0.9848077893257141
+            ],
+            "translation" : [
+                3.860714912414551,
+                0,
+                5.09320592880249
+            ]
         }
     ],
     "meshes" : [
@@ -881,6 +897,19 @@
                         "TEXCOORD_0" : 58
                     },
                     "indices" : 59
+                }
+            ]
+        },
+        {
+            "name" : "choinka",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 60,
+                        "NORMAL" : 61,
+                        "TEXCOORD_0" : 62
+                    },
+                    "indices" : 63
                 }
             ]
         }
@@ -1395,6 +1424,40 @@
             "componentType" : 5123,
             "count" : 252,
             "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 60,
+            "componentType" : 5126,
+            "count" : 248,
+            "max" : [
+                0.6570687890052795,
+                2.501616954803467,
+                0.7587176561355591
+            ],
+            "min" : [
+                -0.6570687890052795,
+                0,
+                -0.7587176561355591
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 61,
+            "componentType" : 5126,
+            "count" : 248,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 62,
+            "componentType" : 5126,
+            "count" : 248,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 63,
+            "componentType" : 5123,
+            "count" : 276,
+            "type" : "SCALAR"
         }
     ],
     "bufferViews" : [
@@ -1697,11 +1760,31 @@
             "buffer" : 0,
             "byteLength" : 504,
             "byteOffset" : 127044
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2976,
+            "byteOffset" : 127548
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2976,
+            "byteOffset" : 130524
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1984,
+            "byteOffset" : 133500
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 552,
+            "byteOffset" : 135484
         }
     ],
     "buffers" : [
         {
-            "byteLength" : 127548,
+            "byteLength" : 136036,
             "uri" : "room02.bin"
         }
     ]

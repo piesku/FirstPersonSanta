@@ -9,19 +9,20 @@
             "name" : "Scene",
             "nodes" : [
                 1,
-                3,
-                5,
-                7,
-                9,
+                2,
+                4,
+                6,
+                8,
+                10,
                 11,
                 12,
-                13,
-                15,
+                14,
                 16,
                 18,
                 20,
                 22,
                 24,
+                25,
                 26
             ]
         }
@@ -59,22 +60,6 @@
             ]
         },
         {
-            "name" : "collider.005",
-            "scale" : [
-                1.9999998807907104,
-                2.5799999237060547,
-                0.10000001639127731
-            ],
-            "translation" : [
-                0,
-                1.3000000715255737,
-                0
-            ]
-        },
-        {
-            "children" : [
-                2
-            ],
             "mesh" : 0,
             "name" : "wall.002",
             "rotation" : [
@@ -104,7 +89,7 @@
         },
         {
             "children" : [
-                4
+                3
             ],
             "mesh" : 0,
             "name" : "wall.003",
@@ -129,7 +114,7 @@
         },
         {
             "children" : [
-                6
+                5
             ],
             "mesh" : 0,
             "name" : "wall.004",
@@ -154,7 +139,7 @@
         },
         {
             "children" : [
-                8
+                7
             ],
             "mesh" : 0,
             "name" : "wall.006",
@@ -179,7 +164,7 @@
         },
         {
             "children" : [
-                10
+                9
             ],
             "mesh" : 0,
             "name" : "wall.009",
@@ -240,7 +225,7 @@
         },
         {
             "children" : [
-                14
+                13
             ],
             "mesh" : 2,
             "name" : "cardboard_box_closed",
@@ -248,19 +233,6 @@
                 3.56799578666687,
                 0,
                 1
-            ]
-        },
-        {
-            "name" : "collider.026",
-            "scale" : [
-                0.3499999940395355,
-                0.30799993872642517,
-                0.3199999928474426
-            ],
-            "translation" : [
-                0,
-                0.19999992847442627,
-                0
             ]
         },
         {
@@ -278,7 +250,7 @@
         },
         {
             "children" : [
-                17
+                15
             ],
             "mesh" : 3,
             "name" : "bookcase_open",
@@ -309,7 +281,7 @@
         },
         {
             "children" : [
-                19
+                17
             ],
             "mesh" : 3,
             "name" : "bookcase_open.001",
@@ -340,7 +312,7 @@
         },
         {
             "children" : [
-                21
+                19
             ],
             "mesh" : 2,
             "name" : "cardboard_box_closed.001",
@@ -365,7 +337,7 @@
         },
         {
             "children" : [
-                23
+                21
             ],
             "mesh" : 2,
             "name" : "cardboard_box_closed.002",
@@ -390,7 +362,7 @@
         },
         {
             "children" : [
-                25
+                23
             ],
             "mesh" : 2,
             "name" : "cardboard_box_closed.003",
@@ -398,6 +370,36 @@
                 3.684893846511841,
                 1.2927212715148926,
                 2
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "choinka",
+            "rotation" : [
+                0,
+                0.1736481785774231,
+                0,
+                0.9848077893257141
+            ],
+            "translation" : [
+                2.6000001430511475,
+                0,
+                3.1000001430511475
+            ]
+        },
+        {
+            "mesh" : 5,
+            "name" : "fireplace",
+            "rotation" : [
+                0,
+                0,
+                0,
+                -1
+            ],
+            "translation" : [
+                1.2947787046432495,
+                0,
+                0.35212984681129456
             ]
         }
     ],
@@ -451,6 +453,32 @@
                         "TEXCOORD_0" : 14
                     },
                     "indices" : 15
+                }
+            ]
+        },
+        {
+            "name" : "choinka",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 16,
+                        "NORMAL" : 17,
+                        "TEXCOORD_0" : 18
+                    },
+                    "indices" : 19
+                }
+            ]
+        },
+        {
+            "name" : "fireplace",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 20,
+                        "NORMAL" : 21,
+                        "TEXCOORD_0" : 22
+                    },
+                    "indices" : 23
                 }
             ]
         }
@@ -591,6 +619,74 @@
             "componentType" : 5123,
             "count" : 960,
             "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 16,
+            "componentType" : 5126,
+            "count" : 248,
+            "max" : [
+                0.6570687890052795,
+                2.501616954803467,
+                0.7587176561355591
+            ],
+            "min" : [
+                -0.6570687890052795,
+                0,
+                -0.7587176561355591
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 17,
+            "componentType" : 5126,
+            "count" : 248,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 18,
+            "componentType" : 5126,
+            "count" : 248,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 19,
+            "componentType" : 5123,
+            "count" : 276,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 20,
+            "componentType" : 5126,
+            "count" : 150,
+            "max" : [
+                0.802765965461731,
+                1.3977043628692627,
+                0.3016347885131836
+            ],
+            "min" : [
+                -0.802765965461731,
+                0,
+                -0.3016347289085388
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 21,
+            "componentType" : 5126,
+            "count" : 150,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 22,
+            "componentType" : 5126,
+            "count" : 150,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 23,
+            "componentType" : 5123,
+            "count" : 252,
+            "type" : "SCALAR"
         }
     ],
     "bufferViews" : [
@@ -673,11 +769,51 @@
             "buffer" : 0,
             "byteLength" : 1920,
             "byteOffset" : 26488
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2976,
+            "byteOffset" : 28408
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2976,
+            "byteOffset" : 31384
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1984,
+            "byteOffset" : 34360
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 552,
+            "byteOffset" : 36344
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1800,
+            "byteOffset" : 36896
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1800,
+            "byteOffset" : 38696
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1200,
+            "byteOffset" : 40496
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 504,
+            "byteOffset" : 41696
         }
     ],
     "buffers" : [
         {
-            "byteLength" : 28408,
+            "byteLength" : 42200,
             "uri" : "room05.bin"
         }
     ]

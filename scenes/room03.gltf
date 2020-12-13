@@ -38,7 +38,9 @@
                 41,
                 43,
                 44,
-                46
+                46,
+                47,
+                48
             ]
         }
     ],
@@ -516,9 +518,9 @@
                 0.9537169933319092
             ],
             "translation" : [
-                0.5,
+                0.4000000059604645,
                 0,
-                0.5
+                3.999999761581421
             ]
         },
         {
@@ -715,14 +717,44 @@
             "name" : "desk",
             "rotation" : [
                 0,
-                0.7071067094802856,
+                0.70710688829422,
                 0,
-                0.7071068286895752
+                -0.7071066498756409
             ],
             "translation" : [
                 5.599999904632568,
                 0,
                 3
+            ]
+        },
+        {
+            "mesh" : 18,
+            "name" : "fireplace",
+            "rotation" : [
+                0,
+                0,
+                0,
+                -1
+            ],
+            "translation" : [
+                1.2947787046432495,
+                0,
+                0.35212984681129456
+            ]
+        },
+        {
+            "mesh" : 19,
+            "name" : "choinka",
+            "rotation" : [
+                0,
+                0.1736481785774231,
+                0,
+                0.9848077893257141
+            ],
+            "translation" : [
+                1.7139003276824951,
+                0,
+                4.4666900634765625
             ]
         }
     ],
@@ -958,6 +990,32 @@
                         "TEXCOORD_0" : 70
                     },
                     "indices" : 71
+                }
+            ]
+        },
+        {
+            "name" : "fireplace",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 72,
+                        "NORMAL" : 73,
+                        "TEXCOORD_0" : 74
+                    },
+                    "indices" : 75
+                }
+            ]
+        },
+        {
+            "name" : "choinka",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 76,
+                        "NORMAL" : 77,
+                        "TEXCOORD_0" : 78
+                    },
+                    "indices" : 79
                 }
             ]
         }
@@ -1574,6 +1632,74 @@
             "componentType" : 5123,
             "count" : 594,
             "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 72,
+            "componentType" : 5126,
+            "count" : 150,
+            "max" : [
+                0.802765965461731,
+                1.3977043628692627,
+                0.3016347885131836
+            ],
+            "min" : [
+                -0.802765965461731,
+                0,
+                -0.3016347289085388
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 73,
+            "componentType" : 5126,
+            "count" : 150,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 74,
+            "componentType" : 5126,
+            "count" : 150,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 75,
+            "componentType" : 5123,
+            "count" : 252,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 76,
+            "componentType" : 5126,
+            "count" : 248,
+            "max" : [
+                0.6570687890052795,
+                2.501616954803467,
+                0.7587176561355591
+            ],
+            "min" : [
+                -0.6570687890052795,
+                0,
+                -0.7587176561355591
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 77,
+            "componentType" : 5126,
+            "count" : 248,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 78,
+            "componentType" : 5126,
+            "count" : 248,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 79,
+            "componentType" : 5123,
+            "count" : 276,
+            "type" : "SCALAR"
         }
     ],
     "bufferViews" : [
@@ -1936,11 +2062,51 @@
             "buffer" : 0,
             "byteLength" : 1188,
             "byteOffset" : 210560
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1800,
+            "byteOffset" : 211748
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1800,
+            "byteOffset" : 213548
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1200,
+            "byteOffset" : 215348
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 504,
+            "byteOffset" : 216548
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2976,
+            "byteOffset" : 217052
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2976,
+            "byteOffset" : 220028
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1984,
+            "byteOffset" : 223004
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 552,
+            "byteOffset" : 224988
         }
     ],
     "buffers" : [
         {
-            "byteLength" : 211748,
+            "byteLength" : 225540,
             "uri" : "room03.bin"
         }
     ]

@@ -191,6 +191,8 @@ Entity load_scene_from_gltf(struct world* world, const char* path)
 			world->render[entity]->colored_unlit.mesh = MESH_CHAIR_ROUNDED;
 		} else if (starts_with(name, "chair")) {
 			world->render[entity]->colored_unlit.mesh = MESH_CHAIR;
+		} else if (starts_with(name, "choinka")) {
+			world->render[entity]->colored_unlit.mesh = MESH_CHOINKA;
 		} else if (starts_with(name, "coat_rack_standing")) {
 			world->render[entity]->colored_unlit.mesh = MESH_COAT_RACK_STANDING;
 		} else if (starts_with(name, "coat_rack")) {
