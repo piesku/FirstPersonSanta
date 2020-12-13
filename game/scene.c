@@ -83,10 +83,6 @@ Entity load_scene_from_gltf(struct world* world, const char* path)
 						child->scale[1] * 20,
 						child->scale[2],
 				};
-			} else {
-				// Turn off the collider child.
-				Entity collider = transform->children.entities[0];
-				world->signature[collider] &= ~HAS_TRANSFORM;
 			}
 
 			entity_list_push(&root_transform->children, entity);
