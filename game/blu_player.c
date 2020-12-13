@@ -45,7 +45,7 @@ Entity blueprint_player_target(struct world* world, Entity* target)
 		*target = rig;
 
 		Transform* rig_transform = mix_transform(world, rig);
-		rig_transform->translation = (vec3){0, 1.2f, 0};
+		rig_transform->translation = (vec3){0, 1, 0};
 		rig_transform->parent = root;
 
 		Move* rig_move = mix_move(world, rig);
