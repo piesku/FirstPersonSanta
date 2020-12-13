@@ -18,7 +18,7 @@ Entity blueprint_choinka(struct world* world)
 	RenderColoredUnlit* root_render = mix_render_colored_unlit(world, root);
 	root_render->material = MAT_COLORED_UNLIT;
 	root_render->mesh = MESH_CHOINKA;
-	root_render->color = (vec4){0.25f, 0.45f, 0.2f, 1.0f};
+	root_render->color = (vec4){0.45f, 0.45f, 0.45f, 1.0f};
 	{
 		// Collider must be the first child.
 		Entity collider = create_entity(world);
@@ -52,21 +52,6 @@ Entity blueprint_choinka(struct world* world)
 		Mimic* mimic = mix_mimic(world, root);
 		mimic->target = target;
 		mimic->stiffness = 0.01f;
-	}
-
-	{
-		// Light.
-		Entity light = create_entity(world);
-		entity_list_push(&root_transform->children, light);
-
-		Transform* light_transform = mix_transform(world, light);
-		light_transform->translation = (vec3){0.2f, 2.0f, 0.0f};
-		quat_from_euler(&light_transform->rotation, 90.0f, 0.0f, 0.0f);
-		light_transform->parent = root;
-
-		LightPoint* light_point = mix_light_point(world, light);
-		light_point->color = (vec3){0.9f, 0.0f, 0.0f};
-		light_point->range = 0.2f;
 	}
 
 	return root;

@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 #include "client.h"
+#include "com_render.h"
 #include "com_rigid_body.h"
 #include "com_transform.h"
 #include "world.h"
@@ -51,11 +52,13 @@ void dispatch(struct client* client, struct world* world, enum action action, un
 			Entity choinka_collider = payload.trigger.collider;
 			Entity choinka = world->transform[choinka_collider]->parent;
 			Transform* choinka_transform = world->transform[choinka];
+			RenderColoredUnlit* choinka_render = &world->render[choinka]->colored_unlit;
 			Entity choinka_target = choinka_transform->children.entities[1];
 
 			if (world->transform[choinka_target]->translation.y > 0.0f) {
 				world->transform[choinka_target]->translation.y = 0.0f;
 				world->signature[choinka_collider] &= HAS_COLLIDE;
+				choinka_render->color = (vec4){0.25f, 0.45f, 0.2f, 1.0f};
 			} else {
 				world->transform[choinka_target]->translation.y += 0.2f;
 			}
