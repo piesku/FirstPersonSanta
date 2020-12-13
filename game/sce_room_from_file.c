@@ -39,14 +39,15 @@ void scene_room_from_file(struct world* world)
 			"scenes/room10.gltf",
 	};
 
-	const vec4 base_colors[4] = {
+	const vec4 base_colors[5] = {
 			{0.9f, 0.3f, 0.4f, 1.0f},
 			{0.92f, 0.62f, 0.48f, 1.0f},
 			{0.94f, 0.51f, 0.0f, 1.0f},
 			{0.96f, 0.63f, 0.68f, 1.0f},
+			{0.31f, 0.2f, 0.24f, 1.0f},
 	};
 
-	vec4 scene_color = base_colors[rand() % 4];
+	vec4 scene_color = base_colors[rand() % 5];
 
 	{
 		// Player.
