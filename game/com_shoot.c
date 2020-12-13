@@ -1,7 +1,6 @@
 #include "com_shoot.h"
 
 #include "../common/malloc.h"
-#include "../common/matrix.h"
 #include "world.h"
 
 Shoot* mix_shoot(struct world* world, Entity entity)

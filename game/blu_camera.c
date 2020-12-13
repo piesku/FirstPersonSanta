@@ -3,6 +3,7 @@
 
 #include "com_camera.h"
 #include "com_collide.h"
+#include "com_control_camera.h"
 #include "com_control_player.h"
 #include "com_mimic.h"
 #include "com_move.h"
@@ -152,8 +153,11 @@ Entity blueprint_camera_follow(struct world* world)
 		camera_framebuffer->fov_y = 1.0f;
 		camera_framebuffer->near = 0.5f;
 		camera_framebuffer->far = 1000.0f;
-		camera_framebuffer->clear_color = (vec4){0.1f, 0.1f, 0.2f, 1.0f};
 		camera_framebuffer->target = RENDER_TARGET_DEFAULT;
+
+		ControlCamera* camera_control = mix_control_camera(world, camera);
+		camera_control->start_color = (vec4){0.1f, 0.1f, 0.3f, 1.0f};
+		camera_control->end_color = (vec4){0.9f, 0.9f, 0.3f, 1.0f};
 	}
 
 	return root;

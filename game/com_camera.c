@@ -10,6 +10,7 @@ CameraDisplay* mix_camera_display(struct world* world, Entity entity)
 	*camera = (Camera){
 			.display = {
 					.kind = CAMERA_DISPLAY,
+					.clear_color = (vec4){0.9f, 0.9f, 0.9f, 1.0f},
 			},
 	};
 
@@ -27,6 +28,7 @@ CameraFramebuffer* mix_camera_framebuffer(struct world* world, Entity entity)
 	*camera = (Camera){
 			.framebuffer = {
 					.kind = CAMERA_FRAMEBUFFER,
+					.clear_color = (vec4){0.9f, 0.9f, 0.9f, 1.0f},
 			},
 	};
 
