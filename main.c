@@ -276,9 +276,11 @@ int main(int argc, char* argv[])
 		float delta_s = (float)(delta_ticks / (double)SDL_GetPerformanceFrequency());
 		engine.client.delta = delta_s;
 
-		char fps[32];
-		snprintf(fps, 32, "Frame: %4.3fs (%2.0f fps)", delta_s, 1.0f / delta_s);
-		SDL_SetWindowTitle(engine.window, fps);
+		//char fps[32];
+		//snprintf(fps, 32, "Frame: %4.3fs (%2.0f fps)", delta_s, 1.0f / delta_s);
+		//SDL_SetWindowTitle(engine.window, fps);
+
+		SDL_SetWindowTitle(engine.window, "First Person Santa");
 
 		client_world_update(&engine.client, delta_s);
 		client_input_reset(&engine.client);
