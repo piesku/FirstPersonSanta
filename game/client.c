@@ -48,7 +48,7 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 		client->textures[TEX_RENDER_DEPTH] = create_texture_depth(target->width, target->height);
 
 		GLuint* fb = &target->framebuffer;
-		glCreateFramebuffers(1, fb);
+		glGenFramebuffers(1, fb);
 		glBindFramebuffer(GL_FRAMEBUFFER, *fb);
 
 		glFramebufferTexture2D(
@@ -93,7 +93,7 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 		client->textures[TEX_MINIMAP_DEPTH] = create_texture_depth(target->width, target->height);
 
 		GLuint* fb = &target->framebuffer;
-		glCreateFramebuffers(1, fb);
+		glGenFramebuffers(1, fb);
 		glBindFramebuffer(GL_FRAMEBUFFER, *fb);
 
 		glFramebufferTexture2D(
