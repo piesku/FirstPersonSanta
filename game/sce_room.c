@@ -34,7 +34,6 @@ void scene_room(struct world* world)
 
 		Mimic* camera_mimic = world->mimic[camera];
 		camera_mimic->target = target;
-		camera_mimic->stiffness = 0.1f;
 	}
 
 	{

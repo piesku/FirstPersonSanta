@@ -20,12 +20,12 @@ static inline void update(struct world* world, Entity entity)
 	vec3 target_world_position;
 	mat4_get_translation(&target_world_position, &target_transform->world);
 	vec3_lerp(&follower_transform->translation,
-			&follower_transform->translation, &target_world_position, mimic->stiffness);
+			&follower_transform->translation, &target_world_position, mimic->movement_stiffness);
 
 	quat target_world_rotation;
 	mat4_get_rotation(&target_world_rotation, &target_transform->world);
 	quat_slerp(&follower_transform->rotation,
-			&follower_transform->rotation, &target_world_rotation, mimic->stiffness);
+			&follower_transform->rotation, &target_world_rotation, mimic->rotation_stiffness);
 
 	follower_transform->dirty = true;
 }

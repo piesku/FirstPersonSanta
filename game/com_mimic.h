@@ -4,7 +4,8 @@
 
 typedef struct mimic {
 	Entity target;
-	float stiffness;
+	float movement_stiffness;
+	float rotation_stiffness;
 } Mimic;
 
 struct world;

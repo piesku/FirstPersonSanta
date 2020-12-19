@@ -138,7 +138,9 @@ Entity blueprint_camera_follow(struct world* world)
 	root_collide->layers = LAYER_CAMERA;
 	root_collide->mask = LAYER_NONE;
 
-	mix_mimic(world, root);
+	Mimic* mimic = mix_mimic(world, root);
+	mimic->movement_stiffness = 0.1f;
+	mimic->rotation_stiffness = 0.3f;
 
 	{
 		// Actual camera entity, rotated 180y to align with the rig's forward.

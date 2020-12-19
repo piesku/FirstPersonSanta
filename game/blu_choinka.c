@@ -53,7 +53,6 @@ Entity blueprint_choinka(struct world* world)
 
 		Mimic* mimic = mix_mimic(world, root);
 		mimic->target = target;
-		mimic->stiffness = 0.01f;
 	}
 
 	return root;
