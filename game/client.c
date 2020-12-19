@@ -36,7 +36,9 @@ void client_setup(struct client* client, int32_t width, int32_t height)
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 
-	client_resize(client, width, height);
+	client->width = width;
+	client->height = height;
+	client->resized = true;
 
 	{
 		struct render_target* target = &client->targets[RENDER_TARGET_DEFAULT];
@@ -193,6 +195,16 @@ void client_resize(struct client* client, int32_t width, int32_t height)
 	client->width = width;
 	client->height = height;
 	client->resized = true;
+
+	{
+		struct render_target* target = &client->targets[RENDER_TARGET_DEFAULT];
+		target->width = width;
+		target->height = height;
+
+		resize_texture_rgba(client->textures[TEX_RENDER_RGBA], width, height);
+		resize_texture_rgba(client->textures[TEX_RENDER_NORMALS], width, height);
+		resize_texture_depth(client->textures[TEX_RENDER_DEPTH], width, height);
+	}
 }
 
 void client_teardown(struct client* client)

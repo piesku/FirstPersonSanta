@@ -154,6 +154,15 @@ int main(int argc, char* argv[])
 						case SDL_SCANCODE_R:
 							engine.client.next_scene = &scene_room_from_file;
 							break;
+						case SDL_SCANCODE_F11: {
+							SDL_SetWindowFullscreen(engine.window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+
+							int width;
+							int height;
+							SDL_GetWindowSize(engine.window, &width, &height);
+							client_resize(&engine.client, width, height);
+							break;
+						}
 						case SDL_SCANCODE_UP:
 							engine.client.input_state.arrow_up = 1;
 							engine.client.input_delta.arrow_up = 1;
